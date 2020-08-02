@@ -1,10 +1,7 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
+  "name": "gidget-dashboard",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "description": "A dashboard for some bot",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -18,18 +15,17 @@
     "discord.js": "^12.2.0",
     "connect-mongo": "^3.2.0",
     "node-fetch": "^2.6.0",
-    "mongoose": "^5.9.25"
+    "mongoose": "^5.9.27"
   },
   "engines": {
-    "node": "12.x"
+    "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "url": "https://github.com/AndreMor955/dashboard/"
   },
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
     "express"
   ]
 }
