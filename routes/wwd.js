@@ -418,7 +418,7 @@ router.get("/appeal", async (req, res) => {
     });
     if(r.ok) {
       const banss = await r.json();
-      const ban = banss.bans.find(e => e.id === req.user.discordId)
+      const ban = banss.bans.find(e => e.userID === req.user.discordId)
       if(ban) {
         res.status(200).render("bans", {
           username: req.user.username,
