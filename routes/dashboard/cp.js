@@ -18,12 +18,7 @@ module.exports = {
       if (req.body.link) {
         files.push(req.body.link);
       }
-      Object.defineProperty(responses, req.body.match, {
-        value: { content: req.body.response, files: files },
-        writable: true,
-        enumerable: true,
-        configurable: true
-      });
+      responses[req.body.match] = { content: req.body.response, files: files };
       msgDocument.updateOne({ responses: responses });
     } else {
       const responses = {};
@@ -31,12 +26,7 @@ module.exports = {
       if (req.body.link) {
         files.push(req.body.link);
       }
-      Object.defineProperty(responses, req.body.match, {
-        value: { content: req.body.response, files: files },
-        writable: true,
-        enumerable: true,
-        configurable: true
-      });
+      responses[req.body.match] = { content: req.body.response, files: files };
       const tosave = new cp({
         guildId: req.params.guildID,
         responses: responses
