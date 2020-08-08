@@ -407,6 +407,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
 
 router.get("/appeal", async (req, res) => {
   if(!req.user) return res.status(401).redirect("/");
+  try {
     const algo = await bans.findOne({ guildId: "402555684849451028", userId: req.user.discordId })
     if(algo) return res.status(403).send("You already submitted your appeal");
     const r = await fetch(process.env.FETCH + "?bans=402555684849451028", {
@@ -431,7 +432,9 @@ router.get("/appeal", async (req, res) => {
     } else {
       res.status(500).send("Algo pasó!");
     }
-  
+  } catch (err) {
+    res.status(500).send("Something happened" + err)
+  }
 })
 
 router.post("/appeal", async (req, res) => {
