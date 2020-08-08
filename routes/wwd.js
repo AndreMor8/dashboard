@@ -467,13 +467,15 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
     if(!banss[req.query.unban]) return res.status(404).redirect("/wwd/appeals");
     else {
       const doc = banss[req.query.unban];
-      await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[req.query.unban].userId, {
+      const algo = await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[req.query.unban].userId, {
         method: "GET",
         headers: {
           pass: process.env.ACCESS
         }
       });
-      await banss[req.query.unban].deleteOne();
+      console.log(banss[req.query.unban])
+      console.log(await algo.text());
+      //await banss[req.query.unban].deleteOne();
     return res.status(200).redirect("/wwd/appeals");
     }
   }
