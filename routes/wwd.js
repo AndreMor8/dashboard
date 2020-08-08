@@ -461,7 +461,7 @@ router.post("/appeal", async (req, res) => {
   }
 })
 
-router.post("appeals", isAuthorizedAdmin, async (req, res) => {
+router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
   const bans = await bans.find();
   if(req.query && req.query.unban) {
     if(!bans[req.query.delete]) return res.status(404).redirect("/appeals");
