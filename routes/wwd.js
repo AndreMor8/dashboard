@@ -444,6 +444,7 @@ router.post("/appeal", async (req, res) => {
   try {
     const algo = await bans.findOne({ guildId: "402555684849451028", memberId: req.user.discordId });
   if(algo) return res.status(403).send("You already submitted your appeal");
+  console.log(req.body);
   const algo2 = new bans({
     guildId: "402555684849451028",
     userId: req.user.discordId,
