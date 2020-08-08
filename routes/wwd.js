@@ -462,36 +462,36 @@ router.post("/appeal", async (req, res) => {
 })
 
 router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
-  const bans = await bans.find();
+  const banss = await bans.find();
   if(req.query && req.query.unban) {
-    if(!bans[req.query.delete]) return res.status(404).redirect("/appeals");
+    if(!banss[req.query.delete]) return res.status(404).redirect("/appeals");
     else {
-      const doc = bans[i];
-      const r = await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + bans[i].userID, {
+      const doc = banss[i];
+      const r = await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[i].userID, {
         method: "GET",
         headers: {
           pass: process.env.ACCESS
         }
       });
-      await bans[req.query.delete].deleteOne();
+      await banss[req.query.delete].deleteOne();
     return res.status(200).redirect("/appeals");
     }
   }
   if(req.query && req.query.delete) {
-    if(!bans[req.query.delete]) return res.status(404).redirect("/appeals");
-    await bans[req.query.delete].deleteOne();
+    if(!banss[req.query.delete]) return res.status(404).redirect("/appeals");
+    await banss[req.query.delete].deleteOne();
     return res.status(200).redirect("/appeals");
   }
   const tosee = new Map();
-  for(let i in bans) {
-    const user = await DiscordUser.findOne({discordId: bans[i].author });
-    if(user) tosee.set(bans[i].author, user.username + " (" + user.discordId + ")");
+  for(let i in banss) {
+    const user = await DiscordUser.findOne({discordId: banss[i].author });
+    if(user) tosee.set(banss[i].author, user.username + " (" + user.discordId + ")");
   }
   res.render('appeals', {
     username: req.user.username,
     guilds: req.user.guilds,
     logged: true,
-    appeals: bans,
+    appeals: banss,
     authors: tosee
   })
 })
