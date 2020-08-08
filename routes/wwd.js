@@ -467,20 +467,20 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
     if(!banss[req.query.delete]) return res.status(404).redirect("wwd/appeals");
     else {
       const doc = banss[i];
-      const r = await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[i].userId, {
+      await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[i].userId, {
         method: "GET",
         headers: {
           pass: process.env.ACCESS
         }
       });
       await banss[req.query.delete].deleteOne();
-    return res.status(200).redirect("wwd/appeals");
+    return res.status(200).redirect("/wwd/appeals");
     }
   }
   if(req.query && req.query.delete) {
-    if(!banss[req.query.delete]) return res.status(404).redirect("wwd/appeals");
+    if(!banss[req.query.delete]) return res.status(404).redirect("/wwd/appeals");
     await banss[req.query.delete].deleteOne();
-    return res.status(200).redirect("wwd/appeals");
+    return res.status(200).redirect("/wwd/appeals");
   }
   const tosee = new Map();
   for(let i in banss) {
