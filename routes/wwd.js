@@ -467,7 +467,7 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
     if(!banss[req.query.unban]) return res.status(404).redirect("/wwd/appeals");
     else {
       const doc = banss[req.query.unban];
-      await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[req.query.unban].userId, {
+      await fetch(process.env.FETCH + "?guild=402555684849451028&unban=" + banss[req.query.unban].userID, {
         method: "GET",
         headers: {
           pass: process.env.ACCESS
