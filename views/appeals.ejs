@@ -1,0 +1,18 @@
+<%- include('partials/header') -%>
+<body class="background1">
+<%- include('partials/nav') -%>
+  <div>
+    <h1 class="title" style="margin-top: 15px; text-align: center; margin-bottom: 15px">Ban appeals</h1>
+  </div>
+  <div style="margin-left: 20px; margin-right: 20px">
+<% if(appeals.length) { %>
+    <% appeals.forEach((appeal, i) => { %>
+    <%- include('partials/appeal', { appeal, i, authors }) -%>
+<% }) %>
+    <% } else { %>
+    <h2 style="text-align: center;">
+      There are no appeals saved in the DB.
+    </h2>
+    <% } %>
+  </div>
+<%- include('partials/footer') -%>
