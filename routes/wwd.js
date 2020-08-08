@@ -442,7 +442,7 @@ router.post("/appeal", async (req, res) => {
   if(!req.body) return res.status(400).send("You haven't sent anything");
   if(!req.body.reason) return res.status(400).send("You have not put the reason");
   try {
-    const algo = bans.findOne({ guildId: "402555684849451028", memberId: req.user.discordId });
+    const algo = await bans.findOne({ guildId: "402555684849451028", memberId: req.user.discordId });
   if(algo) return res.status(403).send("You already submitted your appeal");
   const algo2 = new bans({
     guildId: "402555684849451028",
