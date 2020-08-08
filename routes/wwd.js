@@ -446,7 +446,7 @@ router.post("/appeal", async (req, res) => {
   if(algo) return res.status(403).send("You already submitted your appeal");
   const algo2 = new bans({
     guildId: "402555684849451028",
-    userId: req.user,
+    userId: req.user.discordId,
     reason: req.body.reason,
     additional: req.body.additional || "*No additional*"
   })
