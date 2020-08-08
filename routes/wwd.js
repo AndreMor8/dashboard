@@ -405,7 +405,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
   }
 })
 
-router.get("/appeal", (req, res) => {
+router.get("/appeal", async (req, res) => {
   if(!req.user) return res.status(401).redirect("/");
   try {
     const algo = await bans.findOne({ guildId: "402555684849451028", userId: req.user.discordId })
@@ -437,7 +437,7 @@ router.get("/appeal", (req, res) => {
   }
 })
 
-router.post("/appeal", (req, res) => {
+router.post("/appeal", async (req, res) => {
   if(!req.user) return res.status(401).redirect("/");
   if(!req.body) return res.status(400).send("You haven't sent anything");
   if(!req.body.reason) return res.status(400).send("You have not put the reason");
