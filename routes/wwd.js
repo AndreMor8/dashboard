@@ -6,6 +6,7 @@ const { getPermissions } = require('../utils/utils');
 const Discord = require("discord.js");
 const DiscordUser = require("../models/DiscordUser");
 const fetch = require("node-fetch");
+const bans = require("../models/appeals");
 
 function isAuthorized(req, res, next) {
     if(req.user) {
@@ -401,6 +402,62 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     logged: true,
       status: 500
   });
+  }
+})
+
+router.get("/appeal", (req, res) => {
+  if(!req.user) return res.status(401).redirect("/");
+  try {
+    const algo = await bans.findOne({ guildId: "402555684849451028", userId: req.user.discordId })
+    if(algo) return res.status(403).send("You already submitted your appeal");
+    const r = await fetch(process.env.FETCH + "?bans=402555684849451028", {
+      method: "GET",
+      headers: {
+        pass: process.env.ACCESS
+      }
+    });
+    if(r.ok) {
+      const banss = await r.json();
+      const ban = banss.bans.find(e => e.id === req.user.discordId)
+      if(ban) {
+        res.status(200).render("bans", {
+          username: req.user.username,
+          guilds: req.user.guilds,
+          logged: true,
+          ban: ban
+        })
+      } else {
+        res.status(404).send("You're not banned");
+      }
+    } else {
+      res.status(500).send("Algo pasó!");
+    }
+  } catch (err) {
+    res.status(500).send("Something happened" + err)
+  }
+})
+
+router.post("/appeal", (req, res) => {
+  if(!req.user) return res.status(401).redirect("/");
+  if(!req.body) return res.status(400).send("You haven't sent anything");
+  if(!req.body.reason) return res.status(400).send("You have not put the reason");
+  try {
+    const algo = bans.findOne({ guildId: "402555684849451028", memberId: req.user.discordId });
+  if(algo) return res.status(403).send("You already submitted your appeal");
+  const algo2 = new bans({
+    guildId: "402555684849451028",
+    userId: req.user,
+    reason: req.body.reason,
+    additional: req.body.additional || "*No additional*"
+  })
+  await algo2.save()
+  res.status(201).render("appcompleted", {
+    username: req.user.username,
+    guilds: req.user.guilds,
+    logged: true,
+  })
+  } catch (err) {
+    res.status(500).send("Something happened" + err);
   }
 })
 

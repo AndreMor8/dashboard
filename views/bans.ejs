@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+
+<body class="background1">
+    <%- include('partials/nav') -%>
+    <center>
+        <h1 style="margin-top: 10px; font-size: 3em">
+            Appeal your ban
+        </h1>
+        <h2 style="margin-top: 10px; font-size: 2em">
+            Ban reason: <%= ban.reason %>
+        </h2>
+        <form action="/wwd/appeal" method="post">
+            <div class="field" style="margin-top: 20px; max-width: 50em">
+                <div class="control">
+                    <textarea class="textarea" id="reason" name="reason" class="input is-medium" type="text" placeholder="Reason" required/>
+                </div>
+            </div>
+            <div class="field" style="margin-top: 20px; max-width: 50em">
+                <div class="control">
+                    <textarea class="textarea" id="add" name="add" class="input is-medium" type="text"
+                        placeholder="Additional information"></textarea>
+                </div>
+            </div>
+            <input class="button" type="submit" value="Submit">
+        </form>
+        <% } %>
+    </center>
+    <%- include('partials/footer') -%>
