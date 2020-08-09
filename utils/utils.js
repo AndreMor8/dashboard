@@ -44,6 +44,7 @@ module.exports = {
         Authorization: `Bearer ${acc}`
       }
     });
+    console.log(res.headers.get("X-RateLimit-Reset-After"))
     return await res.json();
   },
   getMember: async function(guildID, userID) {
