@@ -7,7 +7,8 @@ const cp = require("./cp.js");
 module.exports = {
   get: async (req, res) => {
     if (req.params && req.params.guildID && req.params.config) {
-    const toshow = await util.getGuilds(req.user.guilds);
+      const guilds = await util.getUserGuilds(req.user.discordId)
+      const toshow = await util.getGuilds(guilds);;
     const guild = toshow.find(e => e.id === req.params.guildID);
     if (!guild) return res.status(403).send("That ID is not in your server list...");
     else {
@@ -37,7 +38,7 @@ module.exports = {
       res.status(200).render("dashboard1", {
         username: req.user.username,
         discordId: req.user.discordId,
-        guilds: req.user.guilds,
+        guilds: guilds,
         toshow: toshow,
         focus: req.params.guildID,
         logged: true,
@@ -49,7 +50,8 @@ module.exports = {
   },
   post: async (req, res) => {
    if (req.params && req.params.guildID && req.params.config) {
-    const toshow = await util.getGuilds(req.user.guilds);
+     const guilds = await util.getUserGuilds(req.user.discordId)
+     const toshow = await util.getGuilds(guilds);;
     const guild = toshow.find(e => e.id === req.params.guildID);
     if (!guild)
       return res.status(403).send("That ID is not in your server list...");

@@ -16,7 +16,7 @@
       relive childhood and provide a space for Wubbzy to continue in our lives.
     </span>
     <div class="buttons" style=" margin: auto; padding: 10px; margin-top: 10px; display: block;">
-      <% if(guilds.find(e => e.id === "402555684849451028")) { %>
+      <% if(inserver) { %>
       <a href="https://discord.com/channels/402555684849451028"><button class="button">Go to the server</button></a>
       <a href="/wwd/yourroles"><button class="button">Your roles</button></a>
       <% } else { %>
@@ -25,6 +25,7 @@
       <a href="/wwd/rules"><button class="button">Server rules</button></a>
       <% if(logged) { %>
       <a href="/wwd/appeal"><button class="button">Appeal your ban</button></a>
+      <a href="/wwd/wm/qualifiers"><button class="button">What qualifies for Wubbzy Media?</button></a>
       <% } %>
       <% if(verified) { %>
       <a href="/wwd/wwr/submit"><button class="button">Submit a topic for Wubbzy Wednesday</button></a>

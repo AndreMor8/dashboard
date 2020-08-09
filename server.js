@@ -3,6 +3,7 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+require("dotenv").config();
 const db = require("./database.js");
 const express = require("express");
 const passport = require("passport");
@@ -39,13 +40,11 @@ const passport = require("passport");
     if(req.user) {
       res.render("home", {
       username: req.user.username,
-      user: req.user,
       logged: true
     });
     } else {
       res.render("home", {
       username: "strange",
-      user: req.user,
       logged: false
     });
     }

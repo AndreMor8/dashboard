@@ -12,40 +12,41 @@ function isAuthorized(req, res, next) {
 }
 
 router.get("/", isAuthorized, async (req, res) => {
-  const toshow = await util.getGuilds(req.user.guilds);
+  const guilds = await util.getUserGuilds(req.user.discordId)
+  const toshow = await util.getGuilds(guilds);
   res.status(200).render("dashboard0", {
     username: req.user.username,
     discordId: req.user.discordId,
-    guilds: req.user.guilds,
+    guilds: guilds,
     toshow: toshow,
     logged: true
   });
 });
 
-router.get("/guilds", isAuthorized, (req, res) => {
-  const { guilds } = req.user;
+router.get("/guilds", isAuthorized, async (req, res) => {
+  const guilds = await util.getUserGuilds(req.user.discordId);
   const guildMemberPermissions = new Map();
   guilds.forEach(guild => {
     const perm = util.getPermissions(guild.permissions);
     guildMemberPermissions.set(guild.id, perm);
   });
-
   res.render("guilds", {
     username: req.user.username,
     discordId: req.user.discordId,
-    guilds: req.user.guilds,
+    guilds: guilds,
     permissions: guildMemberPermissions,
     logged: true
   });
 });
 
 router.get("/settings", isAuthorized, (req, res) => {
-  res.send(200);
+  res.sendStatus(200);
 });
 
 router.get("/:guildID/", isAuthorized, async (req, res) => {
   if (req.params && req.params.guildID) {
-    const toshow = await util.getGuilds(req.user.guilds);
+    const guilds = await util.getUserGuilds(req.user.discordId)
+    const toshow = await util.getGuilds(guilds);
     const guild = toshow.find(e => e.id === req.params.guildID);
     if (!guild)
       return res.status(403).send("That ID is not in your server list...");
@@ -53,7 +54,7 @@ router.get("/:guildID/", isAuthorized, async (req, res) => {
       res.status(200).render("dashboard1", {
         username: req.user.username,
         discordId: req.user.discordId,
-        guilds: req.user.guilds,
+        guilds: guilds,
         toshow: toshow,
         focus: req.params.guildID,
         logged: true,

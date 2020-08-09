@@ -4,12 +4,12 @@ module.exports = {
   let msgDocument = await levels.findOne({ guildId: guildID });
         if (msgDocument) return msgDocument;
         else {
-          return await new levels({
+          return await levels.create({
             guildId: guildID,
             levelnotif: false,
             levelsystem: false,
             roles: []
-          }).save();
+          });
         }
 },
   post: async (req) => {
@@ -17,7 +17,7 @@ module.exports = {
         if(msgDocument) {
          await msgDocument.updateOne({ levelsystem: (req.body.system === 'true' ? true : false), levelnotif: (req.body.notif === 'true' ? true : false) })
         } else {
-          await new levels({
+          await levels.create({
             levelsystem: (req.body.system === 'true' ? true : false),
             levelnotif: (req.body.notif === 'true' ? true : false),
             guildId: req.params.guildID,

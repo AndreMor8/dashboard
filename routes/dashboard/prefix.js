@@ -4,10 +4,10 @@ module.exports = {
   let msgDocument = await prefix.findOne({ guildId: guildID });
         if (msgDocument) return msgDocument;
         else {
-          return await new prefix({
+          return await prefix.create({
             guildId: guildID,
             prefix: "g%"
-          }).save();
+          });
         }
 },
   post: async (req) => {
@@ -15,7 +15,7 @@ module.exports = {
         if(msgDocument) {
          await msgDocument.updateOne({ prefix: req.body.prefix });
         } else {
-          await new prefix({
+          await prefix.create({
             guildId: req.params.guildID,
             prefix: req.body.prefix
           });

@@ -19,7 +19,7 @@ module.exports = {
         files.push(req.body.link);
       }
       responses[req.body.match] = { content: req.body.response, files: files };
-      msgDocument.updateOne({ responses: responses });
+      await msgDocument.updateOne({ responses: responses });
     } else {
       const responses = {};
       const files = [];
@@ -27,11 +27,10 @@ module.exports = {
         files.push(req.body.link);
       }
       responses[req.body.match] = { content: req.body.response, files: files };
-      const tosave = new cp({
+      const tosave = await cp.create({
         guildId: req.params.guildID,
         responses: responses
       });
-      await tosave.save();
     }
   },
   delete: async (guildID, value) => {

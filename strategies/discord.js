@@ -1,14 +1,15 @@
 const DS = require('passport-discord').Strategy;
 const DiscordUser = require("../models/DiscordUser.js");
 const passport = require('passport');
-
+const OAuth2 = require("../models/OAuth2Credentials");
+const utils = require("../utils/utils");
 passport.serializeUser((user, done) => {
   done(null, user.discordId)
 })
 
 passport.deserializeUser(async (id, done) => {
   const user = await DiscordUser.findOne({ discordId: id });
-  if(user) done(null, user)
+  if (user) done(null, user)
 })
 
 passport.use(new DS({
@@ -17,28 +18,45 @@ passport.use(new DS({
   callback: process.env.CLIENT_REDIRECT,
   scope: ['identify', 'guilds']
 }, async (acc, ref, p, done) => {
-try {
-        const user = await DiscordUser.findOne({ discordId: p.id });
-        if(user)
-        {
-            await user.updateOne({
-                username: `${p.username}#${p.discriminator}`,
-                guilds: p.guilds
-            });
-            done(null, user);
-        }
-        else {
-            const newUser = new DiscordUser({
-                discordId: p.id,
-                username: `${p.username}#${p.discriminator}`,
-                guilds: p.guilds
-            });
-            const savedUser = await newUser.save();
-            done(null, savedUser);
-        }
+  try {
+    const eat = utils.encrypt(acc).toString();
+    const ert = utils.encrypt(ref).toString();
+    const user = await DiscordUser.findOneAndUpdate({ discordId: p.id }, {
+      username: `${p.username}#${p.discriminator}`,
+      guilds: p.guilds,
+      avatar: p.avatar
+    });
+    const findCredentials = await OAuth2.findOneAndUpdate({ discordId: p.id }, {
+      accessToken: eat,
+      refreshToken: ert,
+    })
+    if (user) {
+      if (!findCredentials) {
+        await OAuth2.create({
+          discordId: p.id,
+          accessToken: eat,
+          refreshToken: ert
+        });
+      }
+      done(null, user);
     }
-    catch(err) {
-        console.log(err);
-        done(err, null);
+    else {
+      const newUser = await DiscordUser.create({
+        discordId: p.id,
+        username: `${p.username}#${p.disscriminator}`,
+        guilds: p.guilds,
+        avatar: p.avatar
+      });
+      await OAuth2.create({
+        discordId: p.id,
+        accessToken: eat,
+        refreshToken: ert
+      });
+      done(null, newUser);
     }
+  }
+  catch (err) {
+    console.log(err);
+    done(err, null);
+  }
 }))
