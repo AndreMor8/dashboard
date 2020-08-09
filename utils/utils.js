@@ -13,7 +13,6 @@ module.exports = {
   },
   getGuilds: async function(guilds) {
     const guildMemberPermissions = new Map();
-    console.log(guilds)
     const ext = await (await fetch(`${api}/users/@me/guilds`, {
       method: "GET",
       headers: {
