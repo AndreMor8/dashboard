@@ -4,8 +4,10 @@ const passport = require('passport');
 router.get('/', isAuthorized, passport.authenticate('discord'));
 router.get('/redirect', passport.authenticate('discord', { 
     failureRedirect: '/forbidden',
-    successRedirect: '/dashboard'
-}));
+}), (req, res) => {
+    await new Promise((s, r) => setTimeout(s, 1500));
+    res.redirect("/dashboard");
+});
 router.get('/logout', (req, res) => {
     if(req.user) {
         req.logout();

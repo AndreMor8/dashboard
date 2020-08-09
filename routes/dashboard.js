@@ -14,7 +14,7 @@ function isAuthorized(req, res, next) {
 router.get("/", isAuthorized, async (req, res) => {
   try {
   const guilds = await util.getUserGuilds(req.user.discordId)
-  await new Promise((s, r) => setTimeout(s, 2000));
+  await new Promise((s, r) => setTimeout(s, 1000));
   const toshow = await util.getGuilds(guilds);
   res.status(200).render("dashboard0", {
     username: req.user.username,
