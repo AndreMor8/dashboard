@@ -12,6 +12,7 @@ module.exports = {
     return permissionMap;
   },
   getGuilds: async function(guilds) {
+    if(!Array.isArray(guilds)) throw new Error(guilds);
     const guildMemberPermissions = new Map();
     const ext = await (await fetch(`${api}/users/@me/guilds`, {
       method: "GET",
