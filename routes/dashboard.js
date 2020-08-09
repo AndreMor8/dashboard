@@ -12,6 +12,7 @@ function isAuthorized(req, res, next) {
 }
 
 router.get("/", isAuthorized, async (req, res) => {
+  try {
   const guilds = await util.getUserGuilds(req.user.discordId)
   await new Promise((s, r) => setTimeout(s, 1000));
   const toshow = await util.getGuilds(guilds);
@@ -22,6 +23,10 @@ router.get("/", isAuthorized, async (req, res) => {
     toshow: toshow,
     logged: true
   });
+ } catch (err) {
+    console.log(err);
+    res.status(500).redirect("/");
+ }
 });
 
 router.get("/guilds", isAuthorized, async (req, res) => {
