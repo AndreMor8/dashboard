@@ -24,7 +24,8 @@ passport.use(new DS({
     const user = await DiscordUser.findOneAndUpdate({ discordId: p.id }, {
       username: `${p.username}#${p.discriminator}`,
       guilds: p.guilds,
-      avatar: p.avatar
+      avatar: p.avatar,
+      premium_type: p.premium_type
     });
     const findCredentials = await OAuth2.findOneAndUpdate({ discordId: p.id }, {
       accessToken: eat,
@@ -45,7 +46,8 @@ passport.use(new DS({
         discordId: p.id,
         username: `${p.username}#${p.disscriminator}`,
         guilds: p.guilds,
-        avatar: p.avatar
+        avatar: p.avatar,
+        premium_type: p.premium_type
       });
       await OAuth2.create({
         discordId: p.id,
