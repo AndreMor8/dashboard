@@ -44,7 +44,7 @@ passport.use(new DS({
     else {
       const newUser = await DiscordUser.create({
         discordId: p.id,
-        username: `${p.username}#${p.disscriminator}`,
+        username: `${p.username}#${p.discriminator}`,
         guilds: p.guilds,
         avatar: p.avatar,
         premium_type: p.premium_type
