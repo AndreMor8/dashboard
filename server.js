@@ -44,7 +44,7 @@ const passport = require("passport");
     });
     } else {
       res.render("home", {
-      username: "strange",
+      username: "stranger",
       logged: false
     });
     }

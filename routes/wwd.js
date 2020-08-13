@@ -89,7 +89,7 @@ router.get('/', async (req, res) => {
     }
   } else {
     res.render("wwd", {
-      username: "strange",
+      username: "stranger",
       inserver: false,
       logged: false,
       verified: false
@@ -125,7 +125,7 @@ router.get('/rules', (req, res) => {
     });
   } else {
     res.render("wwdrules", {
-      username: "strange",
+      username: "stranger",
       guilds: [],
       logged: false
     });
