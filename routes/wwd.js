@@ -25,6 +25,7 @@ async function isAuthorized(req, res, next) {
 
 async function isAuthorizedAdmin(req, res, next) {
   if (req.user) {
+    await new Promise((s, r) => setTimeout(s, 1200));
     const guilds = await utils.getUserGuilds(req.user.discordId);
     const guild = guilds.find(e => e.id === "402555684849451028")
     if (guild) {
