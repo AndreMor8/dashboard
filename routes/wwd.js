@@ -235,7 +235,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
         status: 400,
         admin: perms.has("ADMINISTRATOR"),
       });
-      let webhook;
+      let channel = ""
       const embed = new Discord.MessageEmbed()
       if (perms.has("ADMINISTRATOR")) {
         await new wm({
@@ -245,7 +245,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
           description: req.body.desc,
           date: new Date(),
         }).save();
-        webhook = new Discord.WebhookClient(process.env.TID, process.env.TTOKEN);
+        channel = "691442448701849700"
       } else {
         await new wmpending({
           author: req.user.discordId,
@@ -255,7 +255,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
           date: new Date(),
         }).save();
         embed.setTitle("New multimedia for approve")
-        webhook = new Discord.WebhookClient(process.env.RID, process.env.RTOKEN);
+        channel = "617228699489533953"
       }
 
       embed.setTitle(req.body.title)
@@ -263,7 +263,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
         .setDescription(req.body.desc)
         .setColor("RANDOM")
         .addField("Author", `${req.user.username} / ${req.user.discordId} / <@${req.user.discordId}>`)
-      await webhook.send(embed)
+      await utils.createMessage(channel, {embed: embed});
       res.status(201).render('wmadd', {
         username: req.user.username,
 
@@ -365,14 +365,13 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
         description: req.body.desc,
         date: new Date(),
       }).save();
-      const webhook = new Discord.WebhookClient(process.env.WID, process.env.WTOKEN);
       const embed = new Discord.MessageEmbed()
         .setAuthor("New Wubbzy Wednesday idea")
         .setTitle(req.body.title)
         .setDescription(req.body.desc)
         .setColor("RANDOM")
         .addField("Author", `${req.user.username} / ${req.user.discordId} / <@${req.user.discordId}>`)
-      await webhook.send(embed)
+      await utils.createMessage("722902317896040551", { embed: embed });
       res.status(201).render('wwrsubmit', {
         username: req.user.username,
 
