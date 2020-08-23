@@ -3,7 +3,7 @@
 <%- include('partials/nav') -%>
 <center>
 <h1 style="margin-top: 10px; font-size: 3em">
-    Write a birthday card to Wubbzy!
+    <span style="padding: 3px; margin-top: 10px; background-color: #81F7F3; font-size: 20px">Write a birthday card to Wubbzy!</span>
 </h1>
 <% if(status === 403) { %>
   <h2 style="margin-top: 10px; font-size: 2em">
@@ -22,9 +22,10 @@
   </div>
 </div>
 <div>
-<label class="checkbox">
-    <input type="checkbox" id="anon" name="anon" value="anon"><span style="padding: 3px; margin-top: 10px; background-color: #81F7F3; font-size: 20px">Make this card anonymous when approving it.</span></input>
+<span style="padding: 3px; margin-top: 10px; background-color: #81F7F3; font-size: 20px"><label class="checkbox">
+    <input type="checkbox" id="anon" name="anon" value="anon">Make this card anonymous when approving it.</input>
   </label>
+</span>
 </div>
 <br>
   <div>
