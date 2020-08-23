@@ -525,7 +525,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       }));
       return res.redirect("/wwd/birthday-cards/admin/")
     } else {
-      const user = await DiscordUser.findOne({ discordId: docs[i].userID });
+      const user = await DiscordUser.findOne({ discordId: doc.userID });
       await doc.updateOne({ published: true });
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
