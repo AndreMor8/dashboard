@@ -547,7 +547,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   }
   for(let i in docs) {
     const user = await DiscordUser.findOne({ discordId: docs[i].userId });
-    if(user) tosee.set(docs[i].userId, user.username + " (" + user.discordId + ")");
+    if(user) tosee.set(docs[i].userID, user.username + " (" + user.discordId + ")");
   }
   res.render("birthdayadmin", {
     username: req.user.username,
