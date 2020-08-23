@@ -32,6 +32,7 @@ async function isAuthorizedAdmin(req, res, next) {
     if (guild) {
       const permissions = utils.getPermissions(guild.permissions);
       if (!permissions.get("ADMINISTRATOR")) return res.status(403).send("You must be an administrator of Wow Wow Discord to view this page.")
+      await Discord.Util.delayFor(1200);
       next();
     } else {
       res.status(403).send("You must be on the Wow Wow Discord server before viewing this category.")
@@ -519,9 +520,9 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       if(doc.additional) {
         embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }));
       }
-      await utils.createMessage("746852649248227328", {
+      console.log(await utils.createMessage("746852649248227328", {
         embed: embed
-      });
+      }));
       return res.redirect("/wwd/birthday-cards/admin/")
     } else {
       const user = await DiscordUser.findOne({ discordId: docs[i].userID });
@@ -535,9 +536,9 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       if(doc.additional) {
         embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }) || "?");
       }
-      await utils.createMessage("746852649248227328", {
+      console.log(await utils.createMessage("746852649248227328", {
         embed: embed
-      });
+      }))
       return res.redirect("/wwd/birthday-cards/admin/")
     }
   } else if(req.query && req.query.delete) {
