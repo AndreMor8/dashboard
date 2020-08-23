@@ -540,7 +540,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       return res.redirect("/wwd/birthday-cards/admin/")
     }
   } else if(req.query && req.query.delete) {
-    const doc = docs[req.query.approve]
+    const doc = docs[req.query.delete]
     if(!doc) return res.status(404).redirect("/wwd/birthday-cards/admin/");
     await doc.deleteOne();
     return res.redirect("/wwd/birthday-cards/admin/");
