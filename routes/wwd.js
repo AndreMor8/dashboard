@@ -588,13 +588,19 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
       userID: req.user.discordId,
       card: req.body.card,
       additional: req.body.additional,
-      anon: req.body.anon,
+      anon: req.body.anon ? true : false,
       published: false
     });
     const embed = new Discord.MessageEmbed()
     .setTitle("New Wubbzy Birthday Card")
     .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
-    await utils.createMessage("746852433644224562")
+    .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+    .setTimestamp()
+    .addField("Requested anonymity?", req.body.anon ? "Yes" : "No")
+    .addField("URL", "https://gidgetbot.herokuapp.com/wwd/birthday-cards/admin")
+    await utils.createMessage("746852433644224562", {
+      embed: embed
+    })
     res.status(201).render("birthdaycompleted", {
       username: req.user.username,
       logged: true,
