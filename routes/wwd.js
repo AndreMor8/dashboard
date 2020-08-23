@@ -509,7 +509,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
     const doc = docs[req.query.approve]
     if(!doc) return res.status(404).redirect("/wwd/birthday-cards/admin/");
     if(doc.anon) {
-      await doc.updateOne({ userID: null, published: true });
+      await doc.updateOne({ published: true });
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
       .setAuthor("Anonymous")
