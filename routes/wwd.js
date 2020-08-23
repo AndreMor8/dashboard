@@ -584,7 +584,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
   try {
     const algo = await birthday.findOne({ userID: req.user.discordId });
     if (algo) return res.status(403).send("You already submitted your birthday card");
-    const newDoc = await birthday.create({
+    const doc = await birthday.create({
       userID: req.user.discordId,
       card: req.body.card,
       additional: req.body.additional,
@@ -596,7 +596,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
     .setDescription(Discord.Util.splitMessage(doc.card) || "?")
     .setTimestamp()
-    .addField("Requested anonymity?", req.body.anon ? "Yes" : "No")
+    .addField("Requested anonymity?", doc.anon ? "Yes" : "No")
     .addField("URL", "https://gidgetbot.herokuapp.com/wwd/birthday-cards/admin")
     await utils.createMessage("746852433644224562", {
       embed: embed
@@ -606,7 +606,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
       logged: true,
     })
   } catch (err) {
-    res.status(500).send("Something happened" + err);
+    res.status(500).send("Something happened! " + err);
   }
 })
 
