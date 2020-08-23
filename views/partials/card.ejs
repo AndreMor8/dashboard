@@ -1,0 +1,36 @@
+<div class="box">
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <% if(card.anon || !card.userID) { %>
+                <strong>Anonymous</strong>
+            <% } else { %>
+                <strong><%- authors.get(idea.author) %></strong>
+            <% } %>
+                 <small>To: Wubbzy</small>
+            <br>
+            <%= card.card %>
+          </p>
+          <% if(additional) { %>
+            <strong>Additional</strong><br>
+            <%= card.additional %>
+          <% } %>
+        </div>
+        <% if(admin) { %>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a class="level-item" aria-label="approve">
+                      <a href="?approve=<%- i %>" class="button">Approve</a>
+                    </a>
+                  </div>
+                <div class="level-left">
+                  <a class="level-item" aria-label="delete">
+                    <a href="?delete=<%- i %>" class="button">Delete</a>
+                  </a>
+                </div>
+              </nav>
+            <% } %>
+      </div>
+    </article>
+  </div>

@@ -8,6 +8,7 @@ const DiscordUser = require("../models/DiscordUser");
 const fetch = require("node-fetch");
 const bans = require("../models/appeals");
 const utils = require('../utils/utils');
+const birthday = require("../models/birthday");
 
 async function isAuthorized(req, res, next) {
   if (req.user) {
@@ -482,6 +483,125 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
     appeals: banss,
     authors: tosee
   })
+})
+
+router.get("/birthday-cards", isAuthorized, (req, res) => {
+  const docs = await birthday.find({ published: true });
+  const tosee = new Map();
+  
+  for(let i in docs) {
+    const user = await DiscordUser.findOne({ discordId: docs[i].userId });
+    if(user) tosee.set(docs[i].userId, user.username + " (" + user.discordId + ")");
+  }
+  res.render("birthdaycards", {
+    username: req.user.username,
+    logged: true,
+    cards: docs,
+    authors: tosee
+  });
+})
+
+router.get("/birthday-cards/admin", isAuthorizedAdmin, (req, res) => {
+  const docs = await birthday.find({ published: false });
+  const tosee = new Map();
+  if(req.query && req.query.approve) {
+    const doc = docs[req.query.approve]
+    if(!doc) return res.status(404).redirect("/wwd/birthday-cards/admin/");
+    if(doc.anon) {
+      await doc.updateOne({ userID: null, published: true });
+      const embed = new Discord.MessageEmbed()
+      .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
+      .setAuthor("Anonymous")
+      .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+      .setTimestamp()
+      .setColor("RANDOM");
+      if(doc.additional) {
+        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }));
+      }
+      await utils.createMessage("746852649248227328", {
+        embed: embed
+      });
+      return res.redirect("/wwd/birthday-cards/admin/")
+    } else {
+      const user = await DiscordUser.findOne({ discordId: docs[i].userId });
+      await doc.updateOne({ published: true });
+      const embed = new Discord.MessageEmbed()
+      .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
+      .setAuthor(user.username, (user.avatar ? (`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}${user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
+      .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+      .setTimestamp()
+      .setColor("RANDOM");
+      if(doc.additional) {
+        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }) || "?");
+      }
+      await utils.createMessage("746852649248227328", {
+        embed: embed
+      });
+      return res.redirect("/wwd/birthday-cards/admin/")
+    }
+  } else if(req.query && req.query.delete) {
+    const doc = docs[req.query.approve]
+    if(!doc) return res.status(404).redirect("/wwd/birthday-cards/admin/");
+    await doc.deleteOne();
+    return res.redirect("/wwd/birthday-cards/admin/");
+  }
+  for(let i in docs) {
+    const user = await DiscordUser.findOne({ discordId: docs[i].userId });
+    if(user) tosee.set(docs[i].userId, user.username + " (" + user.discordId + ")");
+  }
+  res.render("birthdayadmin", {
+    username: req.user.username,
+    logged: true,
+    cards: docs,
+    authors: tosee
+  });
+})
+
+router.get("/birthday-cards/submit", isAuthorized, async (req, res) => {
+  try {
+    const algo = await birthday.findOne({ userID: req.user.discordId })
+    if (algo) return res.status(403).render("birthdaysubmit", {
+      username: req.user.username,
+      logged: true,
+      status: 403
+    });
+    else {
+      res.status(200).render("birthdaysubmit", {
+        username: req.user.username,
+        logged: true,
+        status: 200
+      });
+    }
+  } catch (err) {
+    res.status(500).send("Something happened" + err)
+  }
+});
+
+router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
+  if (!req.user) return res.status(401).redirect("/");
+  if (!req.body) return res.status(400).send("You haven't sent anything");
+  if (!req.body.card) return res.status(400).send("You have not put the reason");
+  try {
+    const algo = await birthday.findOne({ userID: req.user.discordId });
+    if (algo) return res.status(403).send("You already submitted your birthday card");
+    const newDoc = await birthday.create({
+      userID: req.user.discordId,
+      card: req.body.card,
+      additional: req.body.additional,
+      anon: req.body.anon,
+      published: false
+    });
+    const embed = new Discord.MessageEmbed()
+    .setTitle("New Wubbzy Birthday Card")
+    .setAuthor(user.username, (user.avatar ? (`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}${user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
+    await utils.createMessage("746852433644224562")
+    res.status(201).render("birthdaycompleted", {
+      username: req.user.username,
+      logged: true,
+    })
+  } catch (err) {
+    res.status(500).send("Something happened" + err);
+  }
 })
 
 module.exports = router;

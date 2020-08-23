@@ -1,0 +1,31 @@
+<%- include('partials/header') -%>
+<body class="background2">
+<%- include('partials/nav') -%>
+<center>
+<h1 style="margin-top: 10px; font-size: 3em">
+    Write a birthday card to Wubbzy!
+</h1>
+<% if(status === 403) { %>
+  <h2 style="margin-top: 10px; font-size: 2em">
+    You have already sent your letter. It will appear in #wubbzy_birthday_cards when properly reviewed
+</h2>
+  <% } else { %>
+  <form action="/wwd/birthday-cards/submit" method="post">
+<div class="field" style="margin-top: 20px; max-width: 50em">
+  <div class="control">
+    <textarea class="textarea" id="card" name="card" class="input is-large" type="text" placeholder="Write a card for him. Wish him the best" required></textarea>
+  </div>
+</div>
+<div class="field" style="margin-top: 20px; max-width: 50em">
+  <div class="control">
+    <textarea class="textarea" id="additional" name="additional" class="input is-large" type="text" placeholder="Do you want to say something to the staff or the community? Write it here. (optional)"></textarea>
+  </div>
+</div>
+<label class="checkbox">
+    <input type="checkbox" id="anon" name="anon" value="anon">Make this card anonymous when approving it.</input>
+  </label>
+  <input class="button" type="submit" value="Submit">
+  </form>
+  <% } %>
+  </center>
+<%- include('partials/footer') -%>

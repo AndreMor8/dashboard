@@ -38,6 +38,13 @@ html {
   background-repeat: no-repeat;
 }
 
+.background2 {
+  background-image: url("https://vignette.wikia.nocookie.net/wubbzy/images/1/17/Birthday_Birthday_-_Capture_24.png/revision/latest?cb=20190905005643&format=original");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .myClass {
   padding: 8px;
   border-radius: 2em;
