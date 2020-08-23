@@ -596,8 +596,12 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
     .setDescription(Discord.Util.splitMessage(doc.card) || "?")
     .setTimestamp()
-    .addField("Requested anonymity?", doc.anon ? "Yes" : "No")
+    if(doc.additional) {
+      embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }));
+    }
+    embed.addField("Requested anonymity?", doc.anon ? "Yes" : "No")
     .addField("URL", "https://gidgetbot.herokuapp.com/wwd/birthday-cards/admin")
+    
     await utils.createMessage("746852433644224562", {
       embed: embed
     })
