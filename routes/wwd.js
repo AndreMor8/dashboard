@@ -490,8 +490,8 @@ router.get("/birthday-cards", isAuthorized, async (req, res) => {
   const tosee = new Map();
   
   for(let i in docs) {
-    const user = await DiscordUser.findOne({ discordId: docs[i].userId });
-    if(user) tosee.set(docs[i].userId, user.username + " (" + user.discordId + ")");
+    const user = await DiscordUser.findOne({ discordId: docs[i].userID });
+    if(user) tosee.set(docs[i].userID, user.username + " (" + user.discordId + ")");
   }
   res.render("birthdaycards", {
     username: req.user.username,
@@ -523,7 +523,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       });
       return res.redirect("/wwd/birthday-cards/admin/")
     } else {
-      const user = await DiscordUser.findOne({ discordId: docs[i].userId });
+      const user = await DiscordUser.findOne({ discordId: docs[i].userID });
       await doc.updateOne({ published: true });
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
@@ -546,7 +546,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
     return res.redirect("/wwd/birthday-cards/admin/");
   }
   for(let i in docs) {
-    const user = await DiscordUser.findOne({ discordId: docs[i].userId });
+    const user = await DiscordUser.findOne({ discordId: docs[i].userID });
     if(user) tosee.set(docs[i].userID, user.username + " (" + user.discordId + ")");
   }
   res.render("birthdayadmin", {
