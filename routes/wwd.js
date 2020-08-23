@@ -485,7 +485,7 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
   })
 })
 
-router.get("/birthday-cards", isAuthorized, (req, res) => {
+router.get("/birthday-cards", isAuthorized, async (req, res) => {
   const docs = await birthday.find({ published: true });
   const tosee = new Map();
   
@@ -501,7 +501,7 @@ router.get("/birthday-cards", isAuthorized, (req, res) => {
   });
 })
 
-router.get("/birthday-cards/admin", isAuthorizedAdmin, (req, res) => {
+router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   const docs = await birthday.find({ published: false });
   const tosee = new Map();
   if(req.query && req.query.approve) {
