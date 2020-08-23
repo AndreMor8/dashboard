@@ -593,7 +593,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     });
     const embed = new Discord.MessageEmbed()
     .setTitle("New Wubbzy Birthday Card")
-    .setAuthor(user.username, (user.avatar ? (`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}${user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
+    .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
     await utils.createMessage("746852433644224562")
     res.status(201).render("birthdaycompleted", {
       username: req.user.username,
