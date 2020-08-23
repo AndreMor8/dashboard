@@ -3,11 +3,11 @@
 <%- include('partials/nav') -%>
 <center>
 <h1 style="margin-top: 10px; font-size: 3em">
-    <span style="background-color: #81F7F3">Write a birthday card to Wubbzy!</span>
+    <span style="background-color: #fff780">Write a birthday card to Wubbzy!</span>
 </h1>
 <% if(status === 403) { %>
   <h2 style="margin-top: 10px; font-size: 2em">
-    <span style="background-color: #81F7F3">You have already sent your letter. It will appear in #wubbzy_birthday_cards when properly reviewed</span>
+    <span style="background-color: #fff780">You have already sent your letter. It will appear in #wubbzy_birthday_cards when properly reviewed</span>
 </h2>
   <% } else { %>
   <form action="/wwd/birthday-cards/submit" method="post">
@@ -22,7 +22,7 @@
   </div>
 </div>
 <div>
-<span style="background-color: #81F7F3"><label class="checkbox">
+<span style="background-color: #fff780"><label class="checkbox">
     <input type="checkbox" id="anon" name="anon" value="anon">Make this card anonymous when approving it.</input>
   </label>
 </span>
