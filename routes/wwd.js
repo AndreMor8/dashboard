@@ -135,6 +135,7 @@ router.get('/rules', (req, res) => {
 
 router.get("/wm", isAuthorizedVerified, async (req, res) => {
   const msgDocument = await wm.find();
+  await Discord.Util.delayFor(1500);
   const guilds = await utils.getUserGuilds(req.user.discordId);
   const guild = guilds.find(e => e.id === "402555684849451028")
   const perms = getPermissions(guild.permissions);
