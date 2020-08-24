@@ -514,11 +514,11 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
       .setAuthor("Anonymous")
-      .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+      .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
       .setTimestamp()
       .setColor("RANDOM");
       if(doc.additional) {
-        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }));
+        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 })[0]);
       }
       console.log(await utils.createMessage("746852649248227328", {
         embed: embed
@@ -530,11 +530,11 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
       .setAuthor(user.username, (user.avatar ? (`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}${user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
-      .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+      .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
       .setTimestamp()
       .setColor("RANDOM");
       if(doc.additional) {
-        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }) || "?");
+        embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 })[0] || "?");
       }
       console.log(await utils.createMessage("746852649248227328", {
         embed: embed
@@ -596,10 +596,10 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     const embed = new Discord.MessageEmbed()
     .setTitle("New Wubbzy Birthday Card")
     .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
-    .setDescription(Discord.Util.splitMessage(doc.card) || "?")
+    .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
     .setTimestamp()
     if(doc.additional) {
-      embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 }));
+      embed.addField("Additional", Discord.Util.splitMessage(doc.additional, { maxLength: 1000 })[0]);
     }
     embed.addField("Requested anonymity?", doc.anon ? "Yes" : "No")
     .addField("URL", "https://gidgetbot.herokuapp.com/wwd/birthday-cards/admin")
