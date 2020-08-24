@@ -52,6 +52,7 @@ router.get("/settings", isAuthorized, (req, res) => {
 router.get("/:guildID/", isAuthorized, async (req, res) => {
   if (req.params && req.params.guildID) {
     const guilds = await util.getUserGuilds(req.user.discordId)
+    await new Promise((s, r) => setTimeout(s, 1000));
     const toshow = await util.getGuilds(guilds);
     const guild = toshow.find(e => e.id === req.params.guildID);
     if (!guild)

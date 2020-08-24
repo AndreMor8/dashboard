@@ -12,7 +12,10 @@ module.exports = {
     return permissionMap;
   },
   getGuilds: async function(guilds) {
-    if(!Array.isArray(guilds)) throw new Error(guilds);
+    if(!Array.isArray(guilds)) {
+      console.error(guilds)
+      throw new Error(guilds)
+    };
     const guildMemberPermissions = new Map();
     const ext = await (await fetch(`${api}/users/@me/guilds`, {
       method: "GET",
@@ -20,6 +23,10 @@ module.exports = {
         Authorization: `Bot ${process.env.DISCORD_TOKEN}`
       }
     })).json();
+    if(!Array.isArray(ext)) {
+      console.log(ext);
+      throw new Error(ext)
+    }
     guilds.forEach(guild => {
       const perm = this.getPermissions(guild.permissions);
       guildMemberPermissions.set(guild.id, perm);
