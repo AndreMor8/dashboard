@@ -105,7 +105,9 @@ module.exports = {
     return CryptoJS.AES.decrypt(etoken, process.env.VERYS)
   },
   getAvatar: function(User) {
-    if(!User.avatar) return `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`
-    else return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`
+    if(User.avatar) {
+      if(User.avatar.startsWith("_a")) return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.gif?size=4096`
+      else return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`
+    } else return `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`
   }
 };
