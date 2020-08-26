@@ -519,7 +519,7 @@ router.get("/birthday-cards", isAuthorized, async (req, res) => {
 
   for(let i in docs) {
     const user = await DiscordUser.findOne({ discordId: docs[i].userID });
-    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
+    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: await utils.getAvatar(user), discordId: user.discordId });
   }
   res.render("birthdaycards", {
     username: req.user.username,
@@ -556,7 +556,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       await doc.updateOne({ published: true });
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
-      .setAuthor(user.username, utils.getAvatar(user))
+      .setAuthor(user.username, await utils.getAvatar(user))
       .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
       .setTimestamp()
       .setColor("RANDOM");
@@ -576,7 +576,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   }
   for(let i in docs) {
     const user = await DiscordUser.findOne({ discordId: docs[i].userID });
-    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
+    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: await utils.getAvatar(user), discordId: user.discordId });
   }
   res.render("birthdayadmin", {
     username: req.user.username,
@@ -625,7 +625,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     });
     const embed = new Discord.MessageEmbed()
     .setTitle("New Wubbzy Birthday Card")
-    .setAuthor(req.user.username, utils.getAvatar(req.user))
+    .setAuthor(req.user.username, await utils.getAvatar(req.user))
     .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
     .setTimestamp()
     if(doc.additional) {

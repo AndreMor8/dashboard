@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const OAuth2 = require("../models/OAuth2Credentials");
 const CryptoJS = require("crypto-js");
 const api = "https://discord.com/api/v6";
+const isImageURL = require('image-url-validator');
 module.exports = {
   getPermissions: function(perm) {
     const permissionMap = new Map();
@@ -104,8 +105,12 @@ module.exports = {
   decrypt: function (etoken) {
     return CryptoJS.AES.decrypt(etoken, process.env.VERYS)
   },
-  getAvatar: function(User) {
-    if(!User.avatar) return `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`
-    else return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`
+  getAvatar: async function(User) {
+    const defaultAvatar = `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`;
+    if(User.avatar) {
+      const avatar = `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`;
+      if(isImageURL(avatar)) return avatar;
+      else return defaultAvatar;
+  }
   }
 };
