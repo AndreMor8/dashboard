@@ -69,6 +69,7 @@ router.get('/', async (req, res) => {
       if (perms.has("ATTACH_FILES")) {
         res.render("wwd", {
           username: req.user.username,
+avatar: req.user.avatar,
           inserver: true,
           logged: true,
           verified: true
@@ -76,6 +77,7 @@ router.get('/', async (req, res) => {
       } else {
         res.render("wwd", {
           username: req.user.username,
+avatar: req.user.avatar,
           inserver: true,
           logged: true,
           verified: false
@@ -84,6 +86,7 @@ router.get('/', async (req, res) => {
     } else {
       res.render("wwd", {
         username: req.user.username,
+avatar: req.user.avatar,
         inserver: false,
         logged: true,
         verified: false
@@ -105,6 +108,7 @@ router.get("/yourroles", isAuthorized, async (req, res) => {
     if (response) {
       res.render("yourroles", {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         roles: response
@@ -122,6 +126,7 @@ router.get('/rules', (req, res) => {
   if (req.user) {
     res.render("wwdrules", {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true
     });
@@ -153,6 +158,7 @@ router.get("/wm", isAuthorizedVerified, async (req, res) => {
   }
   res.render('wm', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     media: msgDocument,
@@ -190,6 +196,7 @@ router.get("/wm/pending", isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wmpending', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     media: msgDocument,
@@ -204,6 +211,7 @@ router.get("/wm/add", isAuthorizedVerified, async (req, res) => {
   const perms = getPermissions(guild.permissions);
   res.render("wmadd", {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     admin: perms.has("ADMINISTRATOR"),
@@ -219,6 +227,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 400,
@@ -226,6 +235,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       });
       if (req.body.link.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 400,
@@ -233,6 +243,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       })
       if (req.body.desc.length > 2000) return res.status(400).render('wmadd', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 400,
@@ -269,6 +280,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       await utils.createMessage(channel, {embed: embed});
       res.status(201).render('wmadd', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 201,
@@ -276,6 +288,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       });
     } else res.status(400).render('wmadd', {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true,
       status: 400,
@@ -285,6 +298,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
     console.log(err)
     res.status(500).render('wmadd', {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true,
       status: 500,
@@ -296,6 +310,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
 router.get("/wm/qualifiers", isAuthorized, async (req, res) => {
   res.render('wmq', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
   });
@@ -315,6 +330,7 @@ router.get('/wwr', isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wwr', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     ideas: msgDocument,
@@ -326,12 +342,14 @@ router.get('/wwr/submit', isAuthorizedVerified, async (req, res) => {
   const msgDocument = await wwr.findOne({ author: req.user.discordId });
   if (msgDocument) return res.status(403).render('wwrsubmit', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     status: 403
   });
   res.render('wwrsubmit', {
     username: req.user.username,
+avatar: req.user.avatar,
 
     logged: true,
     status: 200
@@ -343,12 +361,14 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 400
       });
       if (req.body.desc.length > 2000) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 400
@@ -357,6 +377,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
       if (msgDocument) {
         return res.status(403).render('wwrsubmit', {
           username: req.user.username,
+avatar: req.user.avatar,
 
           logged: true,
           status: 403
@@ -377,12 +398,14 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
       await utils.createMessage("722902317896040551", { embed: embed });
       res.status(201).render('wwrsubmit', {
         username: req.user.username,
+avatar: req.user.avatar,
 
         logged: true,
         status: 201
       });
     } else res.status(400).render('wwrsubmit', {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true,
       status: 400
@@ -391,6 +414,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     console.log(err)
     res.status(500).render('wwrsubmit', {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true,
       status: 500
@@ -409,6 +433,7 @@ router.get("/appeal", async (req, res) => {
       if (ban) {
         res.status(200).render("bans", {
           username: req.user.username,
+avatar: req.user.avatar,
 
           logged: true,
           ban: ban
@@ -443,6 +468,7 @@ router.post("/appeal", async (req, res) => {
     await algo2.save()
     res.status(201).render("appcompleted", {
       username: req.user.username,
+avatar: req.user.avatar,
 
       logged: true,
     })
@@ -480,7 +506,7 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
   }
   res.render('appeals', {
     username: req.user.username,
-
+    avatar: req.user.avatar,
     logged: true,
     appeals: banss,
     authors: tosee
@@ -490,13 +516,14 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
 router.get("/birthday-cards", isAuthorized, async (req, res) => {
   const docs = await birthday.find({ published: true });
   const tosee = new Map();
-  
+
   for(let i in docs) {
     const user = await DiscordUser.findOne({ discordId: docs[i].userID });
-    if(user) tosee.set(docs[i].userID, user.username + " (" + user.discordId + ")");
+    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
   }
   res.render("birthdaycards", {
     username: req.user.username,
+    avatar: req.user.avatar,
     logged: true,
     cards: docs,
     authors: tosee
@@ -529,7 +556,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
       await doc.updateOne({ published: true });
       const embed = new Discord.MessageEmbed()
       .setTitle("New Wubbzy birthday card <:WubbzyParty:608094605296271382>")
-      .setAuthor(user.username, (user.avatar ? (`https://cdn.discordapp.com/avatars/${user.discordId}/${user.avatar}${user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
+      .setAuthor(user.username, utils.getAvatar(user))
       .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
       .setTimestamp()
       .setColor("RANDOM");
@@ -549,10 +576,11 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   }
   for(let i in docs) {
     const user = await DiscordUser.findOne({ discordId: docs[i].userID });
-    if(user) tosee.set(docs[i].userID, user.username + " (" + user.discordId + ")");
+    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
   }
   res.render("birthdayadmin", {
     username: req.user.username,
+    avatar: req.user.avatar,
     logged: true,
     cards: docs,
     authors: tosee
@@ -564,12 +592,14 @@ router.get("/birthday-cards/submit", isAuthorized, async (req, res) => {
     const algo = await birthday.findOne({ userID: req.user.discordId })
     if (algo) return res.status(403).render("birthdaysubmit", {
       username: req.user.username,
+      avatar: req.user.avatar,
       logged: true,
       status: 403
     });
     else {
       res.status(200).render("birthdaysubmit", {
         username: req.user.username,
+        avatar: req.user.avatar,
         logged: true,
         status: 200
       });
@@ -595,7 +625,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     });
     const embed = new Discord.MessageEmbed()
     .setTitle("New Wubbzy Birthday Card")
-    .setAuthor(req.user.username, (req.user.avatar ? (`https://cdn.discordapp.com/avatars/${req.user.discordId}/${req.user.avatar}${req.user.avatar.startsWith("a_") ? ".gif" : ".png"}`) : undefined))
+    .setAuthor(req.user.username, utils.getAvatar(req.user))
     .setDescription(Discord.Util.splitMessage(doc.card)[0] || "?")
     .setTimestamp()
     if(doc.additional) {
@@ -609,6 +639,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     })
     res.status(201).render("birthdaycompleted", {
       username: req.user.username,
+      avatar: req.user.avatar,
       logged: true,
     })
   } catch (err) {

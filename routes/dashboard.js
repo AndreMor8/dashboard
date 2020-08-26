@@ -18,6 +18,7 @@ router.get("/", isAuthorized, async (req, res) => {
   const toshow = await util.getGuilds(guilds);
   res.status(200).render("dashboard0", {
     username: req.user.username,
+avatar: req.user.avatar,
     discordId: req.user.discordId,
     guilds: guilds,
     toshow: toshow,
@@ -38,6 +39,7 @@ router.get("/guilds", isAuthorized, async (req, res) => {
   });
   res.render("guilds", {
     username: req.user.username,
+avatar: req.user.avatar,
     discordId: req.user.discordId,
     guilds: guilds,
     permissions: guildMemberPermissions,
@@ -60,6 +62,7 @@ router.get("/:guildID/", isAuthorized, async (req, res) => {
     else
       res.status(200).render("dashboard1", {
         username: req.user.username,
+        avatar: req.user.avatar,
         discordId: req.user.discordId,
         guilds: guilds,
         toshow: toshow,

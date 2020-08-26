@@ -40,6 +40,7 @@ const passport = require("passport");
     if(req.user) {
       res.render("home", {
       username: req.user.username,
+avatar: req.user.avatar,
       logged: true
     });
     } else {
