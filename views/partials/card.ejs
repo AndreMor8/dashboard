@@ -1,6 +1,6 @@
 <div class="box">
   <article class="media">
-    <% if(authors.get(card.userID)) { %>
+    <% if(authors.get(card.userID) && !card.anon) { %>
     <div class="media-left">
       <figure class="image is-64x64">
         <img id="avatar" src="<%= authors.get(card.userID).avatar %>" alt="Image">
