@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
       if (perms.has("ATTACH_FILES")) {
         res.render("wwd", {
           username: req.user.username,
-avatar: req.user.avatar,
+          avatar: req.user.avatar,
           inserver: true,
           logged: true,
           verified: true
@@ -77,7 +77,7 @@ avatar: req.user.avatar,
       } else {
         res.render("wwd", {
           username: req.user.username,
-avatar: req.user.avatar,
+          avatar: req.user.avatar,
           inserver: true,
           logged: true,
           verified: false
@@ -86,7 +86,7 @@ avatar: req.user.avatar,
     } else {
       res.render("wwd", {
         username: req.user.username,
-avatar: req.user.avatar,
+        avatar: req.user.avatar,
         inserver: false,
         logged: true,
         verified: false
@@ -95,6 +95,7 @@ avatar: req.user.avatar,
   } else {
     res.render("wwd", {
       username: "stranger",
+      avatar: null,
       inserver: false,
       logged: false,
       verified: false
@@ -108,8 +109,7 @@ router.get("/yourroles", isAuthorized, async (req, res) => {
     if (response) {
       res.render("yourroles", {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         roles: response
       })
@@ -126,8 +126,7 @@ router.get('/rules', (req, res) => {
   if (req.user) {
     res.render("wwdrules", {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true
     });
   } else {
@@ -158,8 +157,7 @@ router.get("/wm", isAuthorizedVerified, async (req, res) => {
   }
   res.render('wm', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     media: msgDocument,
     authors: tosee,
@@ -196,8 +194,7 @@ router.get("/wm/pending", isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wmpending', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     media: msgDocument,
     authors: tosee
@@ -211,8 +208,7 @@ router.get("/wm/add", isAuthorizedVerified, async (req, res) => {
   const perms = getPermissions(guild.permissions);
   res.render("wmadd", {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     admin: perms.has("ADMINISTRATOR"),
     status: 200
@@ -227,24 +223,21 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 400,
         admin: perms.has("ADMINISTRATOR"),
       });
       if (req.body.link.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 400,
         admin: perms.has("ADMINISTRATOR"),
       })
       if (req.body.desc.length > 2000) return res.status(400).render('wmadd', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 400,
         admin: perms.has("ADMINISTRATOR"),
@@ -280,16 +273,14 @@ avatar: req.user.avatar,
       await utils.createMessage(channel, {embed: embed});
       res.status(201).render('wmadd', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 201,
         admin: perms.has("ADMINISTRATOR"),
       });
     } else res.status(400).render('wmadd', {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true,
       status: 400,
       admin: perms.has("ADMINISTRATOR"),
@@ -298,8 +289,7 @@ avatar: req.user.avatar,
     console.log(err)
     res.status(500).render('wmadd', {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true,
       status: 500,
       admin: perms.has("ADMINISTRATOR"),
@@ -310,8 +300,7 @@ avatar: req.user.avatar,
 router.get("/wm/qualifiers", isAuthorized, async (req, res) => {
   res.render('wmq', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
   });
 })
@@ -330,8 +319,7 @@ router.get('/wwr', isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wwr', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     ideas: msgDocument,
     authors: tosee
@@ -342,15 +330,13 @@ router.get('/wwr/submit', isAuthorizedVerified, async (req, res) => {
   const msgDocument = await wwr.findOne({ author: req.user.discordId });
   if (msgDocument) return res.status(403).render('wwrsubmit', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     status: 403
   });
   res.render('wwrsubmit', {
     username: req.user.username,
-avatar: req.user.avatar,
-
+    avatar: req.user.avatar,
     logged: true,
     status: 200
   });
@@ -361,15 +347,13 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 400
       });
       if (req.body.desc.length > 2000) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 400
       });
@@ -377,8 +361,7 @@ avatar: req.user.avatar,
       if (msgDocument) {
         return res.status(403).render('wwrsubmit', {
           username: req.user.username,
-avatar: req.user.avatar,
-
+          avatar: req.user.avatar,
           logged: true,
           status: 403
         });
@@ -398,15 +381,13 @@ avatar: req.user.avatar,
       await utils.createMessage("722902317896040551", { embed: embed });
       res.status(201).render('wwrsubmit', {
         username: req.user.username,
-avatar: req.user.avatar,
-
+        avatar: req.user.avatar,
         logged: true,
         status: 201
       });
     } else res.status(400).render('wwrsubmit', {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true,
       status: 400
     });
@@ -414,8 +395,7 @@ avatar: req.user.avatar,
     console.log(err)
     res.status(500).render('wwrsubmit', {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true,
       status: 500
     });
@@ -433,8 +413,7 @@ router.get("/appeal", async (req, res) => {
       if (ban) {
         res.status(200).render("bans", {
           username: req.user.username,
-avatar: req.user.avatar,
-
+          avatar: req.user.avatar,
           logged: true,
           ban: ban
         })
@@ -468,8 +447,7 @@ router.post("/appeal", async (req, res) => {
     await algo2.save()
     res.status(201).render("appcompleted", {
       username: req.user.username,
-avatar: req.user.avatar,
-
+      avatar: req.user.avatar,
       logged: true,
     })
   } catch (err) {
@@ -531,15 +509,16 @@ router.get("/birthday-cards/:year", async (req, res) => {
       if (user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
     }
     res.render("birthdaycards", {
-      username: req.user.username,
-      avatar: req.user.avatar,
-      logged: true,
+      username: req.user ? req.user.username : "stranger",
+      avatar: req.user ? req.user.avatar : null,
+      logged: Boolean(req.user),
       cards: docs,
       authors: tosee,
       year
     });
   } catch (err) {
-    res.status(500).send(err);
+    console.log(err);
+    res.status(500).send("Something happened! " + err);
   }
 })
 /*
