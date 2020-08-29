@@ -1,9 +1,8 @@
 <%- include('partials/header') -%>
 <body class="background2">
 <%- include('partials/nav') -%>
-<a href="/wwd/birthday-cards/submit"><button class="button is-link is-light" style="float: right; margin-top: 1em; text-align: center; margin-bottom: 1em; margin-right: 1em">Add birthday card</button></a>
   <div>
-    <h1 class="title" style="margin-top: 15px; text-align: center; margin-bottom: 15px">Birthday cards for Wubbzy!</h1>
+    <h1 class="title" style="margin-top: 15px; text-align: center; margin-bottom: 15px">Birthday cards for Wubbzy! (<%= year %>)</h1>
   </div>
   <div style="margin-left: 20px; margin-right: 20px">
 <% if(cards.length) { %>

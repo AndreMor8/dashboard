@@ -513,23 +513,36 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
   })
 })
 
-router.get("/birthday-cards", isAuthorized, async (req, res) => {
-  const docs = await birthday.find({ published: true });
-  const tosee = new Map();
+router.get("/birthday-cards", (req, res) => {
+  res.redirect(301, "/wwd/birthday-cards/2020/");
+});
 
-  for(let i in docs) {
-    const user = await DiscordUser.findOne({ discordId: docs[i].userID });
-    if(user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
+router.get("/birthday-cards/:year", async (req, res) => {
+  try {
+    const year = Number(req.params.year);
+    if (!year) return res.status(400).send("Invalid year!");
+    const docs = await birthday.find({ published: true, year });
+    if (!docs.length) return res.status(404).send("No cards found for the specified year");
+    const tosee = new Map();
+
+    for (let i in docs) {
+      if (!docs[i].userID) continue;
+      const user = await DiscordUser.findOne({ discordId: docs[i].userID });
+      if (user) tosee.set(docs[i].userID, { username: user.username, avatar: utils.getAvatar(user), discordId: user.discordId });
+    }
+    res.render("birthdaycards", {
+      username: req.user.username,
+      avatar: req.user.avatar,
+      logged: true,
+      cards: docs,
+      authors: tosee,
+      year
+    });
+  } catch (err) {
+    res.status(500).send(err);
   }
-  res.render("birthdaycards", {
-    username: req.user.username,
-    avatar: req.user.avatar,
-    logged: true,
-    cards: docs,
-    authors: tosee
-  });
 })
-
+/*
 router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   const docs = await birthday.find({ published: false });
   const tosee = new Map();
@@ -646,5 +659,5 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     res.status(500).send("Something happened! " + err);
   }
 })
-
+*/
 module.exports = router;
