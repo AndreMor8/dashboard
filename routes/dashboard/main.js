@@ -40,6 +40,7 @@ module.exports = {
         /* Render the data to front-end */
         res.status(200).render("dashboard1", {
           username: req.user.username,
+csrfToken: req.csrfToken(),
           avatar: req.user.avatar,
           discordId: req.user.discordId,
           guilds: guilds,

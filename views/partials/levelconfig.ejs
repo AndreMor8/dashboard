@@ -1,5 +1,6 @@
 <h1 class="title">Level config</h1>
   <form action="/dashboard/<%= focus %>/levels" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <h2 class="subtitle" style="text-align: left">Level system</h2>
     <div class="control">
   <label class="radio">

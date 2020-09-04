@@ -10,6 +10,7 @@
             Ban reason: <%= ban.reason %>
         </h2>
         <form action="/wwd/appeal" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="field" style="margin-top: 20px; max-width: 50em">
                 <div class="control">
 <textarea class="textarea" id="reason" name="reason" class="input is-medium" type="text" placeholder="Reason" required></textarea>

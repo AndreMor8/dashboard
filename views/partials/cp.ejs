@@ -4,6 +4,7 @@
 <a id="tomodify" onclick="display()"><button class="button is-link is-light" style="float: right">Add custom response</button></a><br><br>
 <div id="toappear" class="myClass" style="display: none">
 <form action="/dashboard/<%= focus %>/cp" method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 <div class="field" style="margin-top: 20px; margin-left: 1.3em; margin-right: 6em">
   <div class="control">
     <input id="match" name="match" class="input is-medium" type="text" placeholder="Match" required>

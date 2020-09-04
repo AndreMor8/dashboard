@@ -1,10 +1,17 @@
 const router = require('express').Router();
 const passport = require('passport');
 
-router.get('/', isAuthorized, passport.authenticate('discord'));
-router.get('/redirect', passport.authenticate('discord', { 
-    failureRedirect: '/forbidden',
-}), async (req, res) => {
+router.get('/', isAuthorized, (req, res, next) => {
+    passport.authenticate('discord', {
+        state: req.csrfToken()
+    })(req, res, next);
+});
+router.get('/redirect', (req, res, next) => {
+    passport.authenticate('discord', {
+        state: req.csrfToken(),
+        failureRedirect: '/forbidden',
+    })(req, res, next);
+}, async (req, res) => {
     await new Promise((s, r) => setTimeout(s, 1500));
     res.redirect("/dashboard");
 });

@@ -11,6 +11,7 @@
 </h2>
   <% } else { %>
   <form action="/wwd/wwr/submit" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 <div class="field" style="margin-top: 20px; max-width: 50em">
   <div class="control">
     <input id="title" name="title" class="input is-medium" type="text" placeholder="Title" required>

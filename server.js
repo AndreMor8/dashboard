@@ -7,6 +7,7 @@ require("dotenv").config();
 const db = require("./database.js");
 const express = require("express");
 const passport = require("passport");
+const csrf = require('csurf');
 (async () => {
   await db.then(() => console.log("Connected to the database"));
   const app = express();
@@ -32,6 +33,7 @@ const passport = require("passport");
   app.set("views", require("path").join(__dirname, "views"));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use(csrf());
   app.use("/auth", require("./routes/auth"));
   app.use("/dashboard", require("./routes/dashboard"));
   app.use("/wwd", require("./routes/wwd"));
@@ -40,17 +42,25 @@ const passport = require("passport");
     if(req.user) {
       res.render("home", {
       username: req.user.username,
-avatar: req.user.avatar,
+csrfToken: req.csrfToken(),
+      avatar: req.user.avatar,
       logged: true
     });
     } else {
       res.render("home", {
       username: "stranger",
+csrfToken: req.csrfToken(),
       logged: false
     });
     }
   });
+  app.use(function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN') return next(err)
 
+    // handle CSRF token errors here
+    res.status(403)
+    res.send('form tampered with')
+  })
   // listen for requests :)
   const listener = app.listen(process.env.PORT, () => {
     console.log("Your app is listening on port " + listener.address().port);

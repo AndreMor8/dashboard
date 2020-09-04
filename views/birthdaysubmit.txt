@@ -12,6 +12,7 @@
   <% } else { %>
   <form action="/wwd/birthday-cards/submit" method="post">
 <div class="field" style="margin-top: 20px; max-width: 50em">
+<input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <div class="control">
     <textarea class="textarea" id="card" name="card" class="input is-large" type="text" placeholder="Write a card for him. Wish him the best" required></textarea>
   </div>

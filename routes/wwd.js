@@ -69,6 +69,7 @@ router.get('/', async (req, res) => {
       if (perms.has("ATTACH_FILES")) {
         res.render("wwd", {
           username: req.user.username,
+csrfToken: req.csrfToken(),
           avatar: req.user.avatar,
           inserver: true,
           logged: true,
@@ -77,6 +78,7 @@ router.get('/', async (req, res) => {
       } else {
         res.render("wwd", {
           username: req.user.username,
+csrfToken: req.csrfToken(),
           avatar: req.user.avatar,
           inserver: true,
           logged: true,
@@ -86,6 +88,7 @@ router.get('/', async (req, res) => {
     } else {
       res.render("wwd", {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         inserver: false,
         logged: true,
@@ -95,6 +98,7 @@ router.get('/', async (req, res) => {
   } else {
     res.render("wwd", {
       username: "stranger",
+csrfToken: req.csrfToken(),
       avatar: null,
       inserver: false,
       logged: false,
@@ -109,6 +113,7 @@ router.get("/yourroles", isAuthorized, async (req, res) => {
     if (response) {
       res.render("yourroles", {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         roles: response
@@ -126,12 +131,14 @@ router.get('/rules', (req, res) => {
   if (req.user) {
     res.render("wwdrules", {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true
     });
   } else {
     res.render("wwdrules", {
       username: "stranger",
+csrfToken: req.csrfToken(),
       guilds: [],
       logged: false
     });
@@ -157,6 +164,7 @@ router.get("/wm", isAuthorizedVerified, async (req, res) => {
   }
   res.render('wm', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     media: msgDocument,
@@ -194,6 +202,7 @@ router.get("/wm/pending", isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wmpending', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     media: msgDocument,
@@ -208,6 +217,7 @@ router.get("/wm/add", isAuthorizedVerified, async (req, res) => {
   const perms = getPermissions(guild.permissions);
   res.render("wmadd", {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     admin: perms.has("ADMINISTRATOR"),
@@ -223,6 +233,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 400,
@@ -230,6 +241,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       });
       if (req.body.link.length > 250) return res.status(400).render('wmadd', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 400,
@@ -237,6 +249,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       })
       if (req.body.desc.length > 2000) return res.status(400).render('wmadd', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 400,
@@ -273,6 +286,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       await utils.createMessage(channel, {embed: embed});
       res.status(201).render('wmadd', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 201,
@@ -280,6 +294,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
       });
     } else res.status(400).render('wmadd', {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
       status: 400,
@@ -289,6 +304,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
     console.log(err)
     res.status(500).render('wmadd', {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
       status: 500,
@@ -300,6 +316,7 @@ router.post("/wm/add", isAuthorizedVerified, async (req, res) => {
 router.get("/wm/qualifiers", isAuthorized, async (req, res) => {
   res.render('wmq', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
   });
@@ -319,6 +336,7 @@ router.get('/wwr', isAuthorizedAdmin, async (req, res) => {
   }
   res.render('wwr', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     ideas: msgDocument,
@@ -330,12 +348,14 @@ router.get('/wwr/submit', isAuthorizedVerified, async (req, res) => {
   const msgDocument = await wwr.findOne({ author: req.user.discordId });
   if (msgDocument) return res.status(403).render('wwrsubmit', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     status: 403
   });
   res.render('wwrsubmit', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     status: 200
@@ -347,12 +367,14 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     if (req.body && req.body.title && req.body.desc) {
       if (req.body.title.length > 250) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 400
       });
       if (req.body.desc.length > 2000) return res.status(400).render('wwrsubmit', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 400
@@ -361,6 +383,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
       if (msgDocument) {
         return res.status(403).render('wwrsubmit', {
           username: req.user.username,
+csrfToken: req.csrfToken(),
           avatar: req.user.avatar,
           logged: true,
           status: 403
@@ -381,12 +404,14 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
       await utils.createMessage("722902317896040551", { embed: embed });
       res.status(201).render('wwrsubmit', {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 201
       });
     } else res.status(400).render('wwrsubmit', {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
       status: 400
@@ -395,6 +420,7 @@ router.post('/wwr/submit', isAuthorizedVerified, async (req, res) => {
     console.log(err)
     res.status(500).render('wwrsubmit', {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
       status: 500
@@ -413,6 +439,7 @@ router.get("/appeal", async (req, res) => {
       if (ban) {
         res.status(200).render("bans", {
           username: req.user.username,
+csrfToken: req.csrfToken(),
           avatar: req.user.avatar,
           logged: true,
           ban: ban
@@ -447,6 +474,7 @@ router.post("/appeal", async (req, res) => {
     await algo2.save()
     res.status(201).render("appcompleted", {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
     })
@@ -484,6 +512,7 @@ router.get("/appeals", isAuthorizedAdmin, async (req, res) => {
   }
   res.render('appeals', {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     appeals: banss,
@@ -572,6 +601,7 @@ router.get("/birthday-cards/admin", isAuthorizedAdmin, async (req, res) => {
   }
   res.render("birthdayadmin", {
     username: req.user.username,
+csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     logged: true,
     cards: docs,
@@ -584,6 +614,7 @@ router.get("/birthday-cards/submit", isAuthorized, async (req, res) => {
     const algo = await birthday.findOne({ userID: req.user.discordId })
     if (algo) return res.status(403).render("birthdaysubmit", {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
       status: 403
@@ -591,6 +622,7 @@ router.get("/birthday-cards/submit", isAuthorized, async (req, res) => {
     else {
       res.status(200).render("birthdaysubmit", {
         username: req.user.username,
+csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
         logged: true,
         status: 200
@@ -631,6 +663,7 @@ router.post("/birthday-cards/submit", isAuthorized, async (req, res) => {
     })
     res.status(201).render("birthdaycompleted", {
       username: req.user.username,
+csrfToken: req.csrfToken(),
       avatar: req.user.avatar,
       logged: true,
     })
