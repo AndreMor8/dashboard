@@ -60,12 +60,12 @@ router.use("/:guildID", function (req, res, next) {
   const guild = req.user.toShowGuilds.find(e => e.id === req.params.guildID);
   if (!guild) return res.status(403).send("That ID is not in your server list...");
   else {
-    /*fetch(process.env.FETCH + "?delete=" + req.params.guildID, {
+    fetch(process.env.FETCH + "?delete=" + req.params.guildID, {
       method: "GET",
       headers: {
         pass: process.env.ACCESS
       }
-    }).then(c => console.log(c.status));*/
+    }).then(c => console.log(c.status)).catch(err => {});
     next();
   }
 });
