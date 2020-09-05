@@ -65,7 +65,7 @@ router.use("/:guildID", function (req, res, next) {
       headers: {
         pass: process.env.ACCESS
       }
-    });
+    }).then(c => console.log(c.status));
     next();
   }
 });
@@ -121,6 +121,7 @@ router.post("/:guildID/levels", async (req, res) => {
       roles: []
     });
   }
+  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./levels");
 });
 
@@ -172,6 +173,7 @@ router.post("/:guildID/cp", async (req, res) => {
       responses: responses
     });
   }
+  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./cp");
 });
 
@@ -232,6 +234,7 @@ router.post("/:guildID/prefix", async (req, res) => {
       prefix: req.body.prefix
     });
   }
+  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./prefix");
 });
 
