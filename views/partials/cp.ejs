@@ -1,3 +1,22 @@
+<script>
+  function cpdelete(index) {
+    if(isNaN(index)) return;
+    fetch("./cp/" + index, {
+      method: "DELETE",
+      headers: {
+        "CSRF-Token": "<%= csrfToken %>"
+      }
+    }).then(e => {
+      if(e.status === "204" || e.ok) {
+        location.reload();
+      } else {
+        e.text().then(r => {
+          alert("Something happened: " + r);
+        })
+      }
+    })
+  }
+</script>
 <h1 class="title">
   Custom responses
 </h1>

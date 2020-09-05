@@ -13,7 +13,7 @@ const csrf = require('csurf');
   const app = express();
   const session = require("express-session");
   const MongoStore = require("connect-mongo")(session);
-  const DS = require("./strategies/discord.js");
+  require("./strategies/discord.js");
   app.use(express.static("public"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }))
@@ -37,7 +37,6 @@ const csrf = require('csurf');
   app.use("/auth", require("./routes/auth"));
   app.use("/dashboard", require("./routes/dashboard"));
   app.use("/wwd", require("./routes/wwd"));
-
   app.get("/", (req, res) => {
     if(req.user) {
       res.render("home", {
@@ -61,6 +60,13 @@ csrfToken: req.csrfToken(),
     res.status(403)
     res.send('form tampered with')
   })
+  app.use(function (err, req, res, next) {
+    
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Something happened: " + err);
+    } else next(); 
+  });
   // listen for requests :)
   const listener = app.listen(process.env.PORT, () => {
     console.log("Your app is listening on port " + listener.address().port);
