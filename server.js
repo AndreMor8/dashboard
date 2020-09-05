@@ -14,7 +14,7 @@ const csrf = require('csurf');
   const session = require("express-session");
   const MongoStore = require("connect-mongo")(session);
   require("./strategies/discord.js");
-  app.use(express.static("public"));
+  app.use(express.static(__dirname + "/public"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }))
   app.use(
