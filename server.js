@@ -38,19 +38,19 @@ const csrf = require('csurf');
   app.use("/dashboard", require("./routes/dashboard"));
   app.use("/wwd", require("./routes/wwd"));
   app.get("/", (req, res) => {
-    if(req.user) {
+    if (req.user) {
       res.render("home", {
-      username: req.user.username,
-csrfToken: req.csrfToken(),
-      avatar: req.user.avatar,
-      logged: true
-    });
+        username: req.user.username,
+        csrfToken: req.csrfToken(),
+        avatar: req.user.avatar,
+        logged: true
+      });
     } else {
       res.render("home", {
-      username: "stranger",
-csrfToken: req.csrfToken(),
-      logged: false
-    });
+        username: "stranger",
+        csrfToken: req.csrfToken(),
+        logged: false
+      });
     }
   });
   app.use(function (err, req, res, next) {
@@ -61,11 +61,11 @@ csrfToken: req.csrfToken(),
     res.send('form tampered with')
   })
   app.use(function (err, req, res, next) {
-    
+
     if (err) {
       console.log(err);
       return res.status(500).send("Something happened: " + err);
-    } else next(); 
+    } else next();
   });
   // listen for requests :)
   const listener = app.listen(process.env.PORT, () => {
