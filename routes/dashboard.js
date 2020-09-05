@@ -15,6 +15,7 @@ router.use(function (req, res, next) {
 
 router.use(async function (req, res, next) {
   try {
+    await new Promise(s => setTimeout(s, 1000));
     const guilds = await util.getUserGuilds(req.user.discordId);
     req.user.guilds = guilds;
     const toshow = await util.getGuilds(guilds);
@@ -121,7 +122,6 @@ router.post("/:guildID/levels", async (req, res) => {
       roles: []
     });
   }
-  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./levels");
 });
 
@@ -173,7 +173,6 @@ router.post("/:guildID/cp", async (req, res) => {
       responses: responses
     });
   }
-  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./cp");
 });
 
@@ -234,7 +233,6 @@ router.post("/:guildID/prefix", async (req, res) => {
       prefix: req.body.prefix
     });
   }
-  await new Promise(s => setTimeout(s, 1000));
   res.status(200).redirect("./prefix");
 });
 
