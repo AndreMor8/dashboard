@@ -17,7 +17,6 @@ router.use(async function (req, res, next) {
   try {
     const guilds = await util.getUserGuilds(req.user.discordId);
     req.user.guilds = guilds;
-    await new Promise((s, r) => setTimeout(s, 1000));
     const toshow = await util.getGuilds(guilds);
     req.user.toShowGuilds = toshow;
     next();
