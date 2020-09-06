@@ -15,8 +15,8 @@ router.use(function (req, res, next) {
 
 router.use(async function (req, res, next) {
   try {
-    await new Promise(s => setTimeout(s, 1000));
     const guilds = await util.getUserGuilds(req.user.discordId);
+    await new Promise(s => setTimeout(s, 200));
     req.user.guilds = guilds;
     const toshow = await util.getGuilds(guilds);
     req.user.toShowGuilds = toshow;
@@ -61,12 +61,14 @@ router.use("/:guildID", function (req, res, next) {
   const guild = req.user.toShowGuilds.find(e => e.id === req.params.guildID);
   if (!guild) return res.status(403).send("That ID is not in your server list...");
   else {
-    fetch(process.env.FETCH + "?delete=" + req.params.guildID, {
-      method: "GET",
-      headers: {
-        pass: process.env.ACCESS
-      }
-    }).then(c => console.log(c.status)).catch(err => {});
+    if (!["GET", "HEAD", "OPTIONS"].includes(req.method)) {
+      fetch(process.env.FETCH + "?delete=" + req.params.guildID, {
+        method: "GET",
+        headers: {
+          pass: process.env.ACCESS
+        }
+      }).then(c => console.log(c.status)).catch(err => { });
+    }
     next();
   }
 });
@@ -84,6 +86,31 @@ router.get("/:guildID", async (req, res) => {
     option: false
   });
 });
+/*
+router.get("/:guildID/members", async (req, res) => {
+  const members = await util.getGuildMembers(req.params.guildID, 100);
+  console.log(members);
+  res.status(200).render("dashboard1", {
+    username: req.user.username,
+    csrfToken: req.csrfToken(),
+    avatar: req.user.avatar,
+    discordId: req.user.discordId,
+    guilds: req.user.guilds,
+    toshow: req.user.toShowGuilds,
+    focus: req.params.guildID,
+    logged: true,
+    option: "members",
+    data: members,
+    avatar: function avatar([a, id], d) {
+      if (a) {
+        if (a.startsWith("a_")) return `https://cdn.discordapp.com/avatars/${id}/${a}.gif?size=128`;
+        else return `https://cdn.discordapp.com/avatars/${id}/${a}.png?size=128`;
+      } else {
+        return `https://cdn.discordapp.com/embed/avatars/${d % 5}.png`;
+      }
+    }
+  });
+}); */
 
 router.get("/:guildID/levels", async (req, res) => {
   let msgDocument = await levels.findOne({ guildId: { $eq: req.params.guildID } });
@@ -110,19 +137,25 @@ router.get("/:guildID/levels", async (req, res) => {
   });
 })
 
-router.post("/:guildID/levels", async (req, res) => {
-  let msgDocument = await levels.findOne({ guildId: { $eq: req.params.guildID } });
-  if (msgDocument) {
-    await msgDocument.updateOne({ levelsystem: (req.body.system === 'true' ? true : false), levelnotif: (req.body.notif === 'true' ? true : false) })
-  } else {
-    await levels.create({
-      levelsystem: (req.body.system === 'true' ? true : false),
-      levelnotif: (req.body.notif === 'true' ? true : false),
-      guildId: req.params.guildID,
-      roles: []
-    });
+router.put("/:guildID/levels", async (req, res) => {
+  try {
+    if (typeof req.body.system !== "boolean") return res.status(400).send("Missing or invalid system parameter");
+    if (typeof req.body.notif !== "boolean") return res.status(400).send("Missing or invalid notif parameter");
+    let msgDocument = await levels.findOne({ guildId: { $eq: req.params.guildID } });
+    if (msgDocument) {
+      await msgDocument.updateOne({ levelsystem: req.body.system, levelnotif: req.body.notif })
+    } else {
+      await levels.create({
+        levelsystem: req.body.system,
+        levelnotif: req.body.notif,
+        guildId: req.params.guildID,
+        roles: []
+      });
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send(err.toString());
   }
-  res.status(200).redirect("./levels");
 });
 
 router.get("/:guildID/cp", async (req, res) => {
@@ -152,6 +185,11 @@ router.post("/:guildID/cp", async (req, res) => {
   if (!req.body.match) return res.status(400).send("Missing match parameter");
   if (!req.body.response) return res.status(400).send("Missing response parameter");
   if (!safe(req.body.match)) return res.status(400).send("Invalid or insecure match parameter");
+  if(req.body.link) {
+    if(!util.urlRegex.test(req.body.link)) {
+      return res.status(400).send("Invalid file URL!");
+    }
+  }
   let msgDocument = await cp.findOne({ guildId: { $eq: req.params.guildID } });
   if (msgDocument) {
     let { responses } = msgDocument;
@@ -176,8 +214,10 @@ router.post("/:guildID/cp", async (req, res) => {
   res.status(200).redirect("./cp");
 });
 
-router.delete("/:guildID/cp/:id", async (req, res) => {
-  let value = req.params.id;
+router.delete("/:guildID/cp", async (req, res) => {
+  if (!req.body) return res.status(400).send("Nothing send");
+  if (isNaN(req.body.id)) return res.status(400).send("Missing or invalid ID parameter")
+  let value = req.body.id;
   let msgDocument = await cp.findOne({ guildId: { $eq: req.params.guildID } });
   if (msgDocument) {
     let { responses } = msgDocument
@@ -221,19 +261,23 @@ router.get("/:guildID/prefix", async (req, res) => {
   });
 });
 
-router.post("/:guildID/prefix", async (req, res) => {
-  if (!req.body) return res.status(400).send("You haven't sent anything. Submit something and try again.");
-  if (!req.body.prefix) return res.status(400).send("Missing parameter prefix");
-  let msgDocument = await prefix.findOne({ guildId: req.params.guildID })
-  if (msgDocument) {
-    await msgDocument.updateOne({ prefix: req.body.prefix });
-  } else {
-    await prefix.create({
-      guildId: req.params.guildID,
-      prefix: req.body.prefix
-    });
+router.put("/:guildID/prefix", async (req, res) => {
+  try {
+    if (!req.body) return res.status(400).send("You haven't sent anything. Submit something and try again.");
+    if (!req.body.prefix) return res.status(400).send("Missing parameter prefix");
+    let msgDocument = await prefix.findOne({ guildId: { $eq: req.params.guildID } })
+    if (msgDocument) {
+      await msgDocument.updateOne({ prefix: req.body.prefix });
+    } else {
+      await prefix.create({
+        guildId: req.params.guildID,
+        prefix: req.body.prefix
+      });
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send(err.toString());
   }
-  res.status(200).redirect("./prefix");
 });
 
 module.exports = router;

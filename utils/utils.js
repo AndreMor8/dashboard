@@ -51,7 +51,7 @@ module.exports = {
         Authorization: `Bearer ${acc}`
       }
     });
-    return await res.json();
+    return res.json();
   },
   getMember: async function(guildID, userID) {
     const res = await fetch(`${api}/guilds/${guildID}/members/${userID}`, {
@@ -60,7 +60,7 @@ module.exports = {
         Authorization: `Bot ${process.env.DISCORD_TOKEN}`
       }
     });
-    return await res.json();
+    return res.json();
   },
   getGuildRoles: async function (guildID) {
     const res = await fetch(`${api}/guilds/${guildID}/roles`, {
@@ -69,7 +69,7 @@ module.exports = {
         Authorization: `Bot ${process.env.DISCORD_TOKEN}`
       }
     });
-    return await res.json();
+    return res.json();
   },
   getMemberRoles: async function(guildID, memberID) {
     const member = await this.getMember(guildID, memberID);
@@ -85,7 +85,16 @@ module.exports = {
         Authorization: `Bot ${process.env.DISCORD_TOKEN}`
       }
     })
-    return await res.json();
+    return res.json();
+  },
+  getGuildMembers: async function(guildID, limit = 1, after = 0) {
+    const res = await fetch(`${api}/guilds/${guildID}/members?limit=${limit}&after=${after}`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bot ${process.env.DISCORD_TOKEN}`
+      }
+    });
+    return res.json();
   },
   createMessage: async function(channelID, content) {
     const res = await fetch(`${api}/channels/${channelID}/messages`, {
@@ -96,7 +105,7 @@ module.exports = {
       },
       body: JSON.stringify(content)
     });
-    return await res.json();
+    return res.json();
   },
   encrypt: function(token) {
     return CryptoJS.AES.encrypt(token, process.env.VERYS)
@@ -109,5 +118,6 @@ module.exports = {
       if(User.avatar.startsWith("a_")) return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.gif?size=4096`
       else return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`
     } else return `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`
-  }
+  },
+  urlRegex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm
 };

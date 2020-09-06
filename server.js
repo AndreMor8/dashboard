@@ -67,6 +67,21 @@ const csrf = require('csurf');
       return res.status(500).send("Something happened: " + err);
     } else next();
   });
+  app.use("*", function(req, res) {
+    if(req.user) {
+      res.status(404).render("404", {
+        username: req.user.username,
+        csrfToken: req.csrfToken(),
+        logged: true
+    })
+    } else {
+      res.status(404).render("404", {
+        username: "stranger",
+        csrfToken: req.csrfToken(),
+        logged: false 
+    })
+    }
+  });
   // listen for requests :)
   const listener = app.listen(process.env.PORT, () => {
     console.log("Your app is listening on port " + listener.address().port);

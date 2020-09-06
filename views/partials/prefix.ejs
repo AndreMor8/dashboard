@@ -1,7 +1,49 @@
-<form action="/dashboard/<%= focus %>/prefix" method="post">
+<form id="serverprefix">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <h2 class="subtitle" style="text-align: left">Bot prefix</h2>
-  <input class="input" type="text" name="prefix" value="<%= data.prefix %>" required>
+  <input id="prefix" class="input" type="text" name="prefix" value="<%= data.prefix %>" required>
   <br><br>
-  <input class="button" style="float: left" type="submit" value="Save">
+  <span id="prefix-span" style="padding: 3px; margin-top: 10px; font-size: 20px; display: none;"></span>
+  <br>
+  <input id="prefixsubmit" class="button" style="float: left" type="submit" value="Save">
 </form>
+<script>
+document.getElementById("serverprefix").addEventListener("submit", function(e) {
+  const tomodify = document.getElementById("prefix-span");
+  const submit = document.getElementById("prefixsubmit");
+  submit.style.display = "none";
+  tomodify.innerHTML = "Please wait...<br>";
+  tomodify.style.backgroundColor = "#19c9ff";
+  tomodify.style.display = "block";
+  const newPrefix = this.elements["prefix"].value;
+  fetch("./prefix", {
+    method: "PUT",
+    headers: {
+      "CSRF-Token": "<%= csrfToken %>",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      prefix: newPrefix
+    }),
+  }).then(r => {
+    if(r.ok) {
+      tomodify.innerHTML = "Prefix saved correctly<br>";
+      tomodify.style.backgroundColor = "#09db02";
+      submit.style.display = "block";
+    } else {
+      r.text().then(e => {
+        tomodify.style.color = "#FFF";
+        tomodify.innerHTML = "Something happened: " + e + "<br>";
+        tomodify.style.backgroundColor = "#be0000";
+        submit.style.display = "block";
+      })
+    }
+  }).catch(err => {
+    tomodify.style.color = "#FFF";
+    tomodify.innerHTML = "Something happened: "+ err.toString() +"<br>";
+    tomodify.style.backgroundColor = "#be0000";
+    submit.style.display = "block";
+  })
+  e.preventDefault();
+});
+</script>
