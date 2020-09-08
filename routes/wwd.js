@@ -37,7 +37,7 @@ function isWWDAdmin(req, res, next) {
 function isWWDVerified(req, res, next) {
   const guild = req.user.guilds.find(e => e.id === "402555684849451028")
   const permissions = utils.getPermissions(guild.permissions);
-  if (!permissions.get("ATTACH_FILES")) return res.status(403).send("You must be an administrator of Wow Wow Discord to view this page.")
+  if (!permissions.get("ATTACH_FILES")) return res.status(403).send("You must be a verified user of Wow Wow Discord to view this page.")
   next();
 }
 
