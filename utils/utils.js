@@ -11,33 +11,36 @@ module.exports = {
     }
     return permissionMap;
   },
-  getGuilds: async function(guilds) {
-    if(!Array.isArray(guilds)) {
-      console.error(guilds)
-      throw new Error(guilds)
+  getGuilds: function(botGuilds, userGuilds) {
+    if(!Array.isArray(botGuilds)) {
+      console.error(botGuilds)
+      throw new Error('"botGuilds" is not an Array');
+    };
+    if(!Array.isArray(userGuilds)) {
+      console.error(userGuilds);
+      throw new Error('"userGuilds" is not an Array');
     };
     const guildMemberPermissions = new Map();
-    const ext = await (await fetch(`${api}/users/@me/guilds`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bot ${process.env.DISCORD_TOKEN}`
-      }
-    })).json();
-    if(!Array.isArray(ext)) {
-      console.log(ext);
-      throw new Error(ext)
-    }
-    guilds.forEach(guild => {
+    userGuilds.forEach(guild => {
       const perm = this.getPermissions(guild.permissions);
       guildMemberPermissions.set(guild.id, perm);
     });
-    const toshow = guilds.filter(e => {
-      if (!ext.map(r => r.id).includes(e.id)) return;
+    const toshow = userGuilds.filter(e => {
+      if (!botGuilds.map(r => r.id).includes(e.id)) return;
       const p = guildMemberPermissions.get(e.id);
       if (p && p.get("ADMINISTRATOR")) return true;
       else return false;
     });
     return toshow;
+  },
+  getBotGuilds: async function () {
+    const res = await fetch(`${api}/users/@me/guilds`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_TOKEN}`
+      }
+    });
+    return res.json();
   },
   getUserGuilds: async function (discordId) {
     const algo = await OAuth2.findOne({ discordId });
@@ -104,6 +107,15 @@ module.exports = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(content)
+    });
+    return res.json();
+  },
+  getGuildChannels: async function(guildID) {
+    const res = await fetch(`${api}/guilds/${guildID}/channels`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_TOKEN}`
+      }
     });
     return res.json();
   },

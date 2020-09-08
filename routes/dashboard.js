@@ -2,6 +2,7 @@ const router = require("express").Router();
 const cp = require("../models/customresponses.js");
 const prefix = require("../models/prefix.js");
 const levels = require("../models/levelconfig.js");
+const welcome = require("../models/welcome.js");
 const util = require("../utils/utils");
 const fetch = require("node-fetch");
 const safe = require("safe-regex");
@@ -16,9 +17,11 @@ router.use(function (req, res, next) {
 router.use(async function (req, res, next) {
   try {
     const guilds = await util.getUserGuilds(req.user.discordId);
-    await new Promise(s => setTimeout(s, 200));
     req.user.guilds = guilds;
-    const toshow = await util.getGuilds(guilds);
+    await new Promise(s => setTimeout(s, 200));
+    const bot_thing = await util.getBotGuilds(guilds);
+    req.botGuilds = bot_thing;
+    const toshow = util.getGuilds(bot_thing, guilds);
     req.user.toShowGuilds = toshow;
     next();
   } catch (err) {
@@ -185,8 +188,8 @@ router.post("/:guildID/cp", async (req, res) => {
   if (!req.body.match) return res.status(400).send("Missing match parameter");
   if (!req.body.response) return res.status(400).send("Missing response parameter");
   if (!safe(req.body.match)) return res.status(400).send("Invalid or insecure match parameter");
-  if(req.body.link) {
-    if(!util.urlRegex.test(req.body.link)) {
+  if (req.body.link) {
+    if (!util.urlRegex.test(req.body.link)) {
       return res.status(400).send("Invalid file URL!");
     }
   }
@@ -277,6 +280,90 @@ router.put("/:guildID/prefix", async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.toString());
+  }
+});
+
+router.get("/:guildID/welcome", async (req, res) => {
+  const msgDocument = await welcome.findOne({ guildID: { $eq: req.params.guildID } });
+  if (!msgDocument) {
+    msgDocument = {
+      guildID: req.params.guildID,
+      enabled: false,
+      text: "Welcome to the server, %MEMBER%",
+      channelID: null,
+      dmenabled: false,
+      dmtext: "Welcome to the server, %MEMBER%",
+      leaveenabled: false,
+      leavechannelID: null,
+      leavetext: "We're sorry to see you leaving, %MEMBER%"
+    }
+  }
+  const channels = await util.getGuildChannels(req.params.guildID);
+  if (!Array.isArray(channels)) {
+    console.error(channels);
+    return res.status(500).send("Something happened! " + channels.message);
+  }
+  const textChannels = channels.filter(e => [0, 5].includes(e.type));
+  res.status(200).render("dashboard1", {
+    username: req.user.username,
+    csrfToken: req.csrfToken(),
+    avatar: req.user.avatar,
+    discordId: req.user.discordId,
+    guilds: req.user.guilds,
+    toshow: req.user.toShowGuilds,
+    focus: req.params.guildID,
+    logged: true,
+    option: "welcome",
+    data: msgDocument,
+    textChannels
+  });
+});
+
+router.put("/:guildID/welcome", async (req, res) => {
+  if (typeof req.body.enabled !== "boolean") return res.sendStatus(400);
+  if (!req.body.text) return res.sendStatus(400);
+  if (!req.body.channelID) return res.sendStatus(400);
+  if (typeof req.body.dmenabled !== "boolean") return res.sendStatus(400);
+  if (!req.body.dmtext) return res.sendStatus(400);
+  if (typeof req.body.leaveenabled !== "boolean") return res.sendStatus(400);
+  if (!req.body.leavetext) return res.sendStatus(400);
+  if (!req.body.leavechannelID) return res.sendStatus(400);
+  try {
+    const channels = await util.getGuildChannels(req.params.guildID);
+    if (!Array.isArray(channels)) {
+      console.error(channels);
+      return res.status(500).send("Something happened! " + channels.message);
+    }
+    const textChannels = channels.filter(e => [0, 5].includes(e.type));
+    if(!textChannels.find(e => e.id === req.body.channelID)) return res.status(400).send("Invalid channel in 'channelID' parameter");
+    if(!textChannels.find(e => e.id === req.body.leavechannelID)) return res.status(400).send("Invalid channel in 'leavechannelID' parameter");
+    const msgDocument = await welcome.findOne({ guildID: { $eq: req.params.guildID } });
+    if (msgDocument) {
+      await msgDocument.updateOne({
+        enabled: req.body.enabled,
+        text: req.body.text,
+        channelID: req.body.channelID,
+        dmenabled: req.body.dmenabled,
+        dmtext: req.body.dmtext,
+        leaveenabled: req.body.leaveenabled,
+        leavetext: req.body.leavetext,
+        leavechannelID: req.body.leavechannelID
+      });
+    } else {
+      await welcome.create({
+        enabled: req.body.enabled,
+        text: req.body.text,
+        channelID: req.body.channelID,
+        dmenabled: req.body.dmenabled,
+        dmtext: req.body.dmtext,
+        leaveenabled: req.body.leaveenabled,
+        leavetext: req.body.leavetext,
+        leavechannelID: req.body.leavechannelID
+      });
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send("Something happened! " + err.toString());
   }
 });
 
