@@ -13,12 +13,15 @@
     <br>
     <br>
     <label class="subtitle" style="float: left;" for="welcomechannel">Welcome channel</label>
-    <select id="welcomechannel" name="welcomechannel">
-        <% textChannels.forEach(channel => { %>
-        <option value="<%= channel.id %>" <% if(channel.id === data.channelID) { %> selected <% } %>><%= channel.name %>
-        </option>
-        <% }); %>
-    </select>
+    <div class="select is-medium">
+        <select id="welcomechannel" name="welcomechannel">
+            <% textChannels.forEach(channel => { %>
+            <option value="<%= channel.id %>" <% if(channel.id === data.channelID) { %> selected <% } %>>
+                <%= channel.name %>
+            </option>
+            <% }); %>
+        </select>
+    </div>
     <br>
     <br>
     <h2 class="subtitle" style="text-align: left">DM welcome message</h2>
@@ -45,12 +48,14 @@
     <textarea class="textarea" type="text" name="leavetext" required><%= data.leavetext %></textarea>
     <br><br>
     <label class="subtitle" style="float: left" for="leavechannel">Goodbye channel</label>
-    <select id="leavechannel" name="leavechannel">
-        <% textChannels.forEach(channel => { %>
-        <option value="<%= channel.id %>" <% if(channel.id === data.leavechannelID) { %> selected <% } %>>
-            <%= channel.name %></option>
-        <% }); %>
-    </select>
+    <div class="select is-medium">
+        <select id="leavechannel" name="leavechannel">
+            <% textChannels.forEach(channel => { %>
+            <option value="<%= channel.id %>" <% if(channel.id === data.leavechannelID) { %> selected <% } %>>
+                <%= channel.name %></option>
+            <% }); %>
+        </select>
+    </div>
     <br>
     <br>
     <span id="WS-Span" style="padding: 3px; margin-top: 10px; font-size: 20px; display: none;"></span>
