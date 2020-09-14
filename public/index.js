@@ -1,3 +1,4 @@
+const arr = document.URL.substring(8).split("/");
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll(".navbar-burger"), 0);
@@ -15,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-  const arr = document.URL.substring(8).split("/");
   if (arr[1] === "dashboard" && arr[3]) {
     for (const element of Object.values(document.getElementsByTagName("li"))) {
       const { children } = element;
@@ -27,10 +27,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
+  if(arr[1] === "wwd" && document.body.hasAttribute("class")) {
+    document.getElementById("darkmode").remove()
+    const head = document.getElementsByTagName('head')[0];
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/wwd.css';
+    head.appendChild(link);
+  }
 });
 
 function display(click = false) {
-  if(!click) {
+  if (!click) {
     document.getElementById("toappear").style.display = "block";
     document.getElementById("tomodify").setAttribute("onclick", "display(true)")
     document.getElementById("tomodify").children.item(0).innerHTML = "Close";

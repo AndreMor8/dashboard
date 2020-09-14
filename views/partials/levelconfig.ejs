@@ -23,7 +23,7 @@
       config
     </p>
   </div><br>
-  <span id="LS-Span" style="padding: 3px; margin-top: 10px; font-size: 20px; display: none;"></span>
+  <span id="LS-Span" style="padding: 3px; margin-top: 10px; font-size: 20px; display: none"></span>
   <br>
   <button type="submit" id="LS-Submit" class="button" style="float: left;">Save</button>
 </form>
@@ -34,7 +34,6 @@
     const toedit = document.getElementById("LS-Span");
     toedit.innerHTML = "Please wait...<br>";
     toedit.style.backgroundColor = "#19c9ff";
-    toedit.style.color = "#000";
     toedit.style.display = "block";
     const levelsystem = (this.elements["system"].value == "true") ? true : false;
     const levelnotif = (this.elements["notif"].value == "true") ? true : false;

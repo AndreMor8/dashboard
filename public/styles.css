@@ -1,12 +1,12 @@
-html {
-  background: none;
-}
-
 .my-button-common {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.select select {
+  background-color: rgb(7, 7, 7);
 }
 
 .my-button {
@@ -32,7 +32,7 @@ html {
 }
 
 .background1 {
-  background-image: url("https://cdn.glitch.com/37ff47f3-383f-47ea-98be-cf24f46a9763%2FC199993F-3451-4BE3-9CD8-DC59E3F30008.jpg?v=1593058072433");
+  background-image: url("https://vignette.wikia.nocookie.net/wubbzy/images/8/89/C199993F-3451-4BE3-9CD8-DC59E3F30008.jpeg/revision/latest?cb=20200327143747&format=original");
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
@@ -49,4 +49,8 @@ html {
   padding: 8px;
   border-radius: 2em;
   background-color: #F5F6CE;
+}
+
+#prefix-span, #WS-Span, #LS-Span, #spanthing {
+  color: #000 !important;
 }
