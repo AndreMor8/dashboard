@@ -6,22 +6,6 @@ const welcome = require("../models/welcome.js");
 const util = require("../utils/utils");
 const fetch = require("node-fetch");
 const safe = require("safe-regex");
-function antixss(string = "") {
-  string = string.replace('&', '&amp;');
-  string = string.replace('<', '&lt;');
-  string = string.replace('>', '&gt;');
-  string = string.replace('/', '&#x2F');
-  string = string.replace('"', '&quot;');
-  string = string.replace("'", '&#x27;');
-  return string;
-}
-function antixsslinks(string = "") {
-  string = string.replace('<', '&lt;');
-  string = string.replace('>', '&gt;');
-  string = string.replace('"', '&quot;');
-  string = string.replace("'", '&#x27;');
-  return string;
-}
 router.use(function (req, res, next) {
   if (req.user) {
     next();

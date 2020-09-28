@@ -8,6 +8,22 @@ const db = require("./database.js");
 const express = require("express");
 const passport = require("passport");
 const csrf = require('csurf');
+global.antixss = function(string = "") {
+  string = string.replace('&', '&amp;');
+  string = string.replace('<', '&lt;');
+  string = string.replace('>', '&gt;');
+  string = string.replace('/', '&#x2F');
+  string = string.replace('"', '&quot;');
+  string = string.replace("'", '&#x27;');
+  return string;
+}
+global.antixsslinks = function(string = "") {
+  string = string.replace('<', '&lt;');
+  string = string.replace('>', '&gt;');
+  string = string.replace('"', '&quot;');
+  string = string.replace("'", '&#x27;');
+  return string;
+}
 (async () => {
   await db.then(() => console.log("Connected to the database"));
   const app = express();
@@ -43,13 +59,17 @@ const csrf = require('csurf');
         username: req.user.username,
         csrfToken: req.csrfToken(),
         avatar: req.user.avatar,
-        logged: true
+        logged: true,
+        antixss,
+        antixsslinks
       });
     } else {
       res.render("home", {
         username: "stranger",
         csrfToken: req.csrfToken(),
-        logged: false
+        logged: false,
+        antixss,
+        antixsslinks
       });
     }
   });
@@ -64,7 +84,7 @@ const csrf = require('csurf');
 
     if (err) {
       console.log(err);
-      return res.status(500).send("Something happened: " + err);
+      return res.status(500).send("Something happened: " + antixss(err));
     } else next();
   });
   app.use("*", function(req, res) {
@@ -72,13 +92,17 @@ const csrf = require('csurf');
       res.status(404).render("404", {
         username: req.user.username,
         csrfToken: req.csrfToken(),
-        logged: true
+        logged: true,
+        antixss,
+        antixsslinks
     })
     } else {
       res.status(404).render("404", {
         username: "stranger",
         csrfToken: req.csrfToken(),
-        logged: false 
+        logged: false,
+        antixss,
+        antixsslinks
     })
     }
   });
