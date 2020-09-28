@@ -15,17 +15,17 @@
           <% } else { %>
           <strong>
             <% if(authors.get(card.userID)) { %>
-            <%= authors.get(card.userID).username + " (" + card.userID + ")" %>
+            <%= antixss(authors.get(card.userID).username) + " (" + card.userID + ")" %>
             <% } %>
           </strong>
           <% } %>
           <small>To: Wubbzy</small>
           <br>
-          <%= card.card %>
+          <%= antixss(card.card) %>
         </p>
         <% if(card.additional) { %>
         <strong>Additional</strong><br>
-        <%= card.additional %>
+        <%= antixss(card.additional) %>
         <% } %>
       </div>
       <% if(admin) { %>

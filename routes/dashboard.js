@@ -6,6 +6,22 @@ const welcome = require("../models/welcome.js");
 const util = require("../utils/utils");
 const fetch = require("node-fetch");
 const safe = require("safe-regex");
+function antixss(string = "") {
+  string = string.replace('&', '&amp;');
+  string = string.replace('<', '&lt;');
+  string = string.replace('>', '&gt;');
+  string = string.replace('/', '&#x2F');
+  string = string.replace('"', '&quot;');
+  string = string.replace("'", '&#x27;');
+  return string;
+}
+function antixsslinks(string = "") {
+  string = string.replace('<', '&lt;');
+  string = string.replace('>', '&gt;');
+  string = string.replace('"', '&quot;');
+  string = string.replace("'", '&#x27;');
+  return string;
+}
 router.use(function (req, res, next) {
   if (req.user) {
     next();
@@ -39,7 +55,9 @@ router.get("/", async (req, res) => {
     discordId: req.user.discordId,
     guilds: req.user.guilds,
     toshow: req.user.toShowGuilds,
-    logged: true
+    logged: true,
+    antixss,
+    antixsslinks
   });
 });
 
@@ -56,7 +74,9 @@ router.get("/guilds", async (req, res) => {
     discordId: req.user.discordId,
     guilds: req.user.guilds,
     permissions: guildMemberPermissions,
-    logged: true
+    logged: true,
+    antixss,
+    antixsslinks
   });
 });
 
@@ -86,7 +106,9 @@ router.get("/:guildID", async (req, res) => {
     toshow: req.user.toShowGuilds,
     focus: req.params.guildID,
     logged: true,
-    option: false
+    option: false,
+    antixss,
+    antixsslinks
   });
 });
 /*
@@ -136,7 +158,9 @@ router.get("/:guildID/levels", async (req, res) => {
     focus: req.params.guildID,
     logged: true,
     option: "levels",
-    data: msgDocument
+    data: msgDocument,
+    antixss,
+    antixsslinks
   });
 })
 
@@ -179,7 +203,9 @@ router.get("/:guildID/cp", async (req, res) => {
     focus: req.params.guildID,
     logged: true,
     option: "cp",
-    data: msgDocument
+    data: msgDocument,
+    antixss,
+    antixsslinks
   });
 });
 
@@ -260,7 +286,9 @@ router.get("/:guildID/prefix", async (req, res) => {
     focus: req.params.guildID,
     logged: true,
     option: "prefix",
-    data: msgDocument
+    data: msgDocument,
+    antixss,
+    antixsslinks
   });
 });
 
@@ -315,7 +343,9 @@ router.get("/:guildID/welcome", async (req, res) => {
     logged: true,
     option: "welcome",
     data: msgDocument,
-    textChannels
+    textChannels,
+    antixss,
+    antixsslinks
   });
 });
 
@@ -335,8 +365,8 @@ router.put("/:guildID/welcome", async (req, res) => {
       return res.status(500).send("Something happened! " + channels.message);
     }
     const textChannels = channels.filter(e => [0, 5].includes(e.type));
-    if(!textChannels.find(e => e.id === req.body.channelID)) return res.status(400).send("Invalid channel in 'channelID' parameter");
-    if(!textChannels.find(e => e.id === req.body.leavechannelID)) return res.status(400).send("Invalid channel in 'leavechannelID' parameter");
+    if (!textChannels.find(e => e.id === req.body.channelID)) return res.status(400).send("Invalid channel in 'channelID' parameter");
+    if (!textChannels.find(e => e.id === req.body.leavechannelID)) return res.status(400).send("Invalid channel in 'leavechannelID' parameter");
     const msgDocument = await welcome.findOne({ guildID: { $eq: req.params.guildID } });
     if (msgDocument) {
       await msgDocument.updateOne({

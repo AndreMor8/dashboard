@@ -3,9 +3,9 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong><%- idea.title %></strong>  <small><%- authors.get(idea.author) %></small>  <small><%- idea.date.toDateString() %></small>
+          <strong><%- antixss(idea.title) %></strong>  <small><%- antixss(authors.get(idea.author)) %></small>  <small><%- idea.date.toDateString() %></small>
           <br>
-          <%- idea.description %>
+          <%- antixss(idea.description) %>
         </p>
       </div>
       <nav class="level is-mobile">

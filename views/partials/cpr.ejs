@@ -3,12 +3,12 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong><%- match %></strong>
+          <strong><%- antixss(match) %></strong>
           <% if(response.files[0]) { %>
-          <a href="<%= response.files[0] %>"><strong><small>File link</small></strong></a>
+          <a href="<%= antixsslinks(response.files[0]) %>"><strong><small>File link</small></strong></a>
           <% } %>
           <br>
-          <%- response.content %>
+          <%- antixss(response.content) %>
         </p>
       </div>
       <nav class="level is-mobile">

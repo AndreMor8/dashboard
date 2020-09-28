@@ -5,9 +5,9 @@
         <p>
           <strong><%- authors.get(appeal.userId) %></strong>
           <br>
-          <b>Reason: </b><%= appeal.reason %>
+          <b>Reason: </b><%= antixss(appeal.reason) %>
           <br>
-          <b>Additional information: </b><%= appeal.additional %>
+          <b>Additional information: </b><%= antixss(appeal.additional) %>
         </p>
       </div>
       <nav class="level is-mobile">

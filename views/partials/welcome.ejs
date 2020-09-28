@@ -9,7 +9,7 @@
     </div>
     <br>
     <h2 class="subtitle" style="text-align: left">Welcome text</h2>
-    <textarea class="textarea" type="text" name="welcometext" required><%= data.text %></textarea>
+    <textarea class="textarea" type="text" name="welcometext" required><%= antixss(data.text) %></textarea>
     <br>
     <br>
     <label class="subtitle" style="float: left;" for="welcomechannel">Welcome channel</label>
@@ -17,7 +17,7 @@
         <select id="welcomechannel" name="welcomechannel">
             <% textChannels.forEach(channel => { %>
             <option value="<%= channel.id %>" <% if(channel.id === data.channelID) { %> selected <% } %>>
-                <%= channel.name %>
+                <%= antixss(channel.name) %>
             </option>
             <% }); %>
         </select>
@@ -33,7 +33,7 @@
     </div>
     <br>
     <h2 class="subtitle" style="text-align: left">DM welcome text</h2>
-    <textarea class="textarea" type="text" name="dmtext" required><%= data.dmtext %></textarea>
+    <textarea class="textarea" type="text" name="dmtext" required><%= antixss(data.dmtext) %></textarea>
     <br>
     <br>
     <h2 class="subtitle" style="text-align: left">Goodbye message</h2>
@@ -45,14 +45,14 @@
     </div>
     <br>
     <h2 class="subtitle" style="text-align: left">Goodbye text</h2>
-    <textarea class="textarea" type="text" name="leavetext" required><%= data.leavetext %></textarea>
+    <textarea class="textarea" type="text" name="leavetext" required><%= antixss(data.leavetext) %></textarea>
     <br><br>
     <label class="subtitle" style="float: left" for="leavechannel">Goodbye channel</label>
     <div class="select is-medium">
         <select id="leavechannel" name="leavechannel">
             <% textChannels.forEach(channel => { %>
             <option value="<%= channel.id %>" <% if(channel.id === data.leavechannelID) { %> selected <% } %>>
-                <%= channel.name %></option>
+                <%= antixss(channel.name) %></option>
             <% }); %>
         </select>
     </div>

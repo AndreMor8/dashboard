@@ -7,7 +7,7 @@
             Appeal your ban
         </h1>
         <h2 style="margin-top: 10px; font-size: 2em">
-            Ban reason: <%= ban.reason %>
+            Ban reason: <%= antixss(ban.reason) %>
         </h2>
         <form action="/wwd/appeal" method="post">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
