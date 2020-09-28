@@ -16,14 +16,14 @@ global.antixss = function(string = "") {
   string = string.replace('"', '&quot;');
   string = string.replace("'", '&#x27;');
   return string;
-}
+};
 global.antixsslinks = function(string = "") {
   string = string.replace('<', '&lt;');
   string = string.replace('>', '&gt;');
   string = string.replace('"', '&quot;');
   string = string.replace("'", '&#x27;');
   return string;
-}
+};
 (async () => {
   await db.then(() => console.log("Connected to the database"));
   const app = express();
