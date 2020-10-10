@@ -53,26 +53,8 @@ global.antixsslinks = function(string = "") {
   app.use("/auth", require("./routes/auth"));
   app.use("/dashboard", require("./routes/dashboard"));
   app.use("/wwd", require("./routes/wwd"));
-  app.get("/", (req, res) => {
-    if (req.user) {
-      res.render("home", {
-        username: req.user.username,
-        csrfToken: req.csrfToken(),
-        avatar: req.user.avatar,
-        logged: true,
-        antixss,
-        antixsslinks
-      });
-    } else {
-      res.render("home", {
-        username: "stranger",
-        csrfToken: req.csrfToken(),
-        logged: false,
-        antixss,
-        antixsslinks
-      });
-    }
-  });
+  app.use("/", require("./routes/main"));
+  
   app.use(function (err, req, res, next) {
     if (err.code !== 'EBADCSRFTOKEN') return next(err)
 

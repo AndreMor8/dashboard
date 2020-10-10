@@ -54,3 +54,15 @@
 #prefix-span, #WS-Span, #LS-Span, #spanthing {
   color: #000 !important;
 }
+
+footer {
+  position: fixed;
+  float: inline-end;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #1f1f1f;
+  color: white;
+  text-align: center;
+  font-size: 0.88em;
+}

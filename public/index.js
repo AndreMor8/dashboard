@@ -1,3 +1,7 @@
+if(localStorage.getItem("footer")) {
+  document.getElementById("myfooter").style.display = "none";
+  document.getElementById("control-footer").innerHTML = "Open";
+}
 const arr = document.URL.substring(8).split("/");
 document.addEventListener("DOMContentLoaded", () => {
   // Get all "navbar-burger" elements
@@ -46,5 +50,20 @@ function display(click = false) {
     document.getElementById("toappear").style.display = "none";
     document.getElementById("tomodify").setAttribute("onclick", "display()")
     document.getElementById("tomodify").children.item(0).innerHTML = "Add custom response";
+  }
+}
+
+function footer() {
+  const tomodify = document.getElementById("myfooter");
+  const button = document.getElementById("control-footer");
+  const actual = localStorage.getItem("footer");
+  if(actual) {
+    localStorage.removeItem("footer");
+    button.innerHTML = "Close";
+    tomodify.style.display = "block";
+  } else {
+    localStorage.setItem("footer", "ok");
+    button.innerHTML = "Open";
+    tomodify.style.display = "none";
   }
 }
