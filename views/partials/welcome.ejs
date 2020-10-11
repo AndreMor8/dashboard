@@ -1,4 +1,4 @@
-<style>.subtitle {text-align: left;}</style>
+<style>.subtitle {text-align:left;float:left;}</style>
 <h1 class="title">Welcome system</h1>
 <form id="welcomeform">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -49,7 +49,7 @@
     <h2 class="subtitle" >Goodbye text</h2>
     <textarea class="textarea" type="text" name="leavetext" required><%= antixss(data.leavetext) %></textarea>
     <br><br>
-    <label class="subtitle" style="float: left" for="leavechannel">Goodbye channel</label>
+    <label class="subtitle" for="leavechannel">Goodbye channel</label>
     <div class="select is-medium">
         <select id="leavechannel" name="leavechannel">
             <% textChannels.forEach(channel => { %>
