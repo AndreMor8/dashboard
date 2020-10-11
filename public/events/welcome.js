@@ -17,7 +17,7 @@ document.getElementById("welcomeform").addEventListener("submit", function (e) {
     fetch("./welcome", {
         method: "PUT",
         headers: {
-            "CSRF-Token": "<%= csrfToken %>",
+            "CSRF-Token": this.elements["_csrf"].value,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({

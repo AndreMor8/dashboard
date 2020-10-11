@@ -1,4 +1,5 @@
 <form id="serverprefix">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <h2 class="subtitle" style="text-align: left">Bot prefix</h2>
   <input id="prefix" class="input" type="text" name="prefix" value="<%= data.prefix %>" required>
   <br><br>

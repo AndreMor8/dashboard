@@ -5,6 +5,7 @@
     response</button></a><br><br>
 <div id="toappear" class="myClass" style="display: none">
   <form id="cpform">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div class="field cp-field">
       <div class="control">
         <input id="match" name="match" class="input is-medium" type="text" placeholder="Match" required>

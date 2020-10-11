@@ -9,7 +9,7 @@ document.getElementById("serverprefix").addEventListener("submit", function (e) 
     fetch("./prefix", {
         method: "PUT",
         headers: {
-            "CSRF-Token": "<%= csrfToken %>",
+            "CSRF-Token": this.elements["_csrf"].value,
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
