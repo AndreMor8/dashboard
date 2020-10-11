@@ -1,6 +1,6 @@
-if(localStorage.getItem("footer")) {
-  document.getElementById("myfooter").style.display = "none";
-  document.getElementById("control-footer").innerHTML = "Open";
+if(!localStorage.getItem("footer")) {
+  document.getElementById("myfooter").style.display = "block";
+  document.getElementById("control-footer").innerHTML = "Close";
 }
 const arr = document.URL.substring(8).split("/");
 document.addEventListener("DOMContentLoaded", () => {

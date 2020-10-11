@@ -1,3 +1,6 @@
+.navbar {
+  font-size: 0.95em;
+}
 .my-button-common {
   position: absolute;
   top: 50%;
@@ -7,6 +10,10 @@
 
 .select select {
   background-color: rgb(7, 7, 7);
+}
+
+.my-custom-button {
+  font-size: 0.95em;
 }
 
 .my-button {
@@ -51,6 +58,11 @@
   background-color: #F5F6CE;
 }
 
+#myfooter {
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%
+}
+
 #prefix-span, #WS-Span, #LS-Span, #spanthing {
   color: #000 !important;
 }
@@ -65,4 +77,17 @@ footer {
   color: white;
   text-align: center;
   font-size: 0.88em;
+}
+
+.cp-field {
+  margin-top: 20px;
+  margin-left: 1.3em;
+  margin-right: 6em;
+}
+
+.form-span {
+  padding: 3px;
+  margin-top: 10px;
+  font-size: 20px;
+  display: none;
 }

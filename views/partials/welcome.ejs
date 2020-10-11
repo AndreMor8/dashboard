@@ -1,6 +1,7 @@
+<style>.subtitle {text-align: left;}</style>
 <h1 class="title">Welcome system</h1>
 <form id="welcomeform">
-    <h2 class="subtitle" style="text-align: left">Welcome message</h2>
+    <h2 class="subtitle" >Welcome message</h2>
     <div class="control">
         <input id="WM-E" type="radio" name="system" value="true" <% if(data.enabled) { %> checked <% } %>>
         <label for="WM-E" class="radio">Enabled</label>
@@ -8,11 +9,11 @@
         <label for="WM-D" class="radio">Disabled</label>
     </div>
     <br>
-    <h2 class="subtitle" style="text-align: left">Welcome text</h2>
+    <h2 class="subtitle" >Welcome text</h2>
     <textarea class="textarea" type="text" name="welcometext" required><%= antixss(data.text) %></textarea>
     <br>
     <br>
-    <label class="subtitle" style="float: left;" for="welcomechannel">Welcome channel</label>
+    <label class="subtitle" for="welcomechannel">Welcome channel</label>
     <div class="select is-medium">
         <select id="welcomechannel" name="welcomechannel">
             <% textChannels.forEach(channel => { %>
@@ -24,7 +25,7 @@
     </div>
     <br>
     <br>
-    <h2 class="subtitle" style="text-align: left">DM welcome message</h2>
+    <h2 class="subtitle" >DM welcome message</h2>
     <div class="control">
         <input id="DM-E" type="radio" name="dmsystem" value="true" <% if(data.dmenabled) { %> checked <% } %>>
         <label for="DM-E" class="radio">Enabled</label>
@@ -32,11 +33,11 @@
         <label for="DM-D" class="radio">Disabled</label>
     </div>
     <br>
-    <h2 class="subtitle" style="text-align: left">DM welcome text</h2>
+    <h2 class="subtitle" >DM welcome text</h2>
     <textarea class="textarea" type="text" name="dmtext" required><%= antixss(data.dmtext) %></textarea>
     <br>
     <br>
-    <h2 class="subtitle" style="text-align: left">Goodbye message</h2>
+    <h2 class="subtitle" >Goodbye message</h2>
     <div class="control">
         <input id="LM-E" type="radio" name="leavesystem" value="true" <% if(data.leaveenabled) { %> checked <% } %>>
         <label for="LM-E" class="radio">Enabled</label>
@@ -44,7 +45,7 @@
         <label for="LM-D" class="radio">Disabled</label>
     </div>
     <br>
-    <h2 class="subtitle" style="text-align: left">Goodbye text</h2>
+    <h2 class="subtitle" >Goodbye text</h2>
     <textarea class="textarea" type="text" name="leavetext" required><%= antixss(data.leavetext) %></textarea>
     <br><br>
     <label class="subtitle" style="float: left" for="leavechannel">Goodbye channel</label>
@@ -58,61 +59,8 @@
     </div>
     <br>
     <br>
-    <span id="WS-Span" style="padding: 3px; margin-top: 10px; font-size: 20px; display: none;"></span>
+    <span id="WS-Span" class="form-span"></span>
     <br>
     <button type="submit" id="WS-Submit" class="button" style="float: left;">Save</button>
 </form>
-<script>
-    document.getElementById("welcomeform").addEventListener("submit", function (e) {
-        const submit = document.getElementById("WS-Submit");
-        submit.style.display = "none";
-        const toedit = document.getElementById("WS-Span");
-        const enabled = this.elements["system"].value === "true" ? true : false;
-        const text = this.elements["welcometext"].value;
-        const channelID = this.elements["welcomechannel"].value;
-        const dmenabled = this.elements["dmsystem"].value === "true" ? true : false;
-        const dmtext = this.elements["dmtext"].value;
-        const leaveenabled = this.elements["leavesystem"].value === "true" ? true : false;
-        const leavetext = this.elements["leavetext"].value;
-        const leavechannelID = this.elements["leavechannel"].value;
-        toedit.innerHTML = "Please wait...<br>";
-        toedit.style.backgroundColor = "#19c9ff";
-        toedit.style.color = "#000";
-        toedit.style.display = "block";
-        fetch("./welcome", {
-            method: "PUT",
-            headers: {
-                "CSRF-Token": "<%= csrfToken %>",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                enabled,
-                text,
-                channelID,
-                dmenabled,
-                dmtext,
-                leaveenabled,
-                leavetext,
-                leavechannelID
-            })
-        }).then(e => {
-            if (e.ok) {
-                toedit.style.backgroundColor = "#09db02";
-                toedit.innerHTML = "Changes successfully saved<br>";
-            } else {
-                e.text().then(r => {
-                    toedit.style.backgroundColor = "#be0000";
-                    toedit.style.color = "#FFF";
-                    toedit.innerHTML = "Something happened: " + r + "<br>";
-                });
-            }
-        }).catch(err => {
-            toedit.style.backgroundColor = "#be0000";
-            toedit.style.color = "#FFF";
-            toedit.innerHTML = "Something happened: " + err.toString() + "<br>";
-        }).finally(() => {
-            submit.style.display = "block";
-        });
-        e.preventDefault()
-    });
-</script>
+<script src="/events/welcome.js"></script>
