@@ -1,3 +1,4 @@
+const csrfToken = document.getElementById("cpform").elements["_csrf"].value;
 document.getElementById("cpform").addEventListener("submit", function (e) {
   const match = this.elements["match"].value;
   const response = this.elements["response"].value;
@@ -12,7 +13,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
   fetch("./cp", {
     "method": "POST",
     "headers": {
-      "CSRF-Token": this.elements["_csrf"].value,
+      "CSRF-Token": csrfToken,
       "Content-Type": "application/json"
     },
     "body": JSON.stringify({
@@ -46,7 +47,7 @@ function cpdelete(index) {
   fetch("./cp", {
     method: "DELETE",
     headers: {
-      "CSRF-Token": "<%= csrfToken %>",
+      "CSRF-Token": csrfToken,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
