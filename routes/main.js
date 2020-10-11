@@ -24,6 +24,7 @@ router.get("/thanks", (req, res) => {
 });
 
 router.get("/andremor", async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     const response = await utils.getUser("577000793094488085");
     if(!response.message) return res.status(200).send(`${response.username}#${response.discriminator}`);
     else return res.status(500).send("AndreMor");
