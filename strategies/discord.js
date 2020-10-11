@@ -30,7 +30,7 @@ passport.use(new DS({
     const findCredentials = await OAuth2.findOneAndUpdate({ discordId: p.id }, {
       accessToken: eat,
       refreshToken: ert,
-    })
+    });
     if (user) {
       if (!findCredentials) {
         await OAuth2.create({
