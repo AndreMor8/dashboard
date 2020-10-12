@@ -91,3 +91,9 @@ footer {
   font-size: 20px;
   display: none;
 }
+
+.bot-no-guild {
+  border-color: red;
+  border-radius: inherit;
+  border-style: dotted;
+}

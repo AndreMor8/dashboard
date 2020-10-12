@@ -1,24 +1,52 @@
-<a href="/dashboard/<%= guild.id %>">
-<div class="box">
-  <article class="media">
-    <div class="media-left">
-      <figure class="image is-64x64">
-        <% if(guild.icon) { %>
-        <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="Image">
-        <% } else { %>
-        <img src="https://glitch.com/edit/images/logos/glitch/logo-day.svg" alt="Image">
-        <% } %>
-      </figure>
-    </div>
-    <div class="media-content">
-      <div class="columns is-gapless">
-        <div class="content column">
-          <p>
-            <strong><%= antixss(guild.name) %></strong> <small><%= antixss(guild.id) %></small>
-          </p>
+<% if(toshow.find(e => guild.id === e.id)) { %>
+  <a href="/dashboard/<%= guild.id %>">
+    <div class="box bot-guild">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <% if(guild.icon) { %>
+            <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="Image">
+            <% } else { %>
+            <img src="https://glitch.com/edit/images/logos/glitch/logo-day.svg" alt="Image">
+            <% } %>
+          </figure>
         </div>
-      </div>
+        <div class="media-content">
+          <div class="columns is-gapless">
+            <div class="content column">
+              <p>
+                <strong><%= antixss(guild.name) %></strong><br><small><%= antixss(guild.id) %></small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
     </div>
-  </article>
-</div>
-</a>
+    </a>
+<% } else { %>
+  <a href="https://discord.com/api/oauth2/authorize?client_id=694306281736896573&scope=bot&permissions=0&guild_id=<%= guild.id %>&disable_guild_select=true">
+    <div class="box bot-no-guild">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <% if(guild.icon) { %>
+            <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="Image">
+            <% } else { %>
+            <img src="https://glitch.com/edit/images/logos/glitch/logo-day.svg" alt="Image">
+            <% } %>
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="columns is-gapless">
+            <div class="content column">
+              <p>
+                <strong><%= antixss(guild.name) %></strong><br><small><%= antixss(guild.id) %></small>
+                <br>Click to invite Gidget to this server
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    </a>
+  <% } %>

@@ -31,12 +31,14 @@ router.use(async function (req, res, next) {
 
 
 router.get("/", async (req, res) => {
+  const adminguilds = req.user.guilds.filter(e => util.getPermissions(e.permissions).get("ADMINISTRATOR"));
   res.status(200).render("dashboard0", {
     username: req.user.username,
     csrfToken: req.csrfToken(),
     avatar: req.user.avatar,
     discordId: req.user.discordId,
     guilds: req.user.guilds,
+    adminguilds,
     toshow: req.user.toShowGuilds,
     logged: true,
     antixss,
