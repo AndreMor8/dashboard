@@ -97,3 +97,9 @@ footer {
   border-radius: inherit;
   border-style: dotted;
 }
+
+.box-guild {
+  display: inline-block;
+  width: 18em;
+  padding: 0.5em;
+}
