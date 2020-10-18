@@ -1,7 +1,13 @@
 <%- include('partials/header') -%>
 <body>
 <%- include('partials/nav') -%>
-<h1 style="display: none;">Gidget's dashboard</h1>
+<center>
+  <br>
+<h1 class="title">Welcome to Gidget's website</h1>
+<a href="https://top.gg/bot/694306281736896573">
+  <img src="https://top.gg/api/widget/694306281736896573.svg" alt="Gidget" />
+</a>
+<br><br>
   <% if(logged) { %>
 <div class="my-button">
   <a href="/dashboard/guilds">
@@ -21,4 +27,5 @@
   </div>
 </div>
 <% } %>
+</center>
 <%- include('partials/footer') -%>

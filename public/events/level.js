@@ -7,7 +7,7 @@ document.getElementById("levelconfig").addEventListener("submit", function (e) {
     toedit.style.display = "block";
     const levelsystem = (this.elements["system"].value == "true") ? true : false;
     const levelnotif = (this.elements["notif"].value == "true") ? true : false;
-    fetch("./levels", {
+    fetch(document.URL, {
         method: "PUT",
         headers: {
             "CSRF-Token": this.elements["_csrf"].value,

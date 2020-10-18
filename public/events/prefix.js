@@ -6,7 +6,7 @@ document.getElementById("serverprefix").addEventListener("submit", function (e) 
     tomodify.style.backgroundColor = "#19c9ff";
     tomodify.style.display = "block";
     const newPrefix = this.elements["prefix"].value;
-    fetch("./prefix", {
+    fetch(document.URL, {
         method: "PUT",
         headers: {
             "CSRF-Token": this.elements["_csrf"].value,

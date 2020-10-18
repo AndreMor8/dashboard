@@ -14,7 +14,7 @@ document.getElementById("welcomeform").addEventListener("submit", function (e) {
     toedit.style.backgroundColor = "#19c9ff";
     toedit.style.color = "#000";
     toedit.style.display = "block";
-    fetch("./welcome", {
+    fetch(document.URL, {
         method: "PUT",
         headers: {
             "CSRF-Token": this.elements["_csrf"].value,

@@ -12,19 +12,49 @@
   </div>
   <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
-      <% if(logged) { %>
-      <a href="/dashboard" class="navbar-item">
-        Dashboard
-      </a>
-      <% } %>
-      <a href="/thanks" class="navbar-item">
-        Acknowledgments
-      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Bot service
+        </a>
+        <div class="navbar-dropdown">
+          <% if(logged) { %>
+            <a href="/dashboard" class="navbar-item">
+              Dashboard
+            </a>
+            <a href="/feedback" class="navbar-item">
+              Feedback
+            </a>
+            <% } %>
+          <a href="/pending-comments" class="navbar-item">
+            Pending comments
+          </a>
+          <hr class="navbar-divider">
+            <a href="/thanks" class="navbar-item">
+              Acknowledgments
+            </a>
+            <a href="https://top.gg/bot/694306281736896573" class="navbar-item" target="_blank">
+              top.gg page
+            </a>
+            <a href="https://portalmybot.com/mybotlist/bot/694306281736896573" class="navbar-item" target="_blank">
+              MyBOT List page
+            </a>
+        </div>
+      </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Repositories
+          </a>
+          <div class="navbar-dropdown">
+            <a href="https://github.com/AndreMor955/gidget" class="navbar-item" target="_blank">
+              Discord bot
+            </a>
+            <a href="https://github.com/AndreMor955/dashboard" class="navbar-item" target="_blank">
+              This dashboard
+            </a>
+          </div>
+        </div>
       <a href="/wwd" class="navbar-item">
         Wow Wow Discord
-      </a>
-      <a href="https://github.com/AndreMor955/gidget" class="navbar-item" target="_blank">
-        GitHub repository
       </a>
     </div>
       <div class="navbar-end">

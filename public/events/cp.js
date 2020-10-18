@@ -10,7 +10,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
   toedit.style.color = "#000";
   toedit.style.display = "block";
   submit.style.display = "none";
-  fetch("./cp", {
+  fetch(document.URL, {
     "method": "POST",
     "headers": {
       "CSRF-Token": csrfToken,
