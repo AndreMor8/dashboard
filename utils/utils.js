@@ -213,7 +213,7 @@ module.exports = {
     if (!isNaN(retrys) && !isNaN(retryafter)) {
       if (parseInt(retrys) < 1) await new Promise(s => setTimeout(s, (Math.floor(parseInt(retryafter) * 1000) + 0.5)));
     }
-    return res.json();
+    return await res.json();
   },
   getGuildChannels: async function (guildID) {
     const res = await fetch(`${api}/guilds/${guildID}/channels`, {
@@ -245,6 +245,27 @@ module.exports = {
       if (User.avatar.startsWith("a_")) return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.gif?size=4096`
       else return `https://cdn.discordapp.com/avatars/${User.discordId}/${User.avatar}.png?size=4096`
     } else return `https://cdn.discordapp.com/embed/avatars/${User.username.split("#")[1] % 5}.png`
+  },
+  createDM: async function (recipient_id) {
+    const res = await fetch(`${api}/users/@me/channels`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ recipient_id })
+    });
+    if (res.status === 429) {
+      const json = await res.json();
+      await new Promise(s => setTimeout(s, (Math.floor(parseInt(json.retry_after)))));
+      return this.createDM(recipient_id);
+    }
+    const retrys = res.headers.get("X-RateLimit-Remaining");
+    const retryafter = res.headers.get("X-RateLimit-Reset-After");
+    if (!isNaN(retrys) && !isNaN(retryafter)) {
+      if (parseInt(retrys) < 1) await new Promise(s => setTimeout(s, (Math.floor(parseInt(retryafter) * 1000) + 0.5)));
+    }
+    return res.json();
   },
   urlRegex: /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/gm
 };

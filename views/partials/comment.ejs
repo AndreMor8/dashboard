@@ -1,0 +1,39 @@
+<div id="<%= comment._id %>" class="box <% if(comment.type === 0) { %>suggestion<% } else if(comment.type === 2) { %>report<% }%>">
+  <article class="media">
+    <% if(authors.get(comment.userID)) { %>
+    <% if(admin || !comment.anon) { %>
+    <div class="media-left">
+      <figure class="image is-64x64">
+        <img id="avatar" src="<%= authors.get(comment.userID).avatar %>" alt="Image">
+      </figure>
+    </div>
+    <% } %>
+    <% } %>
+    <div class="media-content">
+      <div class="content">
+        <% if(!admin && (comment.anon || !comment.userID)) { %>
+        <strong>Anonymous</strong>
+        <% } else { %>
+        <strong>
+          <% if(authors.get(comment.userID)) { %>
+          <%= antixss(authors.get(comment.userID).username) + " (" + comment.userID + ")" %>
+          <% } %>
+        </strong>
+        <% } %>
+        <br>
+        <p><%= antixss(comment.text) %></p>
+        <strong>ID: </strong><%= comment._id %>
+      </div>
+      <% if(admin) { %>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <a class="level-item button" aria-label="approve"
+            onclick="this.style.display = 'none';op(this, true);">It's done</a>
+          <a class="level-item button" aria-label="delete"
+            onclick="this.style.display = 'none';op(this, false);">Reject</a>
+        </div>
+      </nav>
+      <% } %>
+    </div>
+  </article>
+</div>

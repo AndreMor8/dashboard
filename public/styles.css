@@ -90,6 +90,7 @@ footer {
   margin-top: 10px;
   font-size: 20px;
   display: none;
+  color: #000;
 }
 
 .bot-no-guild {
@@ -102,4 +103,15 @@ footer {
   display: inline-block;
   width: 18em;
   padding: 0.5em;
+}
+
+.suggestion {
+  background-color: rgba(11, 102, 52, 0.685);
+  border-style: groove;
+  border-color: mediumblue;
+}
+.report {
+  background-color: rgba(88, 15, 15, 0.562);
+  border-style: groove;
+  border-color: lightsalmon;
 }

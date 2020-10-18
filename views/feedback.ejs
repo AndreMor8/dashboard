@@ -1,0 +1,43 @@
+<%- include('partials/header') -%>
+
+<body>
+    <%- include('partials/nav') -%>
+    <center>
+        <a href="/pending-comments" style="right: 0;padding-right: 1em; position: absolute;">
+            <button class="button is-success is-light">Pending comments</button>
+        </a>
+        <h1 class="title" style="margin-top: 15px; text-align: center; margin-bottom: 15px;">
+            What do you want for the bot?
+        </h1>
+        <h2 class="subtitle" style="margin-top: 10px; font-size: 0.8em">
+            Do you know JavaScript and Discord.js? <a href="https://github.com/AndreMor955/gidget"
+                target="_blank">Contribute directly ;)</a>
+        </h2>
+        <form id="fbk">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="select is-small">
+                <p style="float: left; padding-top: 0.35em; padding-right: 1.6em;">Select a comment type</p>
+                <select id="feedbacktype" name="feedbacktype" style="float: right;">
+                    <option value="0" selected>Suggestion</option>
+                    <option value="1">Normal comment</option>
+                    <option value="2">Bug/Report</option>
+                </select>
+            </div>
+            <br>
+            <div id="feedbacktext" class="field" style="margin-top: 20px; max-width: 30em">
+                <div class="control">
+                    <textarea class="textarea" name="feedbacktext" type="text"
+                        placeholder="Say your thoughts or complaints" required></textarea>
+                </div>
+            </div>
+            <label class="checkbox" style="padding: 5px; padding-bottom: 1em;">
+                <input type="checkbox" id="anon" name="anon" value=""><span style="padding: 2px">Don't show me
+                    publicly (I'll still know who you are privately)</span></input>
+            </label>
+            <br>
+            <span id="fbk-span" class="form-span" style="max-width: 50em;"></span>
+            <input id="fbk-submit" class="button" type="submit" value="Submit">
+        </form>
+    </center>
+    <script src="/events/feedback.js"></script>
+    <%- include('partials/footer') -%>
