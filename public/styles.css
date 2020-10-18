@@ -1,35 +1,14 @@
 .navbar {
   font-size: 0.95em;
 }
-.my-button-common {
+
+.my-button {
   top: 50%;
   left: 50%;
 }
 
 .select select {
   background-color: rgb(7, 7, 7);
-}
-
-.my-custom-button {
-  font-size: 0.95em;
-}
-
-.my-button {
-  position: absolute;
-  top: 43%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.my-button2 {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.custom-button {
-  width: 350px;
 }
 
 .dropdown-menu {

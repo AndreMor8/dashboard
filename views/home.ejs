@@ -10,19 +10,20 @@
 <br><br>
   <% if(logged) { %>
 <div class="my-button">
-  <a href="/dashboard/guilds">
-      <button class="button is-primary is-rounded is-large custom-button">Go to your guilds</button>
+  <a href="/dashboard/">
+      <button class="button is-primary is-rounded is-large" style="width: 350px;">Go to the dashboard</button>
     </a>
   </div>
-  <div class="my-button2">
+  <br>
+  <div class="my-button">
     <form action="/auth/logout">
-      <button class="button is-primary is-rounded is-large custom-button" type="submit">Logout</button>
+      <button class="button is-primary is-rounded is-large" style="width: 350px;" type="submit">Logout</button>
     </form>
   </div>
   <% } else { %>
-  <div class="my-button-common">
+  <div class="my-button">
 <form action="/auth">
-      <button class="button is-primary is-rounded is-large custom-button" type="submit">Login with Discord</button>
+      <button class="button is-primary is-rounded is-large" style="width: 350px;" type="submit">Login with Discord</button>
     </form>
   </div>
 </div>
