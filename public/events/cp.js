@@ -59,7 +59,7 @@ function cpdelete(thing) {
     })
   }).then(e => {
     if (e.status === "204" || e.ok) {
-      thing.remove();
+      thing.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
       const things = document.getElementById("boxes").children;
       for (let i = 0; i < things.length; i++) {
         things[i].setAttribute("id", i);
