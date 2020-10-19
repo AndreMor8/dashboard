@@ -1,8 +1,6 @@
-<h1 class="title">
-  Custom responses
-</h1>
-<a id="tomodify" onclick="display()"><button class="button is-link is-light" style="right: 0; position: absolute;">Add custom
-    response</button></a><br><br>
+<a id="tomodify" onclick="display()" style="right: 0; padding-right: 1em; position: absolute;"><button class="button is-link is-light">Add custom response</button></a>
+<h1 class="title">Custom responses</h1>
+<br><br>
 <div id="toappear" class="myClass" style="display: none">
   <form id="cpform">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -32,15 +30,16 @@
   <article class="media">
     <div class="media-content">
       <div class="content">
-          <strong>x</strong>
-          <a href=""><strong><small>File link</small></strong></a>
-          <br>
-          <p>x</p>
+        <strong>x</strong>
+        <a href=""><strong><small>File link</small></strong></a>
+        <br>
+        <p>x</p>
       </div>
       <nav class="level is-mobile">
         <div class="level-left">
           <a class="level-item" aria-label="delete">
-            <a onclick="this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)" class="button is-danger is-light">Delete</a>
+            <a onclick="this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)"
+              class="button is-danger is-light">Delete</a>
           </a>
         </div>
       </nav>
@@ -48,9 +47,9 @@
   </article>
 </div>
 <div id="boxes">
-<% if(Object.entries(data.responses)[0]) { %>
-<% Object.entries(data.responses).forEach((v, i) => { %>
-<%- include("cpr", { match: v[0], response: v[1], i }) %>
-<% })} %>
+  <% if(Object.entries(data.responses)[0]) { %>
+  <% Object.entries(data.responses).forEach((v, i) => { %>
+  <%- include("cpr", { match: v[0], response: v[1], i }) %>
+  <% })} %>
 </div>
 <script src="/events/cp.js"></script>
