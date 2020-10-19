@@ -22,7 +22,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       const algo = document.getElementById("boxes");
       const clone = document.getElementById("x").cloneNode(true);
       clone.style.display = "block";
-      clone.setAttribute(id, algo.children.length);
+      clone.setAttribute("id", algo.children.length);
       clone.children[0].children[0].children[0].getElementsByTagName("strong")[0].innerHTML = match;
       clone.children[0].children[0].children[0].getElementsByTagName("p")[0].innerHTML = response;
       if(link) clone.children[0].children[0].children[0].getElementsByTagName("a")[0].setAttribute("href", link)
