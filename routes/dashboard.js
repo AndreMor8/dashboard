@@ -207,6 +207,8 @@ router.post("/:guildID/cp", async (req, res) => {
   let msgDocument = await cp.findOne({ guildId: { $eq: req.params.guildID } });
   if (msgDocument) {
     let { responses } = msgDocument;
+    const check = Object.keys(responses).find(e => e === req.body.match);
+    if(check) return res.status(400).send("There is already a match of the same text. Put another.")
     const files = [];
     if (req.body.link) {
       files.push(req.body.link);

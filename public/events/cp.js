@@ -29,7 +29,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       else clone.children[0].children[0].children[0].getElementsByTagName("a")[0].remove();
       algo.appendChild(clone);
       toedit.style.display = "none";
-      submit.style.display = "block";
+      submit.style.display = "inline";
       display(true);
     } else {
       d.text().then(r => {
