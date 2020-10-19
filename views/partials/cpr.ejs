@@ -1,20 +1,19 @@
-<div class="box">
+<div class="box" id="<%= i %>">
   <article class="media">
     <div class="media-content">
       <div class="content">
-        <p>
-          <strong><%- antixss(match) %></strong>
-          <% if(response.files[0]) { %>
-          <a href="<%= antixsslinks(response.files[0]) %>"><strong><small>File link</small></strong></a>
-          <% } %>
-          <br>
-          <%- antixss(response.content) %>
-        </p>
+        <strong><%- antixss(match) %></strong>
+        <% if(response.files[0]) { %>
+        <a href="<%= antixsslinks(response.files[0]) %>"><strong><small>File link</small></strong></a>
+        <% } %>
+        <br>
+        <p><%- antixss(response.content) %></p>
       </div>
       <nav class="level is-mobile">
         <div class="level-left">
           <a class="level-item" aria-label="delete">
-            <a id="<%= i %>" onclick="this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this.id)" class="button is-danger is-light">Delete</a>
+            <a onclick="this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)"
+              class="button is-danger is-light">Delete</a>
           </a>
         </div>
       </nav>

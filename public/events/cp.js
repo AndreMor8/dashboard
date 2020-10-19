@@ -16,16 +16,21 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       "CSRF-Token": csrfToken,
       "Content-Type": "application/json"
     },
-    "body": JSON.stringify({
-      match: match,
-      response: response,
-      link: link
-    }),
+    "body": JSON.stringify({ match, response, link }),
   }).then(d => {
     if (d.ok) {
-      toedit.style.backgroundColor = "#09db02";
-      toedit.innerHTML = "Recharging page...<br>";
-      location.reload();
+      const algo = document.getElementById("boxes");
+      const clone = document.getElementById("x").cloneNode(true);
+      clone.style.display = "block";
+      clone.setAttribute(id, algo.children.length);
+      clone.children[0].children[0].children[0].getElementsByTagName("strong")[0].innerHTML = match;
+      clone.children[0].children[0].children[0].getElementsByTagName("p")[0].innerHTML = response;
+      if(link) clone.children[0].children[0].children[0].getElementsByTagName("a")[0].setAttribute("href", link)
+      else clone.children[0].children[0].children[0].getElementsByTagName("a")[0].remove();
+      algo.appendChild(clone);
+      toedit.style.display = "none";
+      submit.style.display = "block";
+      display(true);
     } else {
       d.text().then(r => {
         toedit.style.backgroundColor = "#be0000";
@@ -42,36 +47,33 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
   })
   e.preventDefault();
 })
-function cpdelete(index) {
-  if (isNaN(index)) return;
-  fetch("./cp", {
+function cpdelete(thing) {
+  fetch(document.URL, {
     method: "DELETE",
     headers: {
       "CSRF-Token": csrfToken,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      id: index,
+      id: thing.parentElement.parentElement.parentElement.parentElement.parentElement.id,
     })
   }).then(e => {
     if (e.status === "204" || e.ok) {
-      location.reload();
+      thing.remove();
+      const things = document.getElementById("boxes").children;
+      for (let i = 0; i < things.length; i++) {
+        things[i].setAttribute("id", i);
+      };
     } else {
-      let thing = document.getElementById(index);
-      if (thing) {
-        thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this.id)")
-        thing.innerHTML = "Delete";
-      }
       e.text().then(r => {
+        thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)")
+        thing.innerHTML = "Delete";
         alert("Something happened: " + r);
       })
     }
   }).catch(err => {
-    let thing = document.getElementById(index);
-    if (thing) {
-      thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this.id)")
-      thing.innerHTML = "Delete";
-    }
+    thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)")
+    thing.innerHTML = "Delete";
     alert("Something happened: " + err.toString());
   })
 }
