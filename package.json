@@ -4,7 +4,8 @@
   "description": "A dashboard for some bot",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node server.js ci"
   },
   "dependencies": {
     "connect-mongo": "^3.2.0",

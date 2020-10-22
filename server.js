@@ -25,7 +25,7 @@ global.antixsslinks = function(string = "") {
   return string;
 };
 (async () => {
-  await db.then(() => console.log("Connected to the database"));
+  if(process.argv[2] !== "ci") await db.then(() => console.log("Connected to the database"));
   const app = express();
   const session = require("express-session");
   const MongoStore = require("connect-mongo")(session);
@@ -35,7 +35,7 @@ global.antixsslinks = function(string = "") {
   app.use(express.urlencoded({ extended: false }))
   app.use(
     session({
-      secret: process.env.SECRET,
+      secret: process.env.SECRET || "?",
       cookie: {
         maxAge: 60000 * 60 * 24
       },
@@ -93,6 +93,9 @@ global.antixsslinks = function(string = "") {
   const listener = app.listen(process.env.PORT, "127.0.0.1", () => {
     console.log("Your app is listening on port " + listener.address().port);
   });
+  if(process.argv[2] === "ci") {
+    setTimeout(process.exit, 15000)
+  }
 })().catch(err => {
   console.log(err);
   process.exit(1);
