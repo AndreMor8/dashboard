@@ -25,7 +25,7 @@ global.antixsslinks = function (string = "") {
   return string;
 };
 (async () => {
-  if (process.argv[2] !== "ci") await db.then(() => console.log("Connected to the database"));
+  if (process.argv[1] !== "ci") await db.then(() => console.log("Connected to the database"));
   const app = express();
   const session = require("express-session");
   const MongoStore = require("connect-mongo")(session);
@@ -33,32 +33,18 @@ global.antixsslinks = function (string = "") {
   app.use(express.static(__dirname + "/public"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }))
-  if (process.argv[2] === "ci") {
-    app.use(
-      session({
-        secret: process.env.SECRET || "?",
-        cookie: {
-          maxAge: 60000 * 60 * 24
-        },
-        saveUninitialized: false,
-        resave: false,
-        name: "discord.oauth2"
-      })
-    );
-  } else {
-    app.use(
-      session({
-        secret: process.env.SECRET || "?",
-        cookie: {
-          maxAge: 60000 * 60 * 24
-        },
-        saveUninitialized: false,
-        resave: false,
-        name: "discord.oauth2",
-        store: new MongoStore({ mongooseConnection: require("mongoose").connection })
-      })
-    );
-  }
+  app.use(
+    session({
+      secret: process.env.SECRET || "?",
+      cookie: {
+        maxAge: 60000 * 60 * 24
+      },
+      saveUninitialized: false,
+      resave: false,
+      name: "discord.oauth2",
+      store: new MongoStore({ mongooseConnection: require("mongoose").connection })
+    })
+  );
   app.set("view engine", "ejs");
   app.set("views", require("path").join(__dirname, "views"));
   app.use(passport.initialize());
@@ -96,7 +82,7 @@ global.antixsslinks = function (string = "") {
   const listener = app.listen(process.env.PORT, "127.0.0.1", () => {
     console.log("Your app is listening on port " + listener.address().port);
   });
-  if (process.argv[2] === "ci") {
+  if (process.argv[1] === "ci") {
     setTimeout(process.exit, 15000)
   }
 })().catch(err => {
