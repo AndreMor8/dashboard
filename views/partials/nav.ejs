@@ -18,64 +18,67 @@
         </a>
         <div class="navbar-dropdown">
           <% if(logged) { %>
-            <a href="/dashboard" class="navbar-item">
-              Dashboard
-            </a>
-            <a href="/feedback" class="navbar-item">
-              Feedback
-            </a>
-            <% } %>
+          <a href="/dashboard" class="navbar-item">
+            Dashboard
+          </a>
+          <a href="/feedback" class="navbar-item">
+            Feedback
+          </a>
+          <% } %>
           <a href="/pending-comments" class="navbar-item">
             Pending comments
           </a>
           <hr class="navbar-divider">
-            <a href="/thanks" class="navbar-item">
-              Acknowledgments
-            </a>
-            <a href="https://top.gg/bot/694306281736896573" class="navbar-item" target="_blank">
-              top.gg page
-            </a>
-            <a href="https://portalmybot.com/mybotlist/bot/694306281736896573" class="navbar-item" target="_blank">
-              MyBOT List page
-            </a>
+          <a href="/thanks" class="navbar-item">
+            Acknowledgments
+          </a>
+          <a href="https://top.gg/bot/694306281736896573" class="navbar-item" target="_blank">
+            top.gg page
+          </a>
+          <a href="https://portalmybot.com/mybotlist/bot/694306281736896573" class="navbar-item" target="_blank">
+            MyBOT List page
+          </a>
         </div>
       </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Repositories
+      <a href="https://docs.gidget.xyz/" class="navbar-item">
+        Documentation
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Repositories
+        </a>
+        <div class="navbar-dropdown">
+          <a href="https://github.com/AndreMor955/gidget" class="navbar-item" target="_blank">
+            Discord bot
           </a>
-          <div class="navbar-dropdown">
-            <a href="https://github.com/AndreMor955/gidget" class="navbar-item" target="_blank">
-              Discord bot
-            </a>
-            <a href="https://github.com/AndreMor955/dashboard" class="navbar-item" target="_blank">
-              This dashboard
-            </a>
-          </div>
+          <a href="https://github.com/AndreMor955/dashboard" class="navbar-item" target="_blank">
+            This dashboard
+          </a>
         </div>
+      </div>
       <a href="/wwd" class="navbar-item">
         Wow Wow Discord
       </a>
     </div>
-      <div class="navbar-end">
-        <% if(logged) { %>
-        <div class="navbar-item">
-          <h1>Welcome, <%= antixss(username) %></h1>
-        </div>
-        <% } %>
-        <div class="navbar-item">
-          <div class="buttons">
-            <% if(logged) { %>
-            <form action="/auth/logout">
-              <button class="button is-primary is-rounded" style="font-size: 0.95em;" type="submit">Logout</button>
-            </form>
-            <% } else { %>
-            <form action="/auth/">
-              <button class="button is-primary is-rounded" style="font-size: 0.95em;" type="submit">Login</button>
-            </form>
-            <% } %>
-          </div>
+    <div class="navbar-end">
+      <% if(logged) { %>
+      <div class="navbar-item">
+        <h1>Welcome, <%= antixss(username) %></h1>
+      </div>
+      <% } %>
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if(logged) { %>
+          <form action="/auth/logout">
+            <button class="button is-primary is-rounded" style="font-size: 0.95em;" type="submit">Logout</button>
+          </form>
+          <% } else { %>
+          <form action="/auth/">
+            <button class="button is-primary is-rounded" style="font-size: 0.95em;" type="submit">Login</button>
+          </form>
+          <% } %>
         </div>
       </div>
+    </div>
   </div>
 </nav>
