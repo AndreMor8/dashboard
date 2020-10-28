@@ -79,7 +79,7 @@ global.antixsslinks = function (string = "") {
   });
   // listen for requests :)
   // In this case the requests will be local.
-  const listener = app.listen(process.env.PORT, "127.0.0.1", () => {
+  const listener = app.listen(process.env.PORT, () => {
     console.log("Your app is listening on port " + listener.address().port);
   });
   if (process.argv[2] === "ci") {
