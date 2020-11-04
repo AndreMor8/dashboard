@@ -52,7 +52,6 @@ global.antixsslinks = function (string = "") {
   app.use(csrf());
   app.use("/auth", require("./routes/auth"));
   app.use("/dashboard", require("./routes/dashboard"));
-  app.use("/wwd", require("./routes/wwd"));
   app.use("/", require("./routes/main"));
 
   app.use(function (err, req, res, next) {
