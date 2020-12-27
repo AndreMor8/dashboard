@@ -53,7 +53,7 @@ module.exports = {
       guildMemberPermissions.set(guild.id, perm);
     });
     const toshow = userGuilds.filter(e => {
-      if (!botGuilds.map(r => r.id).includes(e.id)) return;
+      if (!botGuilds.includes(e.id)) return;
       const p = guildMemberPermissions.get(e.id);
       if (p && p.get("ADMINISTRATOR")) return true;
       else return false;
@@ -61,27 +61,14 @@ module.exports = {
     return toshow;
   },
   getBotGuilds: async function () {
-    const algo = cache.get("botGuilds");
-    if(algo) return algo;
-    const res = await fetch(`${api}/users/@me/guilds`, {
+    const res = await fetch(process.env.FETCH + "guilds", {
       method: "GET",
       headers: {
-        Authorization: `Bot ${process.env.DISCORD_TOKEN}`
+        "pass": process.env.ACCESS
       }
     });
-    if (res.status === 429) {
-      const json = await res.json();
-      await new Promise(s => setTimeout(s, (Math.floor(parseInt(json.retry_after)))));
-      return this.getBotGuilds();
-    }
-    const retrys = res.headers.get("X-RateLimit-Remaining");
-    const retryafter = res.headers.get("X-RateLimit-Reset-After");
-    if (!isNaN(retrys) && !isNaN(retryafter)) {
-      if (parseInt(retrys) < 1) await new Promise(s => setTimeout(s, (Math.floor(parseInt(retryafter) * 1000) + 0.5)));
-    }
-    const final = await res.json();
-    if(res.ok) cache.set("botGuilds", final)
-    return final;
+    if(res.ok) return await res.json();
+    else throw new Error(`Status code returned ${res.status} (${res.statusText})`);
   },
   getUserGuilds: async function (discordId) {
     const esto = cache.get(`userGuilds-${discordId}`);

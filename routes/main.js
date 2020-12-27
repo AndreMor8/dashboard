@@ -121,7 +121,7 @@ router.get("/andremor", async (req, res) => {
 
 router.get("/wwd", (req, res) => {
     res.redirect(301, "https://wubb.ga");
-})
+});
 
 function isAuthorized(req, res, next) {
     if (req.user) {
