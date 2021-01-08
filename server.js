@@ -1,31 +1,8 @@
-// server.js
-// where your node app starts
-
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 require("dotenv").config({ path: __dirname + "/.env" });
 const db = require("./database.js");
 const express = require("express");
 const passport = require("passport");
 const csrf = require('csurf');
-global.antixss = function (string = "") {
-  if(typeof string !== "string") return "";
-  string = string.replace('&', '&amp;');
-  string = string.replace('<', '&lt;');
-  string = string.replace('>', '&gt;');
-  string = string.replace('/', '&#x2F');
-  string = string.replace('"', '&quot;');
-  string = string.replace("'", '&#x27;');
-  return string;
-};
-global.antixsslinks = function (string = "") {
-  if(typeof string !== "string") return "";
-  string = string.replace('<', '&lt;');
-  string = string.replace('>', '&gt;');
-  string = string.replace('"', '&quot;');
-  string = string.replace("'", '&#x27;');
-  return string;
-};
 (async () => {
   if (process.argv[2] !== "ci") await db();
   const app = express();
@@ -73,9 +50,7 @@ global.antixsslinks = function (string = "") {
     res.status(404).render("404", {
       username: req.user ? req.user.username : "stranger",
       csrfToken: req.csrfToken(),
-      logged: Boolean(req.user),
-      antixss,
-      antixsslinks
+      logged: Boolean(req.user)
     })
   });
   // listen for requests :)

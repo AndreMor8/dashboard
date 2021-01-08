@@ -16,12 +16,12 @@
         <% } else { %>
         <strong>
           <% if(authors.get(comment.userID)) { %>
-          <%= antixss(authors.get(comment.userID).username) + " (" + comment.userID + ")" %>
+          <%= authors.get(comment.userID).username + " (" + comment.userID + ")" %>
           <% } %>
         </strong>
         <% } %>
         <br>
-        <p><%= antixss(comment.text) %></p>
+        <p><%= comment.text %></p>
         <strong>ID: </strong><%= comment._id %>
       </div>
       <% if(admin) { %>

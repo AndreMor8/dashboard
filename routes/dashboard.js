@@ -40,8 +40,8 @@ router.get("/", async (req, res) => {
     adminguilds,
     toshow: req.user.toShowGuilds,
     logged: true,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 
@@ -59,8 +59,8 @@ router.get("/guilds", async (req, res) => {
     guilds: req.user.guilds,
     permissions: guildMemberPermissions,
     logged: true,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 
@@ -91,8 +91,8 @@ router.get("/:guildID", async (req, res) => {
     focus: req.params.guildID,
     logged: true,
     option: false,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 /*
@@ -143,8 +143,8 @@ router.get("/:guildID/levels", async (req, res) => {
     logged: true,
     option: "levels",
     data: msgDocument,
-    antixss,
-    antixsslinks
+    
+    
   });
 })
 
@@ -188,8 +188,8 @@ router.get("/:guildID/cp", async (req, res) => {
     logged: true,
     option: "cp",
     data: msgDocument,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 
@@ -273,8 +273,8 @@ router.get("/:guildID/prefix", async (req, res) => {
     logged: true,
     option: "prefix",
     data: msgDocument,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 
@@ -330,8 +330,8 @@ router.get("/:guildID/welcome", async (req, res) => {
     option: "welcome",
     data: msgDocument,
     textChannels,
-    antixss,
-    antixsslinks
+    
+    
   });
 });
 

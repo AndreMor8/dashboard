@@ -4,6 +4,9 @@ const router = require('express').Router();
 const utils = require("../utils/utils");
 const { MessageEmbed } = require("discord.js");
 const cosas = ["577000793094488085"];
+const os = require("os");
+const moment = require("moment");
+require("moment-duration-format");
 
 router.get("/", (req, res) => {
     res.render("home", {
@@ -11,8 +14,6 @@ router.get("/", (req, res) => {
         csrfToken: req.csrfToken(),
         avatar: req.user ? req.user.avatar : null,
         logged: req.user ? true : false,
-        antixss,
-        antixsslinks
     });
 });
 
@@ -22,8 +23,6 @@ router.get("/thanks", (req, res) => {
         csrfToken: req.csrfToken(),
         avatar: req.user ? req.user.avatar : null,
         logged: req.user ? true : false,
-        antixss,
-        antixsslinks
     });
 });
 
@@ -33,8 +32,6 @@ router.get("/feedback", isAuthorized, (req, res) => {
         csrfToken: req.csrfToken(),
         avatar: req.user ? req.user.avatar : null,
         logged: true,
-        antixss,
-        antixsslinks
     });
 });
 
@@ -57,13 +54,13 @@ router.post("/feedback", isAuthorized, async (req, res) => {
     let algo;
     if (type !== 1) algo = await userpetitions.create({ userID: req.user.discordId, type, text, anon });
     const embed = new MessageEmbed()
-    .setTitle("A new comment has been posted!")
-    .setDescription(text)
-    .setColor(color)
-    if(anon) embed.setAuthor("Anonymous")
+        .setTitle("A new comment has been posted!")
+        .setDescription(text)
+        .setColor(color)
+    if (anon) embed.setAuthor("Anonymous")
     else embed.setAuthor(req.user.username, utils.getAvatar(req.user))
     embed.addField("Type", typetext)
-    .addField("ID", (algo ? algo.id : "*It's a normal comment, so no need to save to DB*"))
+        .addField("ID", (algo ? algo.id : "*It's a normal comment, so no need to save to DB*"))
     const m = await utils.createMessage("767287563735138335", { embed });
     res.sendStatus(200);
 });
@@ -82,8 +79,6 @@ router.get("/pending-comments", async (req, res) => {
         csrfToken: req.csrfToken(),
         avatar: req.user ? req.user.avatar : null,
         logged: req.user ? true : false,
-        antixss,
-        antixsslinks,
         admin: req.user ? cosas.includes(req.user.discordId) : false,
         comments,
         authors: tosee
@@ -118,6 +113,27 @@ router.get("/andremor", async (req, res) => {
     if (!response.message) return res.status(200).send(`${response.username}#${response.discriminator}`);
     else return res.status(500).send("AndreMor");
 });
+
+
+router.get("/stats", (req, res) => {
+    const memoryrssusage = process.memoryUsage().rss;
+    const uptime = moment.duration((process.uptime() * 1000)).format("d [days], h [hours], m [minutes]");
+    const freemem = os.freemem();
+    const totalmem = os.totalmem();
+    const nodeversion = process.version;
+    const hoster = process.env.HOSTER;
+    const system = `${os.version()}\n${os.release()}`;
+    const cpu = os.cpus()[0].model;
+    const arch = os.arch();
+    const platform = os.platform();
+    if (req.query.format && req.query.format === "json") res.json({ memoryrssusage, uptime, freemem, totalmem, nodeversion, hoster, system, cpu, arch, platform });
+    else res.render("stats", {
+        username: req.user ? req.user.username : "stranger",
+        csrfToken: req.csrfToken(),
+        avatar: req.user ? req.user.avatar : null,
+        logged: req.user ? true : false,
+    })
+})
 
 router.get("/wwd", (req, res) => {
     res.redirect(301, "https://wubb.ga");

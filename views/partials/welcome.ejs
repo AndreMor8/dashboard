@@ -19,7 +19,7 @@
         <select id="welcomechannel" name="welcomechannel">
             <% textChannels.forEach(channel => { %>
             <option value="<%= channel.id %>" <% if(channel.id === data.channelID) { %> selected <% } %>>
-                <%= antixss(channel.name) %>
+                <%= channel.name %>
             </option>
             <% }); %>
         </select>
@@ -54,8 +54,8 @@
         <select id="leavechannel" name="leavechannel">
             <% textChannels.forEach(channel => { %>
             <option value="<%= channel.id %>" <% if(channel.id === data.leavechannelID) { %> selected <% } %>>
-                <%= antixss(channel.name) %></option>
-            <% }); %>
+                <%= channel.name %></option>
+            <% }); %> 
         </select>
     </div>
     <br>

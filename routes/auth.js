@@ -23,8 +23,6 @@ router.get('/', isAuthorized, (req, res, next) => {
     res.status(200).render("logged", {
         logged: true,
         username: req.user.username,
-        antixss,
-        antixsslinks
     });
 });
 
