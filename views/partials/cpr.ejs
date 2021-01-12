@@ -4,7 +4,7 @@
       <div class="content">
         <strong><%= match %></strong>
         <% if(response.files[0]) { %>
-        <a href="<%= antixsslinks(response.files[0]) %>"><strong><small>File link</small></strong></a>
+        <a href="<%= response.files[0] %>"><strong><small>File link</small></strong></a>
         <% } %>
         <br>
         <p><%= response.content %></p>

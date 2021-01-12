@@ -1,19 +1,3 @@
-window.antixss = function (string = "") {
-    string = string.replace('&', '&amp;');
-    string = string.replace('<', '&lt;');
-    string = string.replace('>', '&gt;');
-    string = string.replace('/', '&#x2F');
-    string = string.replace('"', '&quot;');
-    string = string.replace("'", '&#x27;');
-    return string;
-};
-window.antixsslinks = function (string = "") {
-    string = string.replace('<', '&lt;');
-    string = string.replace('>', '&gt;');
-    string = string.replace('"', '&quot;');
-    string = string.replace("'", '&#x27;');
-    return string;
-};
 function display(click = false) {
     if (!click) {
         document.getElementById("toappear").style.display = "block";
