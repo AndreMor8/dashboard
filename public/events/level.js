@@ -2,7 +2,7 @@ document.getElementById("levelconfig").addEventListener("submit", function (e) {
     const submit = document.getElementById("LS-Submit");
     submit.style.display = "none";
     const toedit = document.getElementById("LS-Span");
-    toedit.innerText = "Please wait...<br>";
+    toedit.innerText = "Please wait...\n";
     toedit.style.backgroundColor = "#19c9ff";
     toedit.style.display = "block";
     const levelsystem = (this.elements["system"].value == "true") ? true : false;
@@ -20,21 +20,21 @@ document.getElementById("levelconfig").addEventListener("submit", function (e) {
     }).then(e => {
         if (e.ok) {
             toedit.style.backgroundColor = "#09db02";
-            toedit.innerText = "Changes successfully saved<br>";
+            toedit.innerText = "Changes successfully saved\n";
             submit.style.display = "block";
         }
         else {
             e.text().then(r => {
                 toedit.style.backgroundColor = "#be0000";
                 toedit.style.color = "#FFF";
-                toedit.innerText = "Something happened: " + r + "<br>";
+                toedit.innerText = "Something happened: " + r + "\n";
                 submit.style.display = "block";
             })
         }
     }).catch(err => {
         toedit.style.backgroundColor = "#be0000";
         toedit.style.color = "#FFF";
-        toedit.innerText = "Something happened: " + err.toString() + "<br>";
+        toedit.innerText = "Something happened: " + err.toString() + "\n";
         submit.style.display = "block";
     });
     e.preventDefault();

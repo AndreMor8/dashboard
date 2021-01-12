@@ -5,7 +5,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
   const link = this.elements["link"].value;
   const toedit = document.getElementById("spanthing");
   const submit = document.getElementById("cpsubmit");
-  toedit.innerText = "Please wait...<br>";
+  toedit.innerText = "Please wait...\n";
   toedit.style.backgroundColor = "#19c9ff";
   toedit.style.color = "#000";
   toedit.style.display = "block";
@@ -35,14 +35,14 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       d.text().then(r => {
         toedit.style.backgroundColor = "#be0000";
         toedit.style.color = "#FFF";
-        toedit.innerText = "Something happened: " + r + "<br>";
+        toedit.innerText = "Something happened: " + r + "\n";
         submit.style.display = "inline";
       })
     }
   }).catch(err => {
     toedit.style.backgroundColor = "#be0000";
     toedit.style.color = "#FFF";
-    toedit.innerText = "Something happened: " + err.toString() + "<br>";
+    toedit.innerText = "Something happened: " + err.toString() + "\n";
     submit.style.display = "inline";
   })
   e.preventDefault();
