@@ -5,7 +5,7 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
   const link = this.elements["link"].value;
   const toedit = document.getElementById("spanthing");
   const submit = document.getElementById("cpsubmit");
-  toedit.innerHTML = "Please wait...<br>";
+  toedit.innerText = "Please wait...<br>";
   toedit.style.backgroundColor = "#19c9ff";
   toedit.style.color = "#000";
   toedit.style.display = "block";
@@ -23,8 +23,8 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       const clone = document.getElementById("x").cloneNode(true);
       clone.style.display = "block";
       clone.setAttribute("id", algo.children.length);
-      clone.children[0].children[0].children[0].getElementsByTagName("strong")[0].innerHTML = match;
-      clone.children[0].children[0].children[0].getElementsByTagName("p")[0].innerHTML = response;
+      clone.children[0].children[0].children[0].getElementsByTagName("strong")[0].innerText = match;
+      clone.children[0].children[0].children[0].getElementsByTagName("p")[0].innerText = response;
       if(link) clone.children[0].children[0].children[0].getElementsByTagName("a")[0].setAttribute("href", link)
       else clone.children[0].children[0].children[0].getElementsByTagName("a")[0].remove();
       algo.appendChild(clone);
@@ -35,14 +35,14 @@ document.getElementById("cpform").addEventListener("submit", function (e) {
       d.text().then(r => {
         toedit.style.backgroundColor = "#be0000";
         toedit.style.color = "#FFF";
-        toedit.innerHTML = "Something happened: " + r + "<br>";
+        toedit.innerText = "Something happened: " + r + "<br>";
         submit.style.display = "inline";
       })
     }
   }).catch(err => {
     toedit.style.backgroundColor = "#be0000";
     toedit.style.color = "#FFF";
-    toedit.innerHTML = "Something happened: " + err.toString() + "<br>";
+    toedit.innerText = "Something happened: " + err.toString() + "<br>";
     submit.style.display = "inline";
   })
   e.preventDefault();
@@ -66,14 +66,14 @@ function cpdelete(thing) {
       };
     } else {
       e.text().then(r => {
-        thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)")
-        thing.innerHTML = "Delete";
+        thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerText='...';cpdelete(this)")
+        thing.innerText = "Delete";
         alert("Something happened: " + r);
       })
     }
   }).catch(err => {
-    thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerHTML='...';cpdelete(this)")
-    thing.innerHTML = "Delete";
+    thing.setAttribute("onclick", "this.removeAttribute('onclick');this.innerText='...';cpdelete(this)")
+    thing.innerText = "Delete";
     alert("Something happened: " + err.toString());
   })
 }

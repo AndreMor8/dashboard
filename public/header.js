@@ -2,11 +2,11 @@ function display(click = false) {
     if (!click) {
         document.getElementById("toappear").style.display = "block";
         document.getElementById("tomodify").setAttribute("onclick", "display(true)")
-        document.getElementById("tomodify").children.item(0).innerHTML = "Close";
+        document.getElementById("tomodify").children.item(0).innerText = "Close";
     } else {
         document.getElementById("toappear").style.display = "none";
         document.getElementById("tomodify").setAttribute("onclick", "display()")
-        document.getElementById("tomodify").children.item(0).innerHTML = "Add custom response";
+        document.getElementById("tomodify").children.item(0).innerText = "Add custom response";
     }
 }
 function footer() {
@@ -15,11 +15,11 @@ function footer() {
     const actual = localStorage.getItem("footer");
     if (actual) {
         localStorage.removeItem("footer");
-        button.innerHTML = "Close";
+        button.innerText = "Close";
         tomodify.style.display = "block";
     } else {
         localStorage.setItem("footer", "ok");
-        button.innerHTML = "Open";
+        button.innerText = "Open";
         tomodify.style.display = "none";
     }
 }
