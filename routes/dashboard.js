@@ -298,7 +298,7 @@ router.put("/:guildID/prefix", async (req, res) => {
 });
 
 router.get("/:guildID/welcome", async (req, res) => {
-  const msgDocument = await welcome.findOne({ guildID: { $eq: req.params.guildID } });
+  let msgDocument = await welcome.findOne({ guildID: { $eq: req.params.guildID } });
   if (!msgDocument) {
     msgDocument = {
       guildID: req.params.guildID,
