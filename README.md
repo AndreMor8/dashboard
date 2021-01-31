@@ -14,7 +14,7 @@ Go to the frontend folder.
 
 Install front-end dependencies with `npm i`
 
-Run `npm run build` or` vue-cli-service build --no-clean`.
+Run `npm run build` or `vue-cli-service build --no-clean`.
 
 It is important to put `--no-clean` so that the original HTML structure is preserved.
 
@@ -22,11 +22,11 @@ It is important to put `--no-clean` so that the original HTML structure is prese
 
 `npm i`
 
-3. Configure the backend .env with the correct data.
+## Configure the backend .env with the correct data.
 
 Soon an example of it.
 
-4. Run the backend
+## Run the backend
 
 `npm start`
 
