@@ -1,6 +1,7 @@
-node_modules/
-.env
-package-lock.json
-.glitch-assets
-watch.json
-.vscode/
+backend/node_modules/
+frontend/node_modules/
+public/js
+public/css
+backend/.env
+backend/package-lock.json
+frontend/package-lock.json

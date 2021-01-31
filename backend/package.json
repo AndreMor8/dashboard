@@ -1,0 +1,27 @@
+{
+    "name": "gidgetdashboard-backend",
+    "version": "2.0.0",
+    "description": "",
+    "main": "./server.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "author": "AndreMor#0008",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "connect-mongo": "^3.2.0",
+        "crypto-js": "^4.0.0",
+        "csurf": "^1.11.0",
+        "discord.js": "^12.5.1",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "moment": "^2.29.1",
+        "moment-duration-format": "^2.3.2",
+        "mongoose": "^5.11.13",
+        "node-fetch": "^2.6.1",
+        "passport": "^0.4.1",
+        "passport-discord": "^0.1.4",
+        "safe-regex": "^2.1.1"
+    }
+}
