@@ -115,7 +115,7 @@ router.get("/andremor", async (req, res) => {
 
 router.get("/stats", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*")
-    const memoryrssusage = process.memoryUsage().rss;
+    const memoryrssusage = process.memoryUsage.rss();
     const uptime = moment.duration((process.uptime() * 1000)).format("d [days], h [hours], m [minutes]");
     const freemem = os.freemem();
     const totalmem = os.totalmem();
