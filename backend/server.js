@@ -43,7 +43,8 @@ const path = require('path');
         } else next();
     });
     app.use("*", function (req, res) {
-        res.status(200).sendFile(path.join(__dirname, "../public/index.html"))
+        if(process.env.SERVESTATIC === 'true') res.status(200).sendFile(path.join(__dirname, "../public/index.html"));
+        else res.redirect('/');
     });
     const listener = app.listen(process.env.PORT, () => {
         console.log("Your app is listening on port " + listener.address().port);

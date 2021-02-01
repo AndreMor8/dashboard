@@ -1,0 +1,12 @@
+# Replace paths and ports depending on your environment
+gidget.xyz {
+	handle /api/* {
+		reverse_proxy 127.0.0.1:61531
+	}
+	handle {
+		root * /home/andre/dashboard/public
+		rewrite /* /index.html
+		file_server
+	}
+	tls /home/andre/certs/cert.crt /home/andre/certs/cert.key
+}

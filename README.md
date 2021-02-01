@@ -33,3 +33,5 @@ Soon an example of it.
 If you chose `SERVESTATIC='true'`, then just point to the correct port on your favorite web server.
 
 Otherwise configure your server to always serve `index.html` from the public folder, and the paths with `/api` to the backend.
+
+See `Caddyfile` for an example on the [Caddy](https://caddyserver.com/) web server
