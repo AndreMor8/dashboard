@@ -6,6 +6,9 @@
     "scripts": {
         "start": "node ."
     },
+    "engines": {
+        "node": ">=15.6.0"
+    },
     "author": "AndreMor#0008",
     "license": "Apache-2.0",
     "dependencies": {
