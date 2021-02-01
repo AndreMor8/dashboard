@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/frontend"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+- package-ecosystem: npm
+  directory: "/backend"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  assignees:
+  - AndreMor955
+  labels:
+  - dependencies
+  versioning-strategy: increase
