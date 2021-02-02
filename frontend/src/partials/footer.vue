@@ -5,11 +5,11 @@
         <p>
           Gidget, a bot for Discord<br /><a
             href="https://wubbzy.fandom.com/wiki/Gidget"
-            target="_blank"
+            target="_blank" rel="noreferrer"
             >Based on a cartoon character</a
           ><br /><a
             href="https://discord.com/api/oauth2/authorize?client_id=694306281736896573&permissions=0&scope=bot"
-            target="_blank"
+            target="_blank" rel="noreferrer"
             >Invite this bot!</a
           >
         </p>
@@ -19,7 +19,7 @@
           By: {{ andremor }}<br />Mail:
           <a href="mailto:andre@gidget.xyz">andre@gidget.xyz</a><br /><a
             href="https://discord.gg/KDy4gJ7"
-            target="_blank"
+            target="_blank" rel="noreferrer"
             >Support server (end user)</a
           >
         </address>

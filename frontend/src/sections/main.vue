@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="title">Welcome to Gidget's website</h1>
-    <a href="https://top.gg/bot/694306281736896573">
-      <img src="https://top.gg/api/widget/694306281736896573.svg" alt="topgg" />
+    <a href="https://top.gg/bot/694306281736896573" target="_blank" rel="noreferrer">
+      <img width="300" height="150" src="https://top.gg/api/widget/694306281736896573.svg" alt="topgg" />
     </a>
     <br /><br />
     <div v-if="logged" class="my-button">

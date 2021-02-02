@@ -7,7 +7,7 @@
     <div class="navbar-brand">
       <div class="navbar-item">
         <router-link :to="{ name: 'MainPage' }"
-          ><img src="/avatar.png" width="auto" alt="logo"
+          ><img src="/avatar.jpg" width="26.25" height="26.25" alt="logo"
         /></router-link>
       </div>
       <a
@@ -54,34 +54,34 @@
             <a
               href="https://top.gg/bot/694306281736896573"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               top.gg page
             </a>
             <a
               href="https://portalmybot.com/mybotlist/bot/694306281736896573"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               MyBOT List page
             </a>
             <a
               href="https://discord.ly/gidget"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               DiscordBotList page
             </a>
             <a
               href="https://discord.boats/bot/694306281736896573"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               Discord Boats page
             </a>
           </div>
         </div>
-        <a href="https://docs.gidget.xyz/" class="navbar-item">
+        <a href="https://docs.gidget.xyz/" class="navbar-item" rel="noreferrer">
           Documentation
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
@@ -90,14 +90,14 @@
             <a
               href="https://github.com/AndreMor955/gidget"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               Discord bot
             </a>
             <a
               href="https://github.com/AndreMor955/dashboard"
               class="navbar-item"
-              target="_blank"
+              target="_blank" rel="noreferrer"
             >
               This dashboard
             </a>

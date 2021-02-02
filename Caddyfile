@@ -1,5 +1,6 @@
 # Replace paths and ports depending on your environment
 gidget.xyz {
+	encode gzip
 	@back-end path /api/*
 	handle @back-end {
 		reverse_proxy 127.0.0.1:61531
