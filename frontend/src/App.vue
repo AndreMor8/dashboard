@@ -7,8 +7,6 @@
 </template>
 
 <style>
-@import 'https://cdn.jsdelivr.net/npm/bulma@0.8.1/css/bulma.min.css';
-@import 'https://jenil.github.io/bulmaswatch/darkly/bulmaswatch.min.css';
 #postbody {
   margin: 1rem;
   text-align: center;

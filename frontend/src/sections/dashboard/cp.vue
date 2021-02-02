@@ -119,8 +119,7 @@ export default {
                 this.responses.push({ match: resp[0], response: resp[1].content, link: resp[1].files[0] }); 
               }
               this.cp_loading = false;
-            }).catch((err) => {
-              console.log(err);
+            }).catch(() => {
               this.failed = true;
             });
         },

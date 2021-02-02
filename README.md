@@ -14,9 +14,7 @@ Go to the frontend folder.
 
 Install front-end dependencies with `npm i`
 
-Run `npm run build` or `vue-cli-service build --no-clean`.
-
-It is important to put `--no-clean` so that the original HTML structure is preserved.
+Run `npm run build` or `vue-cli-service build`.
 
 ## Install the backend dependencies
 
@@ -34,4 +32,4 @@ If you chose `SERVESTATIC='true'`, then just point to the correct port on your f
 
 Otherwise configure your server to always serve `index.html` from the public folder, and the paths with `/api` to the backend.
 
-See `Caddyfile` for an example on the [Caddy](https://caddyserver.com/) web server
+See `Caddyfile` for an example on the [Caddy](https://caddyserver.com/) web server.
