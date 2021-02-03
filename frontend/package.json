@@ -12,7 +12,7 @@
     "vue-router": "^3.2.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.7",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "axios": "^0.21.1",
