@@ -27,11 +27,13 @@
             >Custom responses</router-link
           >
         </li>
-        <li><router-link
+        <li>
+          <router-link
             :class="actualSection == 'Welcome' ? 'is-active' : ''"
             :to="{ name: 'Welcome', params: { guildID } }"
             >Welcome system</router-link
-          ></li>
+          >
+        </li>
       </ul>
     </aside>
     <aside id="dsh_right" class="dash_thing container">
@@ -71,14 +73,12 @@ export default {
       dashboard_loading: true,
       logged: this.$root.logged,
       guildID: this.$route.params.guildID,
-      csrfToken: this.$root.csrfToken,
       failed: false,
       actualSection: "",
     };
   },
   created: function () {
     this.logged = this.$root.logged;
-    this.csrfToken = this.$root.csrfToken;
     this.actualSection = this.$route.name;
     this.checkGuild();
   },

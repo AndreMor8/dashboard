@@ -11,7 +11,6 @@
   margin: 1rem;
   text-align: center;
 }
-
 </style>
 
 <script>
@@ -27,7 +26,6 @@ export default {
         username: "",
         avatar: "",
       },
-      csrfToken: "",
     };
   },
   created: function () {
@@ -41,7 +39,6 @@ export default {
           this.user.username = res.data.loggedAs.username;
           this.user.avatar = res.data.loggedAs.avatar;
           this.logged = true;
-          this.csrfToken = res.data.csrfToken;
           this.$children[1].logged = true;
         }
       });

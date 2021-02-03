@@ -180,7 +180,6 @@ export default {
       guildID: this.$route.params.guildID,
       welcome_loading: true,
       failed: false,
-      csrfToken: this.$root.csrfToken,
       sended: false,
       actualState: "Please wait...",
       enabled: "false",
@@ -195,7 +194,6 @@ export default {
     };
   },
   created: function () {
-    this.csrfToken = this.$root.csrfToken;
     this.getWelcome();
   },
   methods: {
@@ -232,11 +230,7 @@ export default {
       };
       this.sended = true;
       this.axios
-        .put(`/api/guilds/${this.guildID}/welcome`, tosend, {
-          headers: {
-            "X-CSRF-Token": this.csrfToken,
-          },
-        })
+        .put(`/api/guilds/${this.guildID}/welcome`, tosend)
         .then(() => {
           this.actualState = "Changes successfully saved!";
         })

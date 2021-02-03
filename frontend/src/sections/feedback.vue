@@ -6,10 +6,7 @@
     >
       <button class="button is-success is-light">Pending comments</button>
     </router-link>
-    <h1
-      class="title"
-      style="text-align: center; margin-bottom: 15px"
-    >
+    <h1 class="title" style="text-align: center; margin-bottom: 15px">
       What do you want for the bot?
     </h1>
     <h2 class="subtitle" style="margin-top: 10px; font-size: 0.8em">
@@ -99,7 +96,6 @@ export default {
       logged: this.$root.logged,
       feedback_sended: false,
       feedback_actualState: "Please wait...",
-      csrfToken: this.$root.csrfToken,
       myComment: {
         type: "0",
         text: "",
@@ -109,28 +105,21 @@ export default {
   },
   created: function () {
     this.logged = this.$root.logged;
-    this.csrfToken = this.$root.csrfToken;
   },
   methods: {
     sendFeedback() {
       this.feedback_sended = true;
-      this.axios
-        .post("/api/feedback", this.myComment, {
-          headers: {
-            "X-CSRF-Token": this.csrfToken,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.feedback_actualState =
-              "Your comment has been sent =D." +
-              (this.myComment.type == "1"
-                ? " Thanks.\n"
-                : "\nKeep the DMs active with the bot to see if the developer answered you.\n");
-          } else {
-            this.feedback_actualState = "Something happened! " + res.data;
-          }
-        });
+      this.axios.post("/api/feedback", this.myComment).then((res) => {
+        if (res.status == 200) {
+          this.feedback_actualState =
+            "Your comment has been sent =D." +
+            (this.myComment.type == "1"
+              ? " Thanks.\n"
+              : "\nKeep the DMs active with the bot to see if the developer answered you.\n");
+        } else {
+          this.feedback_actualState = "Something happened! " + res.data;
+        }
+      });
     },
   },
 };

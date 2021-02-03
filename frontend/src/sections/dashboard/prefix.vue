@@ -33,33 +33,37 @@ export default {
       prefix: "g%",
       prefix_loading: true,
       failed: false,
-      csrfToken: this.$root.csrfToken,
       sended: false,
-      actualState: 'Please wait...'
+      actualState: "Please wait...",
     };
   },
-  created: function() {
-      this.csrfToken = this.$root.csrfToken;
-      this.checkPrefix();
+  created: function () {
+    this.checkPrefix();
   },
   methods: {
-      checkPrefix() {
-          this.axios.get(`/api/guilds/${this.guildID}/prefix`).then(res => {
-              this.prefix = res.data.data.prefix;
-              this.prefix_loading = false;
-          }).catch(() => {
-              this.failed = true;
-          });
-      },
-      setPrefix() {
-        this.actualState = "Please wait...";
-          this.sended = true;
-          this.axios.put(`/api/guilds/${this.guildID}/prefix`, { prefix: this.prefix }, { headers: { "X-CSRF-Token": this.csrfToken } }).then(() => {
-              this.actualState = "Prefix setted correctly";
-          }).catch(() => {
-              this.actualState = "Something happened!";
-          })
-      }
-  }
+    checkPrefix() {
+      this.axios
+        .get(`/api/guilds/${this.guildID}/prefix`)
+        .then((res) => {
+          this.prefix = res.data.data.prefix;
+          this.prefix_loading = false;
+        })
+        .catch(() => {
+          this.failed = true;
+        });
+    },
+    setPrefix() {
+      this.actualState = "Please wait...";
+      this.sended = true;
+      this.axios
+        .put(`/api/guilds/${this.guildID}/prefix`, { prefix: this.prefix })
+        .then(() => {
+          this.actualState = "Prefix setted correctly";
+        })
+        .catch(() => {
+          this.actualState = "Something happened!";
+        });
+    },
+  },
 };
 </script>

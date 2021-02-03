@@ -82,7 +82,6 @@ export default {
       guildID: this.$route.params.guildID,
       level_loading: true,
       failed: false,
-      csrfToken: this.$root.csrfToken,
       sended: false,
       actualState: "Please wait...",
       levelnotif: "false",
@@ -90,7 +89,6 @@ export default {
     };
   },
   created: function () {
-    this.csrfToken = this.$root.csrfToken;
     this.checkLevel();
   },
   methods: {
@@ -112,11 +110,7 @@ export default {
       const notif = this.levelnotif == "true" ? true : false;
       const system = this.levelsystem == "true" ? true : false;
       this.axios
-        .put(
-          `/api/guilds/${this.guildID}/levels`,
-          { notif, system },
-          { headers: { "X-CSRF-Token": this.csrfToken } }
-        )
+        .put(`/api/guilds/${this.guildID}/levels`, { notif, system })
         .then(() => {
           this.actualState = "Changes successfully saved!";
         })

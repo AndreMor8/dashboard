@@ -9,6 +9,7 @@ const moment = require("moment");
 require("moment-duration-format");
 
 router.get("/user", (req, res) => {
+    res.cookie('XSRF-TOKEN', req.csrfToken());
     if (req.user) {
         res.json({
             hello: "world",
@@ -16,8 +17,7 @@ router.get("/user", (req, res) => {
                 userID: req.user.discordId,
                 username: req.user.username,
                 avatar: req.user.avatar,
-            },
-            csrfToken: req.csrfToken()
+            }
         });
     } else {
         res.json({
