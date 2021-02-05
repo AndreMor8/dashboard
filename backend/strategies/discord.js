@@ -23,7 +23,6 @@ passport.use(new DS({
     const ert = utils.encrypt(ref).toString();
     const user = await DiscordUser.findOneAndUpdate({ discordId: p.id }, {
       username: `${p.username}#${p.discriminator}`,
-      guilds: p.guilds,
       avatar: p.avatar,
       premium_type: p.premium_type || 0
     });
@@ -45,7 +44,6 @@ passport.use(new DS({
       const newUser = await DiscordUser.create({
         discordId: p.id,
         username: `${p.username}#${p.discriminator}`,
-        guilds: p.guilds,
         avatar: p.avatar,
         premium_type: p.premium_type || 0
       });
