@@ -12,7 +12,7 @@
     "author": "AndreMor#0008",
     "license": "Apache-2.0",
     "dependencies": {
-        "connect-mongo": "^3.2.0",
+        "connect-mongo": "^4.3.1",
         "crypto-js": "^4.0.0",
         "csurf": "^1.11.0",
         "discord.js": "^12.5.1",
