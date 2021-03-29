@@ -16,7 +16,7 @@
     "@vue/cli-plugin-router": "~4.5.11",
     "@vue/cli-service": "~4.5.11",
     "axios": "^0.21.1",
-    "eslint": "^7.19.0",
+    "eslint": "^7.23.0",
     "eslint-plugin-vue": "^7.5.0",
     "vue-axios": "^3.2.4",
     "vue-template-compiler": "^2.6.11"
