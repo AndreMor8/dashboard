@@ -4,11 +4,11 @@ const express = require("express");
 const passport = require("passport");
 const csrf = require('csurf');
 const path = require('path');
+const MongoStore = require('connect-mongo');
 (async () => {
     await db();
     const app = express();
     const session = require("express-session");
-    const MongoStore = require("connect-mongo")(session);
     require("./strategies/discord.js");
     app.use(express.json());
     app.use(
@@ -20,7 +20,7 @@ const path = require('path');
             saveUninitialized: false,
             resave: false,
             name: "discord.oauth2",
-            store: new MongoStore({ mongooseConnection: require("mongoose").connection })
+            store: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MDB_USER}:${process.env.MDB_PASS}@${process.env.MDB_PATH}/${process.env.MDB_DBNAME}` })
         })
     );
     app.use(passport.initialize());
