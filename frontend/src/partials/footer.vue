@@ -8,7 +8,7 @@
             target="_blank" rel="noreferrer"
             >Based on a cartoon character</a
           ><br /><a
-            href="https://discord.com/api/oauth2/authorize?client_id=694306281736896573&permissions=0&scope=bot"
+            href="https://discord.com/api/oauth2/authorize?client_id=694306281736896573&permissions=0&scope=bot%20applications.commands"
             target="_blank" rel="noreferrer"
             >Invite this bot!</a
           >
