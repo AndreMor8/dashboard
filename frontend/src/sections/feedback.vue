@@ -11,7 +11,7 @@
     </h1>
     <h2 class="subtitle" style="margin-top: 10px; font-size: 0.8em">
       Do you know JavaScript and Discord.js?
-      <a href="https://github.com/AndreMor955/gidget" target="_blank"
+      <a href="https://github.com/AndreMor8/gidget" target="_blank"
         >Contribute directly ;)</a
       >
     </h2>

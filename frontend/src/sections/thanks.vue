@@ -11,7 +11,7 @@
     </ul>
     <br />
     <h2 class="subtitle">
-      <a href="https://github.com/AndreMor955/gidget/graphs/contributors" target="_blank">Also to the people who contributed at least something to the bot's code</a>
+      <a href="https://github.com/AndreMor8/gidget/graphs/contributors" target="_blank">Also to the people who contributed at least something to the bot's code</a>
     </h2>
   </div>
 </template>

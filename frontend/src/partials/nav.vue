@@ -88,14 +88,14 @@
           <a class="navbar-link"> Repositories </a>
           <div class="navbar-dropdown">
             <a
-              href="https://github.com/AndreMor955/gidget"
+              href="https://github.com/AndreMor8/gidget"
               class="navbar-item"
               target="_blank" rel="noreferrer"
             >
               Discord bot
             </a>
             <a
-              href="https://github.com/AndreMor955/dashboard"
+              href="https://github.com/AndreMor8/dashboard"
               class="navbar-item"
               target="_blank" rel="noreferrer"
             >
