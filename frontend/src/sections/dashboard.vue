@@ -8,28 +8,28 @@
       <ul class="menu-list">
         <li>
           <router-link
-            :class="actualSection == 'Prefix' ? 'is-active' : ''"
+            :class="{ 'is-active': actualSection == 'Prefix' }"
             :to="{ name: 'Prefix', params: { guildID } }"
             >Prefix</router-link
           >
         </li>
         <li>
           <router-link
-            :class="actualSection == 'LevelConfig' ? 'is-active' : ''"
+            :class="{ 'is-active': actualSection == 'LevelConfig' }"
             :to="{ name: 'LevelConfig', params: { guildID } }"
             >Level config</router-link
           >
         </li>
         <li>
           <router-link
-            :class="actualSection == 'CustomResponses' ? 'is-active' : ''"
+            :class="{ 'is-active': actualSection == 'CustomResponses' }"
             :to="{ name: 'CustomResponses', params: { guildID } }"
             >Custom responses</router-link
           >
         </li>
         <li>
           <router-link
-            :class="actualSection == 'Welcome' ? 'is-active' : ''"
+            :class="{ 'is-active': actualSection == 'Welcome' }"
             :to="{ name: 'Welcome', params: { guildID } }"
             >Welcome system</router-link
           >

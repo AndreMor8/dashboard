@@ -54,34 +54,43 @@
             <a
               href="https://top.gg/bot/694306281736896573"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               top.gg page
             </a>
             <a
               href="https://portalmybot.com/mybotlist/bot/694306281736896573"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               MyBOT List page
             </a>
             <a
               href="https://discord.ly/gidget"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               DiscordBotList page
             </a>
             <a
               href="https://discord.boats/bot/694306281736896573"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               Discord Boats page
             </a>
           </div>
         </div>
-        <a href="https://docs.gidget.xyz/" class="navbar-item" rel="noreferrer">
+        <a
+          href="https://docs.gidget.xyz/"
+          target="_blank"
+          class="navbar-item"
+          rel="noreferrer"
+        >
           Documentation
         </a>
         <div class="navbar-item has-dropdown is-hoverable">
@@ -90,20 +99,24 @@
             <a
               href="https://github.com/AndreMor8/gidget"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               Discord bot
             </a>
             <a
               href="https://github.com/AndreMor8/dashboard"
               class="navbar-item"
-              target="_blank" rel="noreferrer"
+              target="_blank"
+              rel="noreferrer"
             >
               This dashboard
             </a>
           </div>
         </div>
-        <a href="https://wubb.ga" class="navbar-item"> Wow Wow Discord </a>
+        <a href="https://wubbworld.xyz" class="navbar-item">
+          Wow Wow Discord
+        </a>
       </div>
       <div class="navbar-end">
         <div v-if="logged" class="navbar-item">
@@ -144,29 +157,25 @@
 </style>
 
 <script>
-/* <router-link :to="{ name: 'DisplayItem' }" class="btn btn-success">Return to Items</router-link> */
-document.addEventListener("DOMContentLoaded", () => {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-    // Add a click event on each of them
-    $navbarBurgers.forEach((el) => {
-      el.addEventListener("click", () => {
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle("is-active");
-        $target.classList.toggle("is-active");
-      });
-    });
-  }
-});
 export default {
-  props: ['user', 'logged']
+  props: ["user", "logged"],
+  mounted() {
+    this.$nextTick(function () {
+      const $navbarBurgers = Array.prototype.slice.call(
+        document.querySelectorAll(".navbar-burger"),
+        0
+      );
+      if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach((el) => {
+          el.addEventListener("click", () => {
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+            el.classList.toggle("is-active");
+            $target.classList.toggle("is-active");
+          });
+        });
+      }
+    });
+  },
 };
 </script>

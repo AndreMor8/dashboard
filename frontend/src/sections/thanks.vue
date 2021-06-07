@@ -11,8 +11,9 @@
     </ul>
     <br />
     <h2 class="subtitle">
-      <a href="https://github.com/AndreMor8/gidget/graphs/contributors" target="_blank">Also to the people who contributed at least something to the bot's code</a>
+      <a href="https://github.com/AndreMor8/gidget/graphs/contributors" target="_blank" rel="noreferrer">Also to the people who contributed at least something to the bot's code</a>
     </h2>
+    <img src="https://contributors-img.web.app/image?repo=AndreMor8/gidget" alt="GitHub Contributors">
   </div>
 </template>
 
@@ -22,7 +23,3 @@
   font-size: 1.5em;
 }
 </style>
-
-<script>
-export default {};
-</script>

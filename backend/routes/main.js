@@ -128,9 +128,6 @@ router.get("/stats", (req, res) => {
     res.json({ memoryrssusage, uptime, freemem, totalmem, nodeversion, hoster, system, cpu, arch, platform });
 })
 
-router.get("/wwd", (req, res) => {
-    res.redirect(301, "https://wubb.ga");
-});
 router.use("/auth", require("./auth"));
 router.use("/guilds", isAuthorized, require("./guilds"));
 
