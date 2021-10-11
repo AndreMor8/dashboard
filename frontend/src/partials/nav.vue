@@ -60,7 +60,7 @@
               top.gg page
             </a>
             <a
-              href="https://portalmybot.com/mybotlist/bot/694306281736896573"
+              href="https://portalmybot.com/list/bot/694306281736896573"
               class="navbar-item"
               target="_blank"
               rel="noreferrer"
