@@ -1,5 +1,5 @@
 # Replace paths and ports depending on your environment
-gidget.xyz {
+gidget.andremor.dev {
 	encode gzip
 	@back-end path /api/*
 	handle @back-end {

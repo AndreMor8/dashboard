@@ -86,7 +86,7 @@
           </div>
         </div>
         <a
-          href="https://docs.gidget.xyz/"
+          href="https://docs.gidget.andremor.dev/"
           target="_blank"
           class="navbar-item"
           rel="noreferrer"

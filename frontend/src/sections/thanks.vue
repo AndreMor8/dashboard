@@ -4,16 +4,23 @@
       Some of the people who helped in some way with this project =D
     </h1>
     <ul id="#thankslist">
-      <li><b>StevenC.#6666</b>: Current bot hosting.</li>
-      <li><b>Hyuuh#0001</b>: This domain :):)</li>
       <li><b>Awoo#0741</b>: Access to a free VPS :)</li>
       <li><b>NeonBluu#9517</b>: Support server creation and design</li>
     </ul>
     <br />
     <h2 class="subtitle">
-      <a href="https://github.com/AndreMor8/gidget/graphs/contributors" target="_blank" rel="noreferrer">Also to the people who contributed at least something to the bot's code</a>
+      <a
+        href="https://github.com/AndreMor8/gidget/graphs/contributors"
+        target="_blank"
+        rel="noreferrer"
+        >Also to the people who contributed at least something to the bot's
+        code</a
+      >
     </h2>
-    <img src="https://contributors-img.web.app/image?repo=AndreMor8/gidget" alt="GitHub Contributors">
+    <img
+      src="https://contributors-img.web.app/image?repo=AndreMor8/gidget"
+      alt="GitHub Contributors"
+    />
   </div>
 </template>
 

@@ -17,7 +17,7 @@
       <div style="float: right; padding: 0.8em; padding-right: 5em">
         <address>
           By: {{ andremor }}<br />Mail:
-          <a href="mailto:andre@gidget.xyz">andre@gidget.xyz</a><br /><a
+          <a href="mailto:me@andremor.dev">me@andremor.dev</a><br /><a
             href="https://discord.gg/KDy4gJ7"
             target="_blank" rel="noreferrer"
             >Support server (end user)</a

@@ -18,7 +18,7 @@ router.get('/', isAuthorized, (req, res, next) => {
         state: key,
         failureMessage: true,
         scope: ["identify", "guilds"],
-        successRedirect: "https://gidget.xyz",
+        successRedirect: "https://gidget.andremor.dev",
         callbackURL: process.env.CLIENT_REDIRECT
     })(req, res, next);
 });

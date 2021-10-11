@@ -15,7 +15,7 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new DS({
   clientID: process.env.CLIENT_ID || "123",
   clientSecret: process.env.CLIENT_SECRET || "123",
-  callback: process.env.CLIENT_REDIRECT || "https://gidget.xyz/api/auth",
+  callback: process.env.CLIENT_REDIRECT || "https://gidget.andremor.dev/api/auth",
   scope: ['identify', 'guilds']
 }, async (acc, ref, p, done) => {
   try {

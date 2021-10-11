@@ -38,7 +38,7 @@
   </router-link>
   <a
     v-else
-    :href="`https://discord.com/oauth2/authorize?client_id=694306281736896573&permissions=0&redirect_uri=https%3A%2F%2Fgidget.xyz%2Fapi%2Fauth&scope=applications.commands%20bot&guild_id=${id}&disable_guild_select=true`"
+    :href="`https://discord.com/oauth2/authorize?client_id=694306281736896573&permissions=0&redirect_uri=https%3A%2F%2Fgidget.andremor.dev%2Fapi%2Fauth&scope=applications.commands%20bot&guild_id=${id}&disable_guild_select=true`"
   >
     <div class="box bot-no-guild">
       <article class="media">
