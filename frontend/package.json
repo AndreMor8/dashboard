@@ -10,7 +10,7 @@
   "dependencies": {
     "bulmaswatch": "^0.8.1",
     "vue": "^2.6.11",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "~4.5.13",
