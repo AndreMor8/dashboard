@@ -19,7 +19,7 @@
     "axios": "^0.21.1",
     "eslint": "^7.28.0",
     "eslint-plugin-vue": "^7.11.1",
-    "vue-axios": "^3.2.4",
+    "vue-axios": "^3.4.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
